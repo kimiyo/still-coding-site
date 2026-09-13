@@ -1,0 +1,42 @@
+---
+interface Props {
+  variant: "direct-play" | "pinhole" | "kana" | "guitar";
+  title: string;
+}
+
+const { variant, title } = Astro.props;
+---
+
+<div class:list={["app-visual", `visual-${variant}`]} aria-label={`${title} 미리보기`} role="img">
+  {variant === "direct-play" && (
+    <div class="visual-content direct-content">
+      <span class="visual-label">GAME LIBRARY</span>
+      <div class="direct-orbit"><i></i><i></i><i></i><i></i></div>
+      <strong>PLAY / TOGETHER</strong>
+      <div class="visual-pills"><span>PUZZLE</span><span>RACE</span><span>LOGIC</span></div>
+    </div>
+  )}
+  {variant === "pinhole" && (
+    <div class="visual-content pinhole-content">
+      <span class="visual-label">OBSERVE / CALCULATE</span>
+      <div class="pinhole-lens"><span>?</span></div>
+      <div class="sum-stack"><i>4</i><i>+</i><i>6</i></div>
+      <strong>SMALL RULES.</strong>
+    </div>
+  )}
+  {variant === "kana" && (
+    <div class="visual-content kana-content">
+      <span class="visual-label">KANA ATELIER</span>
+      <div class="kana-mark"><span>あ</span><span>ア</span></div>
+      <strong>듣고, 말하고,<br />손끝으로 익혀요.</strong>
+    </div>
+  )}
+  {variant === "guitar" && (
+    <div class="visual-content guitar-content">
+      <span class="visual-label">AUTO ACCOMPANIMENT</span>
+      <div class="guitar-strings"><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="chord-row"><span>G</span><span>Em</span><span>C</span><span>D</span></div>
+      <strong>GUITAR / IN MOTION</strong>
+    </div>
+  )}
+</div>

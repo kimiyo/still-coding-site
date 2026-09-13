@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GeometryBackground from "../components/GeometryBackground.astro";
+---
+
+<BaseLayout title="Page not found — Still Coding" description="요청한 페이지를 찾을 수 없습니다.">
+  <GeometryBackground />
+  <main class="not-found">
+    <p>ERROR / 404</p>
+    <h1>아직 만들어지지 않은<br /><em>페이지입니다.</em></h1>
+    <a href="/">Still Coding으로 돌아가기 <span aria-hidden="true">→</span></a>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found { min-height: 100svh; width: var(--page); margin: 0 auto; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 3; }
+  p { color: var(--ink-muted); letter-spacing: .16em; font-size: .72rem; }
+  h1 { margin: 18px 0 48px; font-family: var(--serif); font-size: clamp(3.2rem, 7vw, 7rem); line-height: 1.16; font-weight: 400; letter-spacing: -.05em; }
+  h1 em { color: transparent; -webkit-text-stroke: 1px rgba(240,238,231,.65); font-style: normal; }
+  a { width: fit-content; padding-bottom: 8px; border-bottom: 1px solid var(--line-strong); text-decoration: none; }
+  a span { margin-left: 30px; color: var(--focus); }
+</style>

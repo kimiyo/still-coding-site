@@ -1,0 +1,19 @@
+{
+  "name": "still-coding-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@fontsource-variable/manrope": "latest",
+    "@fontsource/noto-serif-kr": "latest",
+    "astro": "^5.13.5",
+    "typescript": "^5.9.2",
+    "wrangler": "latest"
+  }
+}

@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GeometryBackground from "../components/GeometryBackground.astro";
+import AppCard from "../components/AppCard.astro";
+import { apps, categoryLabels } from "../data/apps";
+
+const publicCount = apps.filter((app) => app.status === "public").length;
+const categories = Object.entries(categoryLabels) as [keyof typeof categoryLabels, string][];
+const categoryCounts = Object.fromEntries(
+  categories.map(([key]) => [key, key === "all" ? apps.length : apps.filter((app) => app.category === key).length]),
+);
+const description = "직접 만들고 운영하는 게임, 학습 도구와 창작 실험을 소개하는 Still Coding 앱 포트폴리오입니다.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Still Coding Apps",
+  numberOfItems: apps.length,
+  itemListElement: apps.map((app, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: app.title,
+    ...(app.status === "public" && app.url ? { url: app.url } : {}),
+  })),
+};
+---
+
+<BaseLayout title="Still Coding — Apps in motion" description={description}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)}></script>
+  <GeometryBackground />
+
+  <header class="site-header" data-header>
+    <a href="#top" class="brand" aria-label="Still Coding 홈">
+      <span>STILL</span><i aria-hidden="true"></i><span>CODING</span>
+    </a>
+    <nav aria-label="주요 메뉴">
+      <a href="#apps">Apps <sup>{String(apps.length).padStart(2, "0")}</sup></a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="hero-kicker"><span>Independent web apps</span><span>Seoul · Korea</span></p>
+        <h1 id="hero-title">사용할 수 있는 아이디어를<br /><em>계속 만들고 있습니다.</em></h1>
+        <p class="hero-description">게임, 학습 도구, 창작을 위한 작은 실험들.<br />직접 설계하고 만들어 운영합니다.</p>
+        <div class="hero-actions">
+          <a href="#apps" class="primary-action">앱 둘러보기 <span aria-hidden="true">↓</span></a>
+          <div class="system-status"><i aria-hidden="true"></i><span>{publicCount} public apps</span></div>
+        </div>
+      </div>
+      <div class="hero-notation" aria-hidden="true">
+        <span>BUILD</span><b>•</b><span>SHIP</span><b>•</b><span>LEARN</span>
+      </div>
+      <div class="scroll-marker" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i></i></div>
+    </section>
+
+    <section class="projects-section" id="apps" aria-labelledby="apps-title">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">01 / Works</span>
+          <h2 id="apps-title">Live projects</h2>
+        </div>
+        <p>완성된 결과보다 지금 사용할 수 있는 경험을 모았습니다.</p>
+      </div>
+
+      <div class="filter-bar reveal" role="group" aria-label="앱 카테고리 필터">
+        {categories.map(([id, label], index) => (
+          <button type="button" class:list={["filter-button", index === 0 && "is-active"]} data-filter={id} data-label={label} aria-pressed={index === 0 ? "true" : "false"}>
+            <span>{label}</span><sup>{String(categoryCounts[id]).padStart(2, "0")}</sup>
+          </button>
+        ))}
+      </div>
+
+      <p class="sr-only" id="filter-status" aria-live="polite">전체 앱 {apps.length}개 표시 중</p>
+
+      <div class="app-grid" data-app-grid>
+        {apps.map((app) => <AppCard app={app} />)}
+      </div>
+    </section>
+
+    <section class="principles" aria-labelledby="principles-title">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">02 / Practice</span>
+          <h2 id="principles-title">How I make</h2>
+        </div>
+      </div>
+      <ol class="principle-list">
+        <li class="reveal"><span>01</span><h3>Usable</h3><p>설명보다 먼저 직접 사용할 수 있게 만듭니다.</p></li>
+        <li class="reveal"><span>02</span><h3>Focused</h3><p>한 번에 하나의 문제와 경험에 집중합니다.</p></li>
+        <li class="reveal"><span>03</span><h3>Operated</h3><p>배포 이후에도 관찰하고 고치며 오래 운영합니다.</p></li>
+      </ol>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <span class="section-number reveal">03 / About</span>
+      <div class="about-grid">
+        <h2 id="about-title" class="reveal">Still coding,<br /><em>still curious.</em></h2>
+        <div class="about-copy reveal">
+          <p>Still Coding은 JH Kim이 직접 만들고 공개하는 앱들의 작업대입니다. 작은 아이디어를 실제로 작동하는 제품으로 만들고, 사용하는 사람의 경험을 보며 계속 다듬습니다.</p>
+          <a href="https://github.com/kimiyo" target="_blank" rel="noopener noreferrer">GitHub에서 더 보기 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#top" class="footer-brand">STILL / CODING</a>
+    <p>Small apps, carefully made.</p>
+    <p>© {new Date().getFullYear()} JH Kim</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector<HTMLElement>("[data-header]");
+    const grid = document.querySelector<HTMLElement>("[data-app-grid]");
+    const filterButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const cards = [...document.querySelectorAll<HTMLElement>(".app-card")];
+    const status = document.querySelector<HTMLElement>("#filter-status");
+
+    const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter ?? "all";
+        if (grid) grid.dataset.activeFilter = filter;
+        filterButtons.forEach((item) => {
+          const selected = item === button;
+          item.classList.toggle("is-active", selected);
+          item.setAttribute("aria-pressed", String(selected));
+        });
+        let count = 0;
+        cards.forEach((card) => {
+          const visible = filter === "all" || card.dataset.category === filter;
+          card.hidden = !visible;
+          if (visible) count += 1;
+        });
+        grid?.classList.remove("filter-pulse");
+        window.requestAnimationFrame(() => grid?.classList.add("filter-pulse"));
+        if (status) status.textContent = `${button.dataset.label ?? "전체"} 앱 ${count}개 표시 중`;
+      });
+    });
+
+    cards.forEach((card) => {
+      const emitAccent = (value: string | null) => document.dispatchEvent(new CustomEvent("app-accent", { detail: value }));
+      card.addEventListener("pointerenter", () => emitAccent(card.dataset.accent ?? null));
+      card.addEventListener("pointerleave", () => emitAccent(null));
+      card.addEventListener("focusin", () => emitAccent(card.dataset.accent ?? null));
+      card.addEventListener("focusout", () => emitAccent(null));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal, .app-card").forEach((element) => observer.observe(element));
+  </script>
+</BaseLayout>

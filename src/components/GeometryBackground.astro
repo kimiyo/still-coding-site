@@ -1,0 +1,136 @@
+<div class="geometry-stage" aria-hidden="true">
+  <picture class="geometry-fallback">
+    <source media="(max-width: 640px)" srcset="/images/brand/living-geometry-hero-mobile.webp" />
+    <img src="/images/brand/living-geometry-hero-desktop.webp" alt="" width="1600" height="900" />
+  </picture>
+  <canvas id="geometry-canvas"></canvas>
+  <div class="blueprint-grid"></div>
+</div>
+
+<script>
+  type Point = {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    color: string;
+    dashed: boolean;
+  };
+
+  const canvas = document.querySelector<HTMLCanvasElement>("#geometry-canvas");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (canvas && !reducedMotion.matches) {
+    const context = canvas.getContext("2d", { alpha: true });
+    const colors = ["#eee9dd", "#65cadd", "#d4543d", "#d6a348"];
+    let points: Point[] = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let pointer = { x: -1000, y: -1000 };
+    let activeColor: string | null = null;
+    let visible = true;
+
+    const makePoints = () => {
+      const count = width < 700 ? 13 : Math.min(29, Math.max(18, Math.floor(width / 58)));
+      points = Array.from({ length: count }, (_, index) => ({
+        x: width * (0.34 + Math.random() * 0.66),
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.13,
+        vy: (Math.random() - 0.5) * 0.13,
+        radius: index % 7 === 0 ? 4.5 : 1.4 + Math.random() * 2.2,
+        color: colors[index % colors.length] ?? colors[0]!,
+        dashed: index % 6 === 0,
+      }));
+    };
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+      width = window.innerWidth;
+      height = Math.max(window.innerHeight, 720);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context?.setTransform(dpr, 0, 0, dpr, 0, 0);
+      makePoints();
+    };
+
+    const draw = () => {
+      if (!context || !visible) return;
+      context.clearRect(0, 0, width, height);
+
+      for (const point of points) {
+        const dx = point.x - pointer.x;
+        const dy = point.y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 150 && distance > 0) {
+          const force = (150 - distance) / 150;
+          point.x += (dx / distance) * force * 0.18;
+          point.y += (dy / distance) * force * 0.18;
+        }
+        point.x += point.vx;
+        point.y += point.vy;
+        if (point.x > width + 24) point.x = width * 0.34;
+        if (point.x < width * 0.32) point.x = width + 16;
+        if (point.y > height + 20) point.y = -12;
+        if (point.y < -20) point.y = height + 12;
+      }
+
+      for (let i = 0; i < points.length; i += 1) {
+        const a = points[i];
+        if (!a) continue;
+        for (let j = i + 1; j < points.length; j += 1) {
+          const b = points[j];
+          if (!b) continue;
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance < 185) {
+            context.beginPath();
+            context.setLineDash(a.dashed ? [3, 7] : []);
+            context.moveTo(a.x, a.y);
+            context.lineTo(b.x, b.y);
+            context.strokeStyle = `rgba(238, 233, 221, ${0.13 * (1 - distance / 185)})`;
+            context.lineWidth = 0.8;
+            context.stroke();
+          }
+        }
+      }
+
+      for (const point of points) {
+        const selected = activeColor === point.color;
+        context.beginPath();
+        context.setLineDash(point.dashed ? [3, 5] : []);
+        context.arc(point.x, point.y, selected ? point.radius * 2.2 : point.radius, 0, Math.PI * 2);
+        context.fillStyle = selected ? point.color : `${point.color}bb`;
+        context.fill();
+        if (point.dashed || selected) {
+          context.beginPath();
+          context.arc(point.x, point.y, selected ? 17 : 10, 0, Math.PI * 2);
+          context.strokeStyle = selected ? `${point.color}99` : "rgba(238,233,221,.25)";
+          context.lineWidth = 1;
+          context.stroke();
+        }
+      }
+
+      context.setLineDash([]);
+      frame = window.requestAnimationFrame(draw);
+    };
+
+    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("pointermove", (event) => {
+      pointer = { x: event.clientX, y: event.clientY };
+    }, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      visible = !document.hidden;
+      if (visible) draw();
+      else window.cancelAnimationFrame(frame);
+    });
+    document.addEventListener("app-accent", ((event: CustomEvent<string | null>) => {
+      activeColor = event.detail;
+    }) as EventListener);
+
+    resize();
+    draw();
+  }
+</script>

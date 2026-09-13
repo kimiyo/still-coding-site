@@ -1,0 +1,46 @@
+---
+import type { PortfolioApp } from "../data/apps";
+import { statusLabels } from "../data/apps";
+import AppVisual from "./AppVisual.astro";
+
+interface Props { app: PortfolioApp }
+const { app } = Astro.props;
+const isPublic = app.status === "public" || app.status === "preview";
+---
+
+<article
+  class:list={["app-card", app.size === "wide" && "app-card-wide", !isPublic && "is-locked"]}
+  data-category={app.category}
+  data-accent={app.accent}
+  style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}
+>
+  <div class="card-head">
+    <span class="card-index">{String(app.order).padStart(2, "0")}</span>
+    <span class:list={["status", `status-${app.status}`]}>
+      <i aria-hidden="true"></i>{statusLabels[app.status]}
+    </span>
+  </div>
+
+  <AppVisual variant={app.visual} title={app.title} />
+
+  <div class="card-copy">
+    <span class="eyebrow">{app.eyebrow}</span>
+    <h3>{app.title}</h3>
+    <p class="summary">{app.summary}</p>
+    <p class="detail">{app.detail}</p>
+    <div class="card-foot">
+      <ul class="tags" aria-label={`${app.title} 특징`}>
+        {app.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      {isPublic && app.url ? (
+        <a class="app-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} 앱 열기, 새 창`}>
+          Open <span aria-hidden="true">↗</span>
+        </a>
+      ) : (
+        <span class="app-link app-link-disabled" aria-label="현재 비공개 검증 중">
+          Verifying <span aria-hidden="true">◌</span>
+        </span>
+      )}
+    </div>
+  </div>
+</article>
