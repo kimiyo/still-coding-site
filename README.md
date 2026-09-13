@@ -21,6 +21,7 @@
 | **Pinhole Lab** | Play | `Public` | 작은 규칙과 관찰을 중심으로 한 퍼즐 게임 컬렉션 (Pinhole, Sum Drop) | [바로가기](https://pinhole-game.still-coding.cc/) |
 | **가나 공방** | Learn | `Public` | 히라가나와 가타카나를 듣고 말하고 쓰며 익히는 일본어 학습 도구 | [바로가기](https://study-hiragana.still-coding.cc/) |
 | **Guitar Auto-Strum** | Create | `Private beta` | 코드와 리듬을 선택해 기타 자동 반주를 연주하는 웹 오디오 도구 | *검증 중 (Access 제한)* |
+| **CollaBoard** | Create | `Public` | 서버 저장 없이 WebRTC로 연결하는 화이트보드·브레인스토밍·Q&A·퀴즈·투표·파일 공유 공간 | [바로가기](https://collaboard.still-coding.cc/) |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant: "direct-play" | "pinhole" | "kana" | "guitar";
+  variant: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard";
   title: string;
 }
 
@@ -37,6 +37,17 @@ const { variant, title } = Astro.props;
       <div class="guitar-strings"><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
       <div class="chord-row"><span>G</span><span>Em</span><span>C</span><span>D</span></div>
       <strong>GUITAR / IN MOTION</strong>
+    </div>
+  )}
+  {variant === "collaboard" && (
+    <div class="visual-content collaboard-content">
+      <span class="visual-label">PRIVATE P2P TEAM ROOM</span>
+      <div class="peer-map" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+        <span>🤝</span>
+      </div>
+      <div class="collaboard-tools" aria-hidden="true"><span>DRAW</span><span>IDEATE</span><span>SHARE</span></div>
+      <strong>TEAM ↔ TEAM<br /><em>NO SERVER STORAGE</em></strong>
     </div>
   )}
 </div>

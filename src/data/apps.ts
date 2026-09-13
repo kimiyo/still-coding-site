@@ -13,7 +13,7 @@ export interface PortfolioApp {
   tags: string[];
   accent: string;
   accentSoft: string;
-  visual: "direct-play" | "pinhole" | "kana" | "guitar";
+  visual: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard";
   size: "wide" | "standard";
   order: number;
 }
@@ -81,6 +81,22 @@ export const apps: PortfolioApp[] = [
     visual: "guitar",
     size: "wide",
     order: 4,
+  },
+  {
+    id: "collaboard",
+    title: "CollaBoard",
+    eyebrow: "Collaboration tool / 01",
+    url: "https://collaboard.still-coding.cc/",
+    category: "create",
+    status: "public",
+    summary: "자료를 서버에 남기지 않는 프라이빗 P2P 협업 공간",
+    detail: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 투표와 파일 공유를 WebRTC로 팀원끼리 직접 연결합니다.",
+    tags: ["6 tools", "WebRTC P2P", "Private"],
+    accent: "#00c8e7",
+    accentSoft: "#6657f5",
+    visual: "collaboard",
+    size: "wide",
+    order: 5,
   },
 ];
 
