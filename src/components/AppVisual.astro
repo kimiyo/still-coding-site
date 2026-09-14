@@ -10,25 +10,32 @@ const { variant, title } = Astro.props;
 <div class:list={["app-visual", `visual-${variant}`]} aria-label={`${title} 미리보기`} role="img">
   {variant === "direct-play" && (
     <div class="visual-content direct-content">
-      <span class="visual-label">GAME LIBRARY</span>
-      <div class="direct-orbit"><i></i><i></i><i></i><i></i></div>
-      <strong>PLAY / TOGETHER</strong>
-      <div class="visual-pills"><span>PUZZLE</span><span>RACE</span><span>LOGIC</span></div>
+      <div class="direct-mini-head"><span class="direct-logo"><i></i><b>다이렉트 플레이</b></span><span>PUBLIC ROOM</span></div>
+      <div class="direct-tabs"><b>공개방</b><span>비밀방</span></div>
+      <div class="direct-games" aria-hidden="true">
+        <span><i>🧩</i><b>사진퍼즐게임</b><small>협동 · 퍼즐</small></span>
+        <span><i>🔢</i><b>숫자 야구</b><small>두뇌 · 추리</small></span>
+        <span><i>🏎️</i><b>포켓 레이스</b><small>파티 · 레이싱</small></span>
+      </div>
+      <strong>CHOOSE · INVITE · PLAY</strong>
     </div>
   )}
   {variant === "pinhole" && (
     <div class="visual-content pinhole-content">
-      <span class="visual-label">OBSERVE / CALCULATE</span>
-      <div class="pinhole-lens"><span>?</span></div>
-      <div class="sum-stack"><i>4</i><i>+</i><i>6</i></div>
-      <strong>SMALL RULES.</strong>
+      <span class="visual-label">PINHOLE <em>LAB</em></span>
+      <div class="lab-games" aria-hidden="true">
+        <div class="lab-game lab-observe"><small>GAME / 01 · OBSERVE</small><span class="pinhole-lens">?</span><b>PINHOLE</b></div>
+        <div class="lab-game lab-calculate"><small>GAME / 02 · CALCULATE</small><span class="sum-stack"><i>4</i><i>+</i><i>6</i></span><b>SUM DROP</b></div>
+      </div>
+      <strong>SMALL RULES. <em>SHARP DECISIONS.</em></strong>
     </div>
   )}
   {variant === "kana" && (
     <div class="visual-content kana-content">
-      <span class="visual-label">KANA ATELIER</span>
-      <div class="kana-mark"><span>あ</span><span>ア</span></div>
-      <strong>듣고, 말하고,<br />손끝으로 익혀요.</strong>
+      <div class="kana-mini-head"><span>かな<br /><b>KANA ATELIER</b></span><small><em>1</em> / 149 표기</small></div>
+      <div class="kana-course"><small>두 문자를 한 흐름으로</small><b><em>あ</em>와 <em>ア</em>, 같은 소리로 연결해요.</b><i>통합 학습 시작　›</i></div>
+      <div class="kana-mark"><span>あ</span><i></i></div>
+      <strong>듣고, 말하고,<br /><em>손끝으로 익혀요.</em></strong>
     </div>
   )}
   {variant === "guitar" && (
@@ -41,13 +48,12 @@ const { variant, title } = Astro.props;
   )}
   {variant === "collaboard" && (
     <div class="visual-content collaboard-content">
-      <span class="visual-label">PRIVATE P2P TEAM ROOM</span>
-      <div class="peer-map" aria-hidden="true">
-        <i></i><i></i><i></i><i></i><i></i>
-        <span>🤝</span>
+      <div class="collaboard-mini-head"><b>🤝 CollaBoard</b><span>PRIVATE P2P SPACE</span></div>
+      <div class="collaboard-panes" aria-hidden="true">
+        <section><small>🚀 새 팀 룸 만들기</small><div class="room-field">우리 팀 프라이빗 룸</div><div class="tool-grid"><i>🎨</i><i>💡</i><i>❓</i><i>📚</i><i>🗳️</i><i>📁</i></div></section>
+        <section><small>🔑 기존 팀 룸 참여</small><div class="room-field muted">ABCD–1234</div><div class="join-button">룸 입장하기</div></section>
       </div>
-      <div class="collaboard-tools" aria-hidden="true"><span>DRAW</span><span>IDEATE</span><span>SHARE</span></div>
-      <strong>TEAM ↔ TEAM<br /><em>NO SERVER STORAGE</em></strong>
+      <strong>SHARE WITH THE TEAM, <em>NOT THE SERVER.</em></strong>
     </div>
   )}
 </div>
