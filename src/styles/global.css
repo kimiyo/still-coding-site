@@ -404,6 +404,29 @@ p,h1,h2,h3 {
   gap:16px;
   margin-top:28px
 }
+.card-actions {
+  display:flex;
+  align-items:center;
+  gap:18px
+}
+.help-link {
+  color:var(--ink-muted);
+  font-size:.68rem;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:color .2s ease
+}
+.help-link:hover { color:var(--ink) }
+.help-link span {
+  display:inline-grid;
+  place-items:center;
+  width:15px;
+  height:15px;
+  margin-left:5px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  font-size:.58rem
+}
 .tags {
   display:flex;
   flex-wrap:wrap;
@@ -810,6 +833,8 @@ footer {
   .card-foot {
     margin-top:20px
   }
+  .card-actions { gap:12px }
+  .help-link { font-size:.62rem }
   .tags {
     gap:9px
   }

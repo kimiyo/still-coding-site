@@ -6,6 +6,7 @@ export interface PortfolioApp {
   title: string;
   eyebrow: string;
   url?: string;
+  helpUrl?: string;
   category: AppCategory;
   status: AppStatus;
   summary: string;
@@ -24,6 +25,7 @@ export const apps: PortfolioApp[] = [
     title: "Direct Play",
     eyebrow: "Game collection / 01",
     url: "https://dp.still-coding.cc/",
+    helpUrl: "https://dp.still-coding.cc/#help",
     category: "play",
     status: "public",
     summary: "게임을 고르고 링크로 초대하면 바로 시작되는 7개의 브라우저 게임",
@@ -40,6 +42,7 @@ export const apps: PortfolioApp[] = [
     title: "Pinhole Lab",
     eyebrow: "Game collection / 02",
     url: "https://pinhole-game.still-coding.cc/",
+    helpUrl: "https://pinhole-game.still-coding.cc/#help",
     category: "play",
     status: "public",
     summary: "관찰과 계산, 서로 다른 두 가지 판단을 겨루는 퍼즐 랩",
@@ -56,6 +59,7 @@ export const apps: PortfolioApp[] = [
     title: "가나 공방",
     eyebrow: "Learning tool / 01",
     url: "https://study-hiragana.still-coding.cc/",
+    helpUrl: "https://study-hiragana.still-coding.cc/#help",
     category: "learn",
     status: "public",
     summary: "히라가나와 가타카나를 같은 소리와 손의 움직임으로 연결하는 학습 공방",
@@ -87,6 +91,7 @@ export const apps: PortfolioApp[] = [
     title: "CollaBoard",
     eyebrow: "Collaboration tool / 01",
     url: "https://collaboard.still-coding.cc/",
+    helpUrl: "https://collaboard.still-coding.cc/#help",
     category: "create",
     status: "public",
     summary: "방은 서버가 만들고, 팀의 자료는 팀원 사이에만 남는 협업 공간",
