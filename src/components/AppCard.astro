@@ -1,46 +1,19 @@
 ---
 import type { PortfolioApp } from "../data/apps";
-import { statusLabels } from "../data/apps";
 import AppVisual from "./AppVisual.astro";
-
-interface Props { app: PortfolioApp }
-const { app } = Astro.props;
-const isPublic = app.status === "public" || app.status === "preview";
+interface Props { app: PortfolioApp; index: number }
+const { app, index } = Astro.props;
+const editorial: Record<string, { discipline: string; line: string; action: string; note: string; }> = {
+  "direct-play": { discipline: "PLAY / MULTIPLAYER EXPERIENCE", line: "함께 노는 일은, 가볍게.", action: "게임 고르기", note: "하나의 입구, 서로 다른 일곱 가지 놀이. 게임을 고르고 방을 만든 뒤 링크로 초대하는 흐름에 여러 게임을 모았습니다. 공개방과 비밀방으로 함께할 사람을 선택할 수 있습니다." },
+  "kana-atelier": { discipline: "LEARN / INTERACTION DESIGN", line: "글자를 외우는 대신, 감각으로.", action: "가나 학습 시작", note: "글자의 모양과 소리, 손의 움직임을 함께 다룹니다. 쓰기와 음성, 비슷한 글자의 짝 학습을 연결하고 학습 진도는 브라우저에 기록합니다." },
+  "pinhole-lab": { discipline: "PLAY / SMALL SYSTEMS", line: "작은 규칙에서 시작되는 몰입.", action: "퍼즐 둘러보기", note: "제한된 시야에서 정답을 찾는 관찰과, 합이 10이 되도록 숫자를 연결하는 계산. 서로 다른 두 판단을 혼자 또는 게임방에서 경험하도록 구성했습니다." },
+  "collaboard": { discipline: "CONNECT / REALTIME SYSTEMS", line: "함께 생각하는 공간의 구조.", action: "협업 도구 열기", note: "방을 만드는 역할과 팀 자료를 주고받는 경로를 나눕니다. 서버가 방을 만들고, 화이트보드부터 파일 공유까지 팀원 사이의 WebRTC 연결로 협업합니다." },
+};
+const copy = editorial[app.id];
+if (!copy) throw new Error(`Missing editorial content for ${app.id}`);
 ---
-
-<article
-  class:list={["app-card", app.size === "wide" && "app-card-wide", !isPublic && "is-locked"]}
-  data-category={app.category}
-  data-accent={app.accent}
-  style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}
->
-  <div class="card-head">
-    <span class="card-index">{String(app.order).padStart(2, "0")}</span>
-    <span class:list={["status", `status-${app.status}`]}>
-      <i aria-hidden="true"></i>{statusLabels[app.status]}
-    </span>
-  </div>
-
-  <AppVisual variant={app.visual} title={app.title} />
-
-  <div class="card-copy">
-    <span class="eyebrow">{app.eyebrow}</span>
-    <h3>{app.title}</h3>
-    <p class="summary">{app.summary}</p>
-    <p class="detail">{app.detail}</p>
-    <div class="card-foot">
-      <ul class="tags" aria-label={`${app.title} 특징`}>
-        {app.tags.map((tag) => <li>{tag}</li>)}
-      </ul>
-      {isPublic && app.url ? (
-        <a class="app-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} 앱 열기, 새 창`}>
-          Open <span aria-hidden="true">↗</span>
-        </a>
-      ) : (
-        <span class="app-link app-link-disabled" aria-label="현재 비공개 검증 중">
-          Verifying <span aria-hidden="true">◌</span>
-        </span>
-      )}
-    </div>
-  </div>
+<article class:list={["app-card", `work-${app.id}`, index === 1 && "featured-work"]} data-accent={app.accent} style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}>
+  <div class="card-head"><span>WORK / {String(index).padStart(2, "0")}</span><span>{index === 1 ? "SELECTED PROJECT" : copy.discipline}</span><span class="public-mark">LIVE <i></i></span></div>
+  <a class="visual-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} 체험하기, 새 창`}><AppVisual variant={app.visual} title={app.title} /><span class="visual-open" aria-hidden="true">↗</span></a>
+  <div class="card-copy"><span class="eyebrow">{copy.discipline}</span><div class="work-title-row"><h3><a href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title}, 새 창`}>{app.title}</a></h3><span class="work-number" aria-hidden="true">0{index}</span></div><p class="summary">{copy.line}</p><p class="detail">{app.detail}</p><div class="card-foot"><ul class="tags" aria-label={`${app.title} 특징`}>{app.tags.map(tag => <li>{tag}</li>)}</ul><a class="app-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${copy.action}, 새 창`}>{copy.action} <span aria-hidden="true">↗</span></a></div><details class="project-note"><summary>작업의 관점 <span aria-hidden="true">+</span></summary><p>{copy.note}</p></details></div>
 </article>

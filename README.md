@@ -1,6 +1,6 @@
 # Still Coding
 
-> **"사용할 수 있는 아이디어를 계속 만들고 있습니다."**  
+> **"생각한 것을, 작동하게 만듭니다."**
 > Games, learning tools and creative experiments — designed, built and operated by JH Kim.
 
 [Still Coding](https://still-coding.cc/)은 실제로 만들고 운영하는 웹 애플리케이션들을 소개하고, 방문자가 각 앱을 브라우저에서 직접 사용해 볼 수 있도록 연결하는 제품 포트폴리오 사이트입니다.
@@ -25,11 +25,15 @@
 
 ---
 
-## 🎨 핵심 디자인 콘셉트: Living Geometry
+## 🎨 디자인 콘셉트: Independent Practice
 
-- **디지털 작업실(Digital Atelier)**: 기하학적 캔버스 배경의 점(노드)과 선은 지속적으로 조립되고 연결되는 프로젝트를 상징합니다.
-- **인터랙티브 반응**: 앱 카드에 호버하거나 포커스할 때 해당 앱의 고유 강조색(Accent Color) 노드가 캔버스에서 부드럽게 반응합니다.
-- **접근성(A11y)**: WCAG AA 준수, 키보드 내비게이션 완벽 지원, `prefers-reduced-motion` 감지 시 캔버스 정지 모드 지원.
+앱이 개발자를 소개하는 개인 전시 공간입니다. 생성한 금속 궤도 조형물, 절제된 타이포그래피, 선별된 작품과 제작 관점으로 감각과 구현력을 전달합니다.
+
+- 네 개의 공개 작품과 별도의 비공개 실험 작업대.
+- 썸네일·제목·행동 링크와 네이티브 details 기반 제작 노트.
+- 모션 감소 설정 지원, 키보드 포커스, 본문 바로가기, JavaScript 없이도 읽을 수 있는 콘텐츠.
+- 이미지 생성 프롬프트와 원본 위치: [디자인 기록](docs/design/independent-practice.md).
+- 기존 GeometryBackground는 404 페이지에 유지됩니다.
 
 ---
 
