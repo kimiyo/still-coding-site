@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">여러 기기가 서버를 거치지 않고 서로 직접 연결되어 함께 협업하는 CollaBoard 일러스트</title>
+  <defs>
+    <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#4f46e5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#4f46e5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#10b981" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="link" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="1" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#172033"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <g id="lock">
+      <circle r="13" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+      <rect x="-5.5" y="-2" width="11" height="8.5" rx="1.8" fill="#34d399"/>
+      <path d="M-3.5 -2 v-2.5 a3.5 3.5 0 0 1 7 0 v2.5" fill="none" stroke="#34d399" stroke-width="2"/>
+    </g>
+    <g id="avatar">
+      <circle r="9" fill="#312e81" stroke="#818cf8" stroke-width="1.5"/>
+      <circle cy="-2" r="3" fill="#c7d2fe"/>
+      <path d="M-5 6 a5 4.5 0 0 1 10 0" fill="#c7d2fe"/>
+    </g>
+  </defs>
+
+  <style>
+    .flow { stroke-dasharray: 6 10; animation: flow 1.6s linear infinite; }
+    .flow.rev { animation-direction: reverse; }
+    .float { animation: float 6s ease-in-out infinite; }
+    .float.d1 { animation-delay: -1.5s; }
+    .float.d2 { animation-delay: -3s; }
+    .float.d3 { animation-delay: -4.5s; }
+    .pulse { animation: pulse 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes flow { to { stroke-dashoffset: -32; } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+    @media (prefers-reduced-motion: reduce) { .flow, .float, .pulse { animation: none; } }
+    text { font-family: "Pretendard", "Segoe UI", system-ui, -apple-system, sans-serif; }
+  </style>
+
+  <!-- Ambient glows -->
+  <circle cx="400" cy="300" r="260" fill="url(#glowA)"/>
+  <circle cx="620" cy="170" r="150" fill="url(#glowB)"/>
+  <circle cx="180" cy="440" r="150" fill="url(#glowC)"/>
+
+  <!-- Starfield -->
+  <g fill="#e2e8f0" opacity="0.5">
+    <circle cx="60" cy="40" r="1.2"/><circle cx="250" cy="30" r="1"/><circle cx="560" cy="50" r="1.3"/>
+    <circle cx="760" cy="90" r="1"/><circle cx="30" cy="250" r="1"/><circle cx="780" cy="330" r="1.2"/>
+    <circle cx="420" cy="580" r="1"/><circle cx="720" cy="560" r="1.1"/><circle cx="90" cy="580" r="1"/>
+  </g>
+
+  <!-- Signaling server: only introduces peers, stores nothing -->
+  <g opacity="0.8">
+    <path d="M400 120 V205" stroke="#64748b" stroke-width="2" stroke-dasharray="3 6" fill="none"/>
+    <g transform="translate(400 78)">
+      <path d="M-44 18 a18 18 0 0 1 4 -35 a26 26 0 0 1 49 -4 a20 20 0 0 1 33 21 a14 14 0 0 1 -2 18 z" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+      <!-- empty database, crossed -->
+      <g transform="translate(0 2)">
+        <ellipse cx="0" cy="-9" rx="11" ry="4" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+        <path d="M-11 -9 v16 a11 4 0 0 0 22 0 v-16" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+        <line x1="-15" y1="10" x2="15" y2="-16" stroke="#f87171" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g transform="translate(470 66)">
+      <rect x="0" y="-12" width="118" height="24" rx="12" fill="#0f172a" stroke="#475569"/>
+      <text x="59" y="4" text-anchor="middle" font-size="11" fill="#94a3b8" font-weight="600">server stores 0 bytes</text>
+    </g>
+  </g>
+
+  <!-- Peer-to-peer mesh -->
+  <g fill="none" stroke-linecap="round">
+    <g stroke="url(#link)" stroke-width="7" opacity="0.25" filter="url(#soft)">
+      <path d="M400 285 L205 215"/><path d="M400 285 L665 180"/><path d="M400 285 L200 462"/><path d="M400 285 L655 470"/>
+    </g>
+    <g stroke="url(#link)" stroke-width="2.5">
+      <path class="flow" d="M400 285 L205 215"/>
+      <path class="flow rev" d="M400 285 L665 180"/>
+      <path class="flow" d="M400 285 L200 462"/>
+      <path class="flow rev" d="M400 285 L655 470"/>
+    </g>
+    <g stroke="#38bdf8" stroke-width="1.5" opacity="0.55">
+      <path class="flow rev" d="M205 215 Q180 340 200 462"/>
+      <path class="flow" d="M665 180 Q690 330 655 470"/>
+      <path class="flow" d="M205 215 Q430 120 665 180"/>
+      <path class="flow rev" d="M200 462 Q430 560 655 470"/>
+    </g>
+  </g>
+  <use href="#lock" x="302" y="250"/>
+  <use href="#lock" x="532" y="232"/>
+  <use href="#lock" x="300" y="374"/>
+  <use href="#lock" x="528" y="378"/>
+
+  <!-- Host laptop (center) -->
+  <g filter="url(#shadow)">
+    <rect x="288" y="200" width="224" height="146" rx="10" fill="url(#body)"/>
+    <rect x="297" y="209" width="206" height="128" rx="5" fill="url(#screen)"/>
+    <path d="M262 346 H538 L552 362 Q552 368 544 368 H256 Q248 368 248 362 Z" fill="#475569"/>
+    <rect x="380" y="346" width="40" height="5" rx="2" fill="#334155"/>
+  </g>
+  <!-- Host screen: brainstorm board -->
+  <g>
+    <rect x="297" y="209" width="206" height="18" rx="5" fill="#1e293b"/>
+    <circle cx="307" cy="218" r="2.5" fill="#f87171"/><circle cx="315" cy="218" r="2.5" fill="#fbbf24"/><circle cx="323" cy="218" r="2.5" fill="#34d399"/>
+    <rect x="340" y="214" width="60" height="8" rx="4" fill="#4f46e5"/>
+    <rect x="404" y="214" width="34" height="8" rx="4" fill="#334155"/>
+    <rect x="442" y="214" width="34" height="8" rx="4" fill="#334155"/>
+    <g transform="rotate(-4 330 262)"><rect x="309" y="238" width="46" height="42" rx="3" fill="#fde68a"/><rect x="315" y="246" width="30" height="4" rx="2" fill="#92400e" opacity="0.5"/><rect x="315" y="254" width="22" height="4" rx="2" fill="#92400e" opacity="0.5"/></g>
+    <g transform="rotate(3 388 262)"><rect x="365" y="238" width="46" height="42" rx="3" fill="#a5f3fc"/><rect x="371" y="246" width="30" height="4" rx="2" fill="#155e75" opacity="0.5"/><rect x="371" y="254" width="18" height="4" rx="2" fill="#155e75" opacity="0.5"/></g>
+    <g transform="rotate(-2 446 262)"><rect x="421" y="238" width="46" height="42" rx="3" fill="#c4b5fd"/><rect x="427" y="246" width="30" height="4" rx="2" fill="#4c1d95" opacity="0.5"/><rect x="427" y="254" width="26" height="4" rx="2" fill="#4c1d95" opacity="0.5"/></g>
+    <g transform="rotate(2 358 308)"><rect x="336" y="288" width="46" height="40" rx="3" fill="#bbf7d0"/><rect x="342" y="296" width="30" height="4" rx="2" fill="#14532d" opacity="0.5"/></g>
+    <g transform="rotate(-3 416 308)"><rect x="394" y="288" width="46" height="40" rx="3" fill="#fecaca"/><rect x="400" y="296" width="26" height="4" rx="2" fill="#7f1d1d" opacity="0.5"/></g>
+    <!-- votes -->
+    <g transform="translate(468 300)"><circle r="12" fill="#4f46e5"/><path d="M-5 1 l4 4 l7 -8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  </g>
+  <!-- participants on host -->
+  <g transform="translate(400 390)">
+    <rect x="-62" y="-14" width="124" height="28" rx="14" fill="#0f172a" stroke="#4f46e5"/>
+    <use href="#avatar" x="-40"/><use href="#avatar" x="-24"/><use href="#avatar" x="-8"/>
+    <text x="10" y="4.5" font-size="12" font-weight="700" fill="#c7d2fe">+24 live</text>
+  </g>
+
+  <!-- Peer A: phone with QR (top-left) -->
+  <g class="float d1">
+    <g filter="url(#shadow)">
+      <rect x="168" y="150" width="74" height="130" rx="12" fill="#334155"/>
+      <rect x="174" y="160" width="62" height="110" rx="7" fill="#f8fafc"/>
+    </g>
+    <g fill="#0f172a">
+      <rect x="182" y="170" width="16" height="16" rx="2"/><rect x="185" y="173" width="10" height="10" fill="#f8fafc"/><rect x="188" y="176" width="4" height="4"/>
+      <rect x="212" y="170" width="16" height="16" rx="2"/><rect x="215" y="173" width="10" height="10" fill="#f8fafc"/><rect x="218" y="176" width="4" height="4"/>
+      <rect x="182" y="200" width="16" height="16" rx="2"/><rect x="185" y="203" width="10" height="10" fill="#f8fafc"/><rect x="188" y="206" width="4" height="4"/>
+      <rect x="203" y="171" width="4" height="4"/><rect x="203" y="180" width="4" height="4"/><rect x="203" y="192" width="4" height="4"/>
+      <rect x="212" y="192" width="4" height="4"/><rect x="220" y="198" width="4" height="4"/><rect x="226" y="192" width="4" height="4"/>
+      <rect x="208" y="204" width="4" height="4"/><rect x="216" y="208" width="4" height="4"/><rect x="224" y="206" width="4" height="4"/>
+      <rect x="203" y="212" width="4" height="4"/><rect x="212" y="214" width="4" height="4"/>
+    </g>
+    <rect x="182" y="232" width="46" height="14" rx="7" fill="#4f46e5"/>
+    <rect x="190" y="237" width="30" height="4" rx="2" fill="#e0e7ff"/>
+    <rect x="186" y="254" width="38" height="4" rx="2" fill="#cbd5e1"/>
+    <g class="pulse"><circle cx="242" cy="152" r="10" fill="#10b981"/></g>
+    <path d="M237 152 l3.5 3.5 l6 -6.5" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Peer B: tablet with poll (top-right) -->
+  <g class="float d2">
+    <g filter="url(#shadow)">
+      <rect x="592" y="122" width="148" height="112" rx="12" fill="#334155"/>
+      <rect x="600" y="130" width="132" height="96" rx="6" fill="url(#screen)"/>
+    </g>
+    <rect x="610" y="140" width="70" height="7" rx="3.5" fill="#94a3b8"/>
+    <rect x="610" y="156" width="108" height="12" rx="4" fill="#1e293b"/><rect x="610" y="156" width="86" height="12" rx="4" fill="#06b6d4"/>
+    <rect x="610" y="174" width="108" height="12" rx="4" fill="#1e293b"/><rect x="610" y="174" width="52" height="12" rx="4" fill="#818cf8"/>
+    <rect x="610" y="192" width="108" height="12" rx="4" fill="#1e293b"/><rect x="610" y="192" width="30" height="12" rx="4" fill="#34d399"/>
+    <rect x="610" y="210" width="44" height="7" rx="3.5" fill="#475569"/>
+  </g>
+
+  <!-- Peer C: laptop with whiteboard (bottom-left) -->
+  <g class="float d3">
+    <g filter="url(#shadow)">
+      <rect x="126" y="412" width="148" height="96" rx="8" fill="url(#body)"/>
+      <rect x="133" y="419" width="134" height="82" rx="4" fill="#f8fafc"/>
+      <path d="M108 508 H292 L302 518 Q302 522 296 522 H104 Q98 522 98 518 Z" fill="#475569"/>
+    </g>
+    <path d="M145 480 C160 440, 185 440, 195 465 S230 490, 250 440" stroke="#4f46e5" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="170" cy="445" r="12" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+    <rect x="215" y="470" width="38" height="20" rx="3" fill="none" stroke="#10b981" stroke-width="2.5"/>
+    <path d="M244 432 l12 -10 l4 4 l-12 10 z" fill="#f59e0b"/>
+  </g>
+
+  <!-- Peer D: phone with feedback answers (bottom-right) -->
+  <g class="float">
+    <g filter="url(#shadow)">
+      <rect x="620" y="406" width="74" height="130" rx="12" fill="#334155"/>
+      <rect x="626" y="416" width="62" height="110" rx="7" fill="url(#screen)"/>
+    </g>
+    <rect x="632" y="424" width="50" height="6" rx="3" fill="#34d399"/>
+    <rect x="632" y="436" width="44" height="18" rx="4" fill="#1e293b" stroke="#34d399" stroke-width="1"/>
+    <rect x="636" y="443" width="30" height="4" rx="2" fill="#94a3b8"/>
+    <rect x="632" y="460" width="50" height="18" rx="4" fill="#1e293b" stroke="#34d399" stroke-width="1"/>
+    <rect x="636" y="467" width="36" height="4" rx="2" fill="#94a3b8"/>
+    <rect x="632" y="484" width="40" height="18" rx="4" fill="#1e293b" stroke="#34d399" stroke-width="1"/>
+    <rect x="636" y="491" width="24" height="4" rx="2" fill="#94a3b8"/>
+    <rect x="632" y="508" width="50" height="11" rx="5.5" fill="#4f46e5"/>
+  </g>
+
+  <!-- Floating tool chips -->
+  <g class="float" filter="url(#shadow)">
+    <rect x="34" y="312" width="64" height="64" rx="16" fill="url(#card)" stroke="#fbbf24" stroke-opacity="0.6"/>
+    <!-- lightbulb -->
+    <path d="M66 330 a13 13 0 0 1 8 23 v5 h-16 v-5 a13 13 0 0 1 8 -23 z" fill="#fbbf24"/>
+    <rect x="59" y="360" width="14" height="4" rx="2" fill="#fcd34d"/>
+  </g>
+  <g class="float d2" filter="url(#shadow)">
+    <rect x="712" y="276" width="60" height="60" rx="15" fill="url(#card)" stroke="#f472b6" stroke-opacity="0.6"/>
+    <!-- megaphone -->
+    <path d="M726 300 h8 l18 -10 v30 l-18 -10 h-8 z" fill="#f472b6"/>
+    <path d="M734 310 l3 12 h6 l-3 -12" fill="#f9a8d4"/>
+    <path d="M757 298 q5 7 0 14" stroke="#f9a8d4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <g class="float d1" filter="url(#shadow)">
+    <rect x="40" y="70" width="60" height="60" rx="15" fill="url(#card)" stroke="#38bdf8" stroke-opacity="0.6"/>
+    <!-- folder with arrow -->
+    <path d="M54 88 h12 l4 5 h16 v26 h-32 z" fill="#38bdf8"/>
+    <path d="M70 114 v-14 m-6 6 l6 -6 l6 6" stroke="#0f172a" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g class="float d3" filter="url(#shadow)">
+    <rect x="690" y="24" width="60" height="60" rx="15" fill="url(#card)" stroke="#a78bfa" stroke-opacity="0.6"/>
+    <!-- quiz card -->
+    <rect x="704" y="38" width="32" height="32" rx="6" fill="#a78bfa"/>
+    <path d="M712 54 l6 6 l11 -12" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g class="float d2" filter="url(#shadow)">
+    <rect x="352" y="470" width="60" height="60" rx="15" fill="url(#card)" stroke="#34d399" stroke-opacity="0.6"/>
+    <!-- speech bubbles -->
+    <path d="M364 486 h26 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-16 l-7 6 v-6 h-3 a4 4 0 0 1 -4 -4 v-14 a4 4 0 0 1 4 -4 z" fill="#34d399"/>
+    <path d="M384 498 h16 a3 3 0 0 1 3 3 v10 a3 3 0 0 1 -3 3 h-2 v5 l-6 -5 h-8 a3 3 0 0 1 -3 -3 v-10 a3 3 0 0 1 3 -3 z" fill="#6ee7b7"/>
+    <text x="375" y="501" font-size="11" font-weight="800" fill="#064e3b">?</text>
+  </g>
+
+  <!-- Feature ribbons -->
+  <g font-size="12.5" font-weight="700">
+    <g transform="translate(24 222)">
+      <rect width="128" height="28" rx="14" fill="#0f172a" stroke="#34d399" stroke-opacity="0.7"/>
+      <text x="64" y="18.5" text-anchor="middle" fill="#6ee7b7">End-to-End P2P</text>
+    </g>
+    <g transform="translate(500 552)">
+      <rect width="112" height="28" rx="14" fill="#0f172a" stroke="#818cf8" stroke-opacity="0.7"/>
+      <text x="56" y="18.5" text-anchor="middle" fill="#c7d2fe">No sign-up</text>
+    </g>
+    <g transform="translate(646 248)">
+      <rect width="132" height="28" rx="14" fill="#0f172a" stroke="#22d3ee" stroke-opacity="0.7" transform="translate(0 -4)"/>
+      <text x="66" y="14.5" text-anchor="middle" fill="#a5f3fc">Join by QR in 3s</text>
+    </g>
+  </g>
+</svg>
