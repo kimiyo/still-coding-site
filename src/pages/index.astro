@@ -47,7 +47,13 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       <div class="about-grid"><div><p class="about-prelude">설명은 짧게. 작업은 계속.</p><h2 id="about-title">Still coding,<br /><em>still curious.</em></h2></div><div class="about-copy"><span class="maker-name">JH Kim <span>INDEPENDENT DEVELOPER</span></span><p>아이디어를 설계하고, 코드로 만들고,<br />직접 운영합니다.</p><p class="about-small">게임에서 학습 도구, 협업 공간까지.<br />관심이 생기면 만들고, 만들면서 더 깊이 이해합니다.</p><a href="https://github.com/kimiyo" target="_blank" rel="noopener noreferrer" aria-label="JH Kim GitHub, 새 창">GitHub에서 이어보기 <span aria-hidden="true">↗</span></a></div></div>
     </section>
   </main>
-  <footer><a href="#top" class="footer-brand">STILL / CODING</a><p>IDEAS, MADE REAL.</p><p>© {new Date().getFullYear()} JH KIM · SEOUL</p></footer>
+  <footer>
+    <a href="#top" class="footer-brand">STILL / CODING</a>
+    <p>IDEAS, MADE REAL.</p>
+    <button class="share-button" type="button" data-share aria-describedby="share-status"><span data-share-label>이 사이트 공유하기</span><i aria-hidden="true">↗</i></button>
+    <p>© {new Date().getFullYear()} JH KIM · SEOUL</p>
+    <span class="sr-only" id="share-status" data-share-status aria-live="polite"></span>
+  </footer>
   <script>
     const header = document.querySelector<HTMLElement>("[data-header]");
     const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -60,5 +66,58 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       }), { threshold: 0.08 });
       document.querySelectorAll(".app-card, .bench-copy, .about-grid").forEach(element => observer.observe(element));
     }
+
+    const shareButton = document.querySelector<HTMLButtonElement>("[data-share]");
+    const shareLabel = shareButton?.querySelector<HTMLElement>("[data-share-label]");
+    const shareStatus = document.querySelector<HTMLElement>("[data-share-status]");
+    const shareUrl = "https://still-coding.cc/";
+    const shareTitle = "Still Coding — Ideas, made real.";
+    const shareDescription = "브라우저 게임, 학습 도구, 음악·협업·도시 탐색 앱을 만나보세요.";
+    const shareText = `${shareTitle}\n${shareDescription}\n${shareUrl}`;
+    let resetTimer: number | undefined;
+
+    const copyShareText = async () => {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareText);
+        return;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = shareText;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = Reflect.apply(document.execCommand, document, ["copy"]);
+      textarea.remove();
+      if (!copied) throw new Error("Copy failed");
+    };
+
+    const showShareResult = (label: string, announcement: string, state: "success" | "error") => {
+      if (!shareButton || !shareLabel) return;
+      window.clearTimeout(resetTimer);
+      shareLabel.textContent = label;
+      shareButton.dataset.state = state;
+      if (shareStatus) shareStatus.textContent = announcement;
+      resetTimer = window.setTimeout(() => {
+        shareLabel.textContent = "이 사이트 공유하기";
+        delete shareButton.dataset.state;
+      }, 2400);
+    };
+
+    shareButton?.addEventListener("click", async () => {
+      try {
+        const useNativeShare = "share" in navigator && window.matchMedia("(pointer: coarse)").matches;
+        if (useNativeShare) {
+          await navigator.share({ title: shareTitle, text: shareDescription, url: shareUrl });
+          showShareResult("공유했습니다", "사이트를 공유했습니다.", "success");
+        } else {
+          await copyShareText();
+          showShareResult("복사되었습니다", "사이트 소개와 주소를 클립보드에 복사했습니다.", "success");
+        }
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        showShareResult("다시 시도해 주세요", "공유 내용을 복사하지 못했습니다.", "error");
+      }
+    });
   </script>
 </BaseLayout>

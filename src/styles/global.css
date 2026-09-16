@@ -683,11 +683,60 @@ footer {
   letter-spacing:.14em;
   color:#92928b
 }
+.sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0
+}
 .footer-brand {
   font-size:.68rem;
   color:var(--ink);
   text-decoration:none;
   font-weight:650
+}
+.share-button {
+  min-width:190px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  padding:11px 14px 11px 16px;
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:var(--ink);
+  font:600 .58rem/1 var(--sans);
+  letter-spacing:.1em;
+  cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s
+}
+.share-button i {
+  color:#cdb990;
+  font:normal 1rem/1 var(--sans);
+  transition:transform .25s
+}
+.share-button:hover,.share-button:focus-visible {
+  border-color:#cdb990;
+  background:#d9bf8b;
+  color:#111315;
+  outline:none
+}
+.share-button:hover i,.share-button:focus-visible i {
+  color:#111315;
+  transform:rotate(45deg)
+}
+.share-button[data-state="success"] {
+  border-color:#9fb488;
+  color:#cbd9bc
+}
+.share-button[data-state="error"] {
+  border-color:#c57668;
+  color:#e1a79d
 }
 .arrived {
   animation:enter .8s ease both
@@ -929,6 +978,12 @@ footer {
   }
   footer p:nth-child(2) {
     display:none
+  }
+  .share-button {
+    order:4;
+    width:100%;
+    min-height:45px;
+    margin-top:5px
   }
 }
 @media(prefers-reduced-motion:reduce) {
