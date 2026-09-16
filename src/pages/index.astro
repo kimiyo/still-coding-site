@@ -50,11 +50,27 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
   <footer>
     <a href="#top" class="footer-brand">STILL / CODING</a>
     <p>IDEAS, MADE REAL.</p>
-    <button class="share-button" type="button" data-share aria-describedby="share-status"><span data-share-label>이 사이트 공유하기</span><i aria-hidden="true">↗</i></button>
+    <div class="footer-actions">
+      <button class="share-button" type="button" data-share aria-describedby="share-status"><span data-share-label>이 사이트 공유하기</span><i aria-hidden="true">↗</i></button>
+      <button class="qr-button" type="button" data-qr-open aria-haspopup="dialog" aria-controls="qr-dialog" aria-label="사이트 QR 코드 보기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM18 14h3v7h-3zM14 18h3v3h-3z"/><path d="M5 5h3v3H5zM16 5h3v3h-3zM5 16h3v3H5z" class="qr-cutout"/></svg>
+      </button>
+    </div>
     <p>© {new Date().getFullYear()} JH KIM · SEOUL</p>
     <span class="sr-only" id="share-status" data-share-status aria-live="polite"></span>
   </footer>
+  <dialog class="qr-dialog" id="qr-dialog" data-qr-dialog aria-labelledby="qr-title">
+    <div class="qr-dialog-inner">
+      <div class="qr-dialog-head"><span>SCAN / CONNECT</span><button type="button" data-qr-close aria-label="QR 코드 닫기">×</button></div>
+      <h2 id="qr-title">휴대폰으로<br /><em>이어보기.</em></h2>
+      <p>카메라로 QR 코드를 스캔하면<br />Still Coding으로 바로 연결됩니다.</p>
+      <div class="qr-code" data-qr-code aria-label="https://still-coding.cc/로 연결되는 QR 코드"></div>
+      <div class="qr-url-row"><a href="https://still-coding.cc/">still-coding.cc</a><button type="button" data-copy-url><span data-copy-url-label>주소 복사</span></button></div>
+    </div>
+  </dialog>
   <script>
+    import QRCode from "qrcode";
+
     const header = document.querySelector<HTMLElement>("[data-header]");
     const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
     updateHeader();
@@ -76,13 +92,13 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
     const shareText = `${shareTitle}\n${shareDescription}\n${shareUrl}`;
     let resetTimer: number | undefined;
 
-    const copyShareText = async () => {
+    const copyText = async (text: string) => {
       if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(shareText);
+        await navigator.clipboard.writeText(text);
         return;
       }
       const textarea = document.createElement("textarea");
-      textarea.value = shareText;
+      textarea.value = text;
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
@@ -111,12 +127,53 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
           await navigator.share({ title: shareTitle, text: shareDescription, url: shareUrl });
           showShareResult("공유했습니다", "사이트를 공유했습니다.", "success");
         } else {
-          await copyShareText();
+          await copyText(shareText);
           showShareResult("복사되었습니다", "사이트 소개와 주소를 클립보드에 복사했습니다.", "success");
         }
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") return;
         showShareResult("다시 시도해 주세요", "공유 내용을 복사하지 못했습니다.", "error");
+      }
+    });
+
+    const qrButton = document.querySelector<HTMLButtonElement>("[data-qr-open]");
+    const qrDialog = document.querySelector<HTMLDialogElement>("[data-qr-dialog]");
+    const qrCode = document.querySelector<HTMLElement>("[data-qr-code]");
+    const qrClose = document.querySelector<HTMLButtonElement>("[data-qr-close]");
+    const copyUrlButton = document.querySelector<HTMLButtonElement>("[data-copy-url]");
+    const copyUrlLabel = copyUrlButton?.querySelector<HTMLElement>("[data-copy-url-label]");
+    let qrReady = false;
+
+    const renderQrCode = async () => {
+      if (!qrCode || qrReady) return;
+      qrCode.innerHTML = await QRCode.toString(shareUrl, {
+        type: "svg",
+        width: 248,
+        margin: 2,
+        errorCorrectionLevel: "M",
+        color: { dark: "#101315", light: "#f0ece1" },
+      });
+      qrReady = true;
+    };
+
+    qrButton?.addEventListener("click", async () => {
+      if (!qrDialog) return;
+      await renderQrCode();
+      qrDialog.showModal();
+    });
+    qrClose?.addEventListener("click", () => qrDialog?.close());
+    qrDialog?.addEventListener("click", event => {
+      if (event.target === qrDialog) qrDialog.close();
+    });
+    qrDialog?.addEventListener("close", () => qrButton?.focus());
+    copyUrlButton?.addEventListener("click", async () => {
+      try {
+        await copyText(shareUrl);
+        if (copyUrlLabel) copyUrlLabel.textContent = "복사되었습니다";
+        if (shareStatus) shareStatus.textContent = "사이트 주소를 클립보드에 복사했습니다.";
+        window.setTimeout(() => { if (copyUrlLabel) copyUrlLabel.textContent = "주소 복사"; }, 2000);
+      } catch {
+        if (copyUrlLabel) copyUrlLabel.textContent = "다시 시도해 주세요";
       }
     });
   </script>

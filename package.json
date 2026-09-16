@@ -12,8 +12,12 @@
     "@astrojs/check": "latest",
     "@fontsource-variable/manrope": "latest",
     "@fontsource/noto-serif-kr": "latest",
+    "@types/qrcode": "^1.5.6",
     "astro": "^5.13.5",
     "typescript": "^5.9.2",
     "wrangler": "latest"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
   }
 }
