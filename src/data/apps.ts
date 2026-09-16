@@ -14,7 +14,7 @@ export interface PortfolioApp {
   tags: string[];
   accent: string;
   accentSoft: string;
-  visual: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard";
+  visual: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
   size: "wide" | "standard";
   order: number;
 }
@@ -102,6 +102,54 @@ export const apps: PortfolioApp[] = [
     visual: "collaboard",
     size: "wide",
     order: 5,
+  },
+  {
+    id: "bus-explorer",
+    title: "Bus Explorer",
+    eyebrow: "Exploration tool / 01",
+    url: "https://bus-explorer.still-coding.cc/",
+    category: "explore",
+    status: "public",
+    summary: "버스의 흐름을 따라 도시를 새롭게 읽는 노선 탐색 도구",
+    detail: "정류장과 노선을 오가며 익숙한 도시의 연결을 다른 시선으로 살펴봅니다. 이동 정보가 하나의 탐험 경험이 됩니다.",
+    tags: ["Transit", "Route map", "Urban explore"],
+    accent: "#ef5b3f",
+    accentSoft: "#f3c34f",
+    visual: "bus",
+    size: "standard",
+    order: 6,
+  },
+  {
+    id: "piano-play",
+    title: "Piano Play",
+    eyebrow: "Creative tool / 02",
+    url: "https://piano-play.still-coding.cc/",
+    category: "create",
+    status: "public",
+    summary: "건반을 누르는 순간 브라우저가 작은 연주 공간이 되는 웹 피아노",
+    detail: "별도의 설치 없이 화면과 키보드로 음을 연주합니다. 떠오른 멜로디를 가장 짧은 거리에서 소리로 바꾸는 도구입니다.",
+    tags: ["Piano", "Web Audio", "Keyboard"],
+    accent: "#87d8e8",
+    accentSoft: "#e96487",
+    visual: "piano",
+    size: "standard",
+    order: 7,
+  },
+  {
+    id: "vocal-check",
+    title: "Vocal Check",
+    eyebrow: "Music tool / 01",
+    url: "https://vocal-check.still-coding.cc/",
+    category: "learn",
+    status: "public",
+    summary: "내 목소리의 음정을 눈으로 확인하는 실시간 보컬 체크 도구",
+    detail: "마이크로 들어오는 목소리의 높낮이를 시각화해 음정을 바로 확인합니다. 듣고 부르는 연습 사이에 명확한 피드백을 더합니다.",
+    tags: ["Pitch", "Microphone", "Realtime"],
+    accent: "#b6e36f",
+    accentSoft: "#65b8ea",
+    visual: "vocal",
+    size: "standard",
+    order: 8,
   },
 ];
 

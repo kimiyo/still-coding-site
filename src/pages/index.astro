@@ -3,13 +3,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import AppCard from "../components/AppCard.astro";
 import AppVisual from "../components/AppVisual.astro";
 import { apps } from "../data/apps";
-const selected = ["direct-play", "kana-atelier", "pinhole-lab", "collaboard"].map(id => apps.find(app => app.id === id)!);
+const selected = ["direct-play", "kana-atelier", "pinhole-lab", "collaboard", "bus-explorer", "piano-play", "vocal-check"].map(id => apps.find(app => app.id === id)!);
+const newApps = selected.slice(-3);
 const description = "생각한 것을, 작동하게 만듭니다. JH Kim이 직접 설계하고 만들고 운영하는 웹 앱과 작은 실험들.";
 const structuredData = { "@context": "https://schema.org", "@type": "ItemList", name: "Still Coding — Selected works", numberOfItems: selected.length, itemListElement: selected.map((app, index) => ({ "@type": "ListItem", position: index + 1, name: app.title, url: app.url })) };
 ---
 <BaseLayout title="Still Coding — Ideas, made real." description={description}>
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
   <a class="skip-link" href="#apps">작품으로 바로 가기</a>
+  <aside class="launch-ticker" aria-label="새로 공개한 앱">
+    <div class="ticker-track">
+      {[0, 1].map((copy) => <div class="ticker-set" aria-hidden={copy === 1 ? "true" : undefined}>{newApps.map(app => <a href={app.url} target="_blank" rel="noopener noreferrer" tabindex={copy === 1 ? -1 : undefined}><span>NEW RELEASE</span>{app.title}<i aria-hidden="true">↗</i></a>)}</div>)}
+    </div>
+  </aside>
   <header class="site-header" data-header>
     <a href="#top" class="brand" aria-label="Still Coding 홈"><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
     <span class="header-note">INDEPENDENT DEVELOPER · SEOUL</span>
@@ -28,9 +34,9 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       <div class="hero-bottom"><span>JH KIM — DESIGN & DEVELOPMENT</span><span>STILL CURIOUS. STILL CODING.</span><a href="#apps">SCROLL TO DISCOVER <span aria-hidden="true">↓</span></a></div>
     </section>
     <section class="projects-section" id="apps" aria-labelledby="apps-title">
-      <div class="section-heading"><div><span class="section-number">01 / SELECTED WORKS</span><h2 id="apps-title">Proof of <em>curiosity.</em></h2></div><p>소개 대신, 작동하는 것들.<br />서로 다른 질문에서 시작한 네 개의 작업.</p></div>
+      <div class="section-heading"><div><span class="section-number">01 / SELECTED WORKS</span><h2 id="apps-title">Proof of <em>curiosity.</em></h2></div><p>소개 대신, 작동하는 것들.<br />서로 다른 질문에서 시작한 일곱 개의 작업.</p></div>
       <div class="app-grid">{selected.map((app, index) => <AppCard app={app} index={index + 1} />)}</div>
-      <p class="works-colophon"><span>CONCEPT → DESIGN → CODE → OPERATION</span><span>네 개의 작업, 하나의 작업대.</span></p>
+      <p class="works-colophon"><span>CONCEPT → DESIGN → CODE → OPERATION</span><span>일곱 개의 작업, 하나의 작업대.</span></p>
     </section>
     <section class="workbench" id="lab" aria-labelledby="lab-title">
       <div class="bench-copy"><span class="section-number">02 / ON THE WORKBENCH</span><h2 id="lab-title">Not finished.<br /><em>Still exploring.</em></h2><span class="bench-status"><span class="signal-dot"></span> 비공개 실험 · 다듬는 중</span><h3>Guitar Auto-Strum</h3><p>코드만 잡으면 리듬이 흐르는 브라우저 기타.<br />손의 움직임이 음악이 되는 경험을 실험합니다.</p><span class="bench-meta">EXPERIMENT 005 / SOUND & INTERACTION</span></div>

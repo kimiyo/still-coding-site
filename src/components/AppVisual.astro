@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard";
+  variant: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
   title: string;
 }
 
@@ -54,6 +54,29 @@ const { variant, title } = Astro.props;
         <section><small>🔑 기존 팀 룸 참여</small><div class="room-field muted">ABCD–1234</div><div class="join-button">룸 입장하기</div></section>
       </div>
       <strong>SHARE WITH THE TEAM, <em>NOT THE SERVER.</em></strong>
+    </div>
+  )}
+  {variant === "bus" && (
+    <div class="visual-content bus-content">
+      <div class="transit-head"><b>BUS / EXPLORER</b><span>LIVE ROUTE</span></div>
+      <div class="route-map" aria-hidden="true"><i></i><i></i><i></i><i></i><span>273</span></div>
+      <strong>FOLLOW THE LINE.<br /><em>FIND THE CITY.</em></strong>
+    </div>
+  )}
+  {variant === "piano" && (
+    <div class="visual-content piano-content">
+      <span class="visual-label">PIANO / PLAY</span>
+      <div class="piano-display"><small>NOW PLAYING</small><b>C<span>4</span></b><i></i></div>
+      <div class="piano-keys" aria-hidden="true">{Array.from({ length: 8 }).map(() => <i></i>)}</div>
+      <strong>PRESS A KEY. <em>MAKE A SOUND.</em></strong>
+    </div>
+  )}
+  {variant === "vocal" && (
+    <div class="visual-content vocal-content">
+      <div class="vocal-head"><b>VOCAL CHECK</b><span>● LISTENING</span></div>
+      <div class="pitch-readout"><small>CURRENT NOTE</small><b>A<sup>4</sup></b><span>440.0 <i>Hz</i></span></div>
+      <div class="pitch-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <strong>SEE YOUR <em>VOICE.</em></strong>
     </div>
   )}
 </div>
