@@ -1,25 +1,18 @@
 ---
 import type { PortfolioApp } from "../data/apps";
 import AppVisual from "./AppVisual.astro";
-interface Props { app: PortfolioApp; index: number }
-const { app, index } = Astro.props;
-const editorial: Record<string, { discipline: string; line: string; action: string; note: string; }> = {
-  "direct-play": { discipline: "PLAY / MULTIPLAYER EXPERIENCE", line: "함께 노는 일은, 가볍게.", action: "게임 고르기", note: "하나의 입구, 서로 다른 일곱 가지 놀이. 게임을 고르고 방을 만든 뒤 링크로 초대하는 흐름에 여러 게임을 모았습니다. 공개방과 비밀방으로 함께할 사람을 선택할 수 있습니다." },
-  "kana-atelier": { discipline: "LEARN / INTERACTION DESIGN", line: "글자를 외우는 대신, 감각으로.", action: "가나 학습 시작", note: "글자의 모양과 소리, 손의 움직임을 함께 다룹니다. 쓰기와 음성, 비슷한 글자의 짝 학습을 연결하고 학습 진도는 브라우저에 기록합니다." },
-  "pinhole-lab": { discipline: "PLAY / SMALL SYSTEMS", line: "작은 규칙에서 시작되는 몰입.", action: "퍼즐 둘러보기", note: "제한된 시야에서 정답을 찾는 관찰과, 합이 10이 되도록 숫자를 연결하는 계산. 서로 다른 두 판단을 혼자 또는 게임방에서 경험하도록 구성했습니다." },
-  "collaboard": { discipline: "CONNECT / REALTIME SYSTEMS", line: "함께 생각하는 공간의 구조.", action: "협업 도구 열기", note: "방을 만드는 역할과 팀 자료를 주고받는 경로를 나눕니다. 서버가 방을 만들고, 화이트보드부터 워크숍 피드백까지 8가지 도구를 팀원 사이의 WebRTC 연결로 협업합니다." },
-  "bus-explorer": { discipline: "EXPLORE / URBAN MOBILITY", line: "노선을 따라, 도시를 다시 읽기.", action: "노선 탐색하기", note: "버스 노선은 도시가 움직이는 방식의 기록입니다. 정류장과 경로를 정보로만 보여주지 않고, 연결을 발견하는 탐색 경험으로 풀었습니다." },
-  "piano-play": { discipline: "CREATE / PIANO PLAY", line: "악보에서 소리까지, 같은 스튜디오.", action: "Songnote 열기", note: "포털 카드의 Piano Play와 앱의 Songnote는 같은 주소의 같은 제품입니다. ABC 악보를 오선보로 보고 고친 뒤 재생하고, 컴퓨터 키보드와 화면 건반으로 직접 칩니다. 사용법은 카드의 사용법 링크로 공개 가이드에 이어집니다." },
-  "vocal-check": { discipline: "LEARN / AUDIO FEEDBACK", line: "목소리의 높이를, 눈앞에.", action: "음정 확인하기", note: "감각에 의존하던 음정 연습에 즉각적인 시각 피드백을 더했습니다. 마이크 입력을 분석해 현재 음과 음의 흔들림을 한눈에 확인합니다." },
-};
-const copy = editorial[app.id];
-if (!copy) throw new Error(`Missing editorial content for ${app.id}`);
+import { common, getAppText, localizedPath, type Locale } from "../i18n";
+interface Props { app: PortfolioApp; index: number; locale?: Locale }
+const { app: sourceApp, index, locale = "ko" } = Astro.props;
+const app = getAppText(sourceApp, locale);
+const copy = app;
+const text = common[locale];
 ---
 <article class:list={["app-card", `work-${app.id}`, index === 1 && "featured-work"]} data-accent={app.accent} style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}>
-  <div class="card-head"><span>WORK / {String(index).padStart(2, "0")}</span><span>{index === 1 ? "SELECTED PROJECT" : copy.discipline}</span><span class="public-mark">LIVE <i></i></span></div>
-  <a class="visual-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} 체험하기, 새 창`}>
-    {app.id === "collaboard" ? <img class="collaboard-help-hero" src="/images/apps/collaboard-help-hero.svg" alt="여러 기기가 서버를 거치지 않고 서로 직접 연결되어 협업하는 CollaBoard" /> : <AppVisual variant={app.visual} title={app.title} />}
+  <div class="card-head"><span>{text.work} / {String(index).padStart(2, "0")}</span><span>{index === 1 ? text.selected : copy.discipline}</span><span class="public-mark">{text.live} <i></i></span></div>
+  <a class="visual-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${locale === "en" ? "open in a new window" : "체험하기, 새 창"}`}>
+    {app.id === "collaboard" ? <img class="collaboard-help-hero" src="/images/apps/collaboard-help-hero.svg" alt={locale === "en" ? "Several devices collaborating directly in a private CollaBoard room" : "여러 기기가 서버를 거치지 않고 서로 직접 연결되어 협업하는 CollaBoard"} /> : <AppVisual variant={app.visual} title={app.title} locale={locale} />}
     <span class="visual-open" aria-hidden="true">↗</span>
   </a>
-  <div class="card-copy"><span class="eyebrow">{copy.discipline}</span><div class="work-title-row"><h3><a href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title}, 새 창`}>{app.title}</a></h3><span class="work-number" aria-hidden="true">0{index}</span></div><p class="summary">{copy.line}</p><p class="detail">{app.detail}</p><div class="card-foot"><ul class="tags" aria-label={`${app.title} 특징`}>{app.tags.map(tag => <li>{tag}</li>)}</ul><div class="card-actions"><a class="help-link" href={`/apps/${app.id}/`} aria-label={`${app.title} 상세 안내 보기`}>상세 안내 <span aria-hidden="true">?</span></a>{app.helpUrl && <a class="help-link" href={app.helpUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} 사용법 보기, 새 창`}>사용법 <span aria-hidden="true">↗</span></a>}<a class="app-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${copy.action}, 새 창`}>{copy.action} <span aria-hidden="true">↗</span></a></div></div><details class="project-note"><summary>작업의 관점 <span aria-hidden="true">+</span></summary><p>{copy.note}</p></details></div>
+  <div class="card-copy"><span class="eyebrow">{copy.discipline}</span><div class="work-title-row"><h3><a href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${app.title}, ${locale === "en" ? "opens in a new window" : "새 창"}`}>{app.title}</a></h3><span class="work-number" aria-hidden="true">0{index}</span></div><p class="summary">{copy.line}</p><p class="detail">{app.detail}</p><div class="card-foot"><ul class="tags" aria-label={`${app.title} ${locale === "en" ? "features" : "특징"}`}>{app.tags.map(tag => <li>{tag}</li>)}</ul><div class="card-actions"><a class="help-link" href={localizedPath(`/apps/${app.id}/`, locale)} aria-label={`${app.title} ${text.details}`}>{text.details} <span aria-hidden="true">?</span></a>{app.helpUrl && <a class="help-link" href={app.helpUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${text.howTo}`}>{text.howTo} <span aria-hidden="true">↗</span></a>}<a class="app-link" href={app.url} target="_blank" rel="noopener noreferrer" aria-label={`${copy.action}`}>{copy.action} <span aria-hidden="true">↗</span></a></div></div><details class="project-note"><summary>{text.perspective} <span aria-hidden="true">+</span></summary><p>{copy.note}</p></details></div>
 </article>

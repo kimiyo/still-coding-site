@@ -3,18 +3,23 @@ import "@fontsource-variable/manrope";
 import "@fontsource/noto-serif-kr/400.css";
 import "@fontsource/noto-serif-kr/600.css";
 import "../styles/global.css";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import { localizedPath, type Locale } from "../i18n";
 
 interface Props {
   title: string;
   description: string;
+  locale?: Locale;
 }
 
-const { title, description } = Astro.props;
+const { title, description, locale = "ko" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternate = new URL(localizedPath(Astro.url.pathname, locale === "ko" ? "en" : "ko"), Astro.site);
+const defaultUrl = new URL(localizedPath(Astro.url.pathname, "ko"), Astro.site);
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,9 +27,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="theme-color" content="#090b0d" />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <link rel="alternate" hreflang={locale === "ko" ? "en" : "ko"} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale" content={locale === "en" ? "en_US" : "ko_KR"} />
     <meta property="og:site_name" content="Still Coding" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -38,6 +46,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
   </head>
   <body>
+    <div class="global-language"><LanguageSwitcher locale={locale} /></div>
     <slot />
   </body>
 </html>

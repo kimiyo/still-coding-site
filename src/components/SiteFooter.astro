@@ -1,10 +1,16 @@
+---
+import { common, localizedPath, type Locale } from "../i18n";
+interface Props { locale?: Locale }
+const { locale = "ko" } = Astro.props;
+const text = common[locale];
+---
 <footer class="site-footer">
-  <a href="/" class="footer-brand">STILL / CODING</a>
-  <p>IDEAS, MADE REAL.</p>
-  <nav aria-label="사이트 안내">
-    <a href="/about/">소개</a>
-    <a href="/privacy/">개인정보처리방침</a>
-    <a href="/contact/">문의</a>
+  <a href={localizedPath("/", locale)} class="footer-brand">STILL / CODING</a>
+  <p>{text.footerIdea}</p>
+  <nav aria-label={locale === "en" ? "Site information" : "사이트 안내"}>
+    <a href={localizedPath("/about/", locale)}>{text.about}</a>
+    <a href={localizedPath("/privacy/", locale)}>{text.privacy}</a>
+    <a href={localizedPath("/contact/", locale)}>{text.contact}</a>
   </nav>
   <p>© {new Date().getFullYear()} JH KIM · SEOUL</p>
 </footer>

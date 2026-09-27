@@ -1,0 +1,15 @@
+---
+import InfoLayout from "../../../layouts/InfoLayout.astro";
+import { apps } from "../../../data/apps";
+import { getAppText } from "../../../i18n";
+export function getStaticPaths() { return apps.filter(app => app.status === "public").map(app => ({ params: { slug: app.id }, props: { app } })); }
+const { app: sourceApp } = Astro.props;
+const app = getAppText(sourceApp, "en");
+---
+<InfoLayout title={app.title} description={`${app.title} — ${app.summary}`} eyebrow={`STILL CODING / WORK ${String(app.order).padStart(2, "0")}`} locale="en">
+  <div class="app-detail-hero" style={`--detail-accent:${app.accent}`}><div><p class="detail-eyebrow">{app.eyebrow}</p><p class="detail-summary">{app.summary}</p><p>{app.detail}</p></div><div class="detail-actions">{app.url && <a class="primary-link" href={app.url} target="_blank" rel="noopener noreferrer">Open app <span aria-hidden="true">↗</span></a>}<a class="secondary-link" href="/en/">View all works</a></div></div>
+  <section class="detail-section"><p class="section-number">01 / FOR WHOM</p><h2>Who is this<br /><em>for?</em></h2><p>{app.audience}</p></section>
+  <section class="detail-section"><p class="section-number">02 / START IN THREE STEPS</p><h2>Start here<br /><em>if you're new.</em></h2><ol class="step-list">{app.steps.map((step, index) => <li><span>0{index + 1}</span><p>{step}</p></li>)}</ol></section>
+  <section class="detail-section"><p class="section-number">03 / DATA & LIMITS</p><h2>Before you use it<br /><em>know this.</em></h2><p>{app.dataPolicy}</p></section>
+  <section class="detail-section faq-section"><p class="section-number">04 / FAQ</p><h2>Frequently asked<br /><em>questions.</em></h2>{app.faqs.map(faq => <details><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</section>
+</InfoLayout>

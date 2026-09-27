@@ -1,0 +1,24 @@
+---
+import { localeNames, localizedPath, type Locale } from "../i18n";
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const path = Astro.url.pathname;
+---
+<div class="language-switcher" data-language-switcher>
+  <button type="button" class="language-button" aria-label={`${localeNames[locale]} — ${locale === "en" ? "Choose language" : "언어 선택"}`} aria-expanded="false" aria-controls="language-menu" data-language-button>{localeNames[locale]} <span aria-hidden="true">⌄</span></button>
+  <div class="language-menu" id="language-menu" role="listbox" aria-label={locale === "en" ? "Choose language" : "언어 선택"} data-language-menu hidden>
+    <a href={localizedPath(path, "ko")} role="option" aria-selected={locale === "ko" ? "true" : "false"} class:list={{ "is-current": locale === "ko" }}>한글</a>
+    <a href={localizedPath(path, "en")} role="option" aria-selected={locale === "en" ? "true" : "false"} class:list={{ "is-current": locale === "en" }}>English</a>
+  </div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-language-switcher]").forEach(wrapper => {
+    const button = wrapper.querySelector<HTMLButtonElement>("[data-language-button]");
+    const menu = wrapper.querySelector<HTMLElement>("[data-language-menu]");
+    if (!button || !menu) return;
+    const close = () => { menu.hidden = true; button.setAttribute("aria-expanded", "false"); };
+    button.addEventListener("click", () => { const open = menu.hidden; menu.hidden = !open; button.setAttribute("aria-expanded", String(open)); if (open) menu.querySelector<HTMLElement>(".is-current")?.focus(); });
+    document.addEventListener("click", event => { if (!wrapper.contains(event.target as Node)) close(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") { close(); button.focus(); } });
+  });
+</script>

@@ -2,20 +2,22 @@
 interface Props {
   variant: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
   title: string;
+  locale?: "ko" | "en";
 }
 
-const { variant, title } = Astro.props;
+const { variant, title, locale = "ko" } = Astro.props;
+const isEnglish = locale === "en";
 ---
 
-<div class:list={["app-visual", `visual-${variant}`]} aria-label={`${title} 미리보기`} role="img">
+<div class:list={["app-visual", `visual-${variant}`]} aria-label={`${title} ${isEnglish ? "preview" : "미리보기"}`} role="img">
   {variant === "direct-play" && (
     <div class="visual-content direct-content">
-      <div class="direct-mini-head"><span class="direct-logo"><i></i><b>다이렉트 플레이</b></span><span>PUBLIC ROOM</span></div>
-      <div class="direct-tabs"><b>공개방</b><span>비밀방</span></div>
+      <div class="direct-mini-head"><span class="direct-logo"><i></i><b>{isEnglish ? "DIRECT PLAY" : "다이렉트 플레이"}</b></span><span>PUBLIC ROOM</span></div>
+      <div class="direct-tabs"><b>{isEnglish ? "PUBLIC" : "공개방"}</b><span>{isEnglish ? "PRIVATE" : "비밀방"}</span></div>
       <div class="direct-games" aria-hidden="true">
-        <span><i>🧩</i><b>사진퍼즐게임</b><small>협동 · 퍼즐</small></span>
-        <span><i>🔢</i><b>숫자 야구</b><small>두뇌 · 추리</small></span>
-        <span><i>🏎️</i><b>포켓 레이스</b><small>파티 · 레이싱</small></span>
+        <span><i>🧩</i><b>{isEnglish ? "Photo Puzzle" : "사진퍼즐게임"}</b><small>{isEnglish ? "Co-op · Puzzle" : "협동 · 퍼즐"}</small></span>
+        <span><i>🔢</i><b>{isEnglish ? "Number Baseball" : "숫자 야구"}</b><small>{isEnglish ? "Logic · Guess" : "두뇌 · 추리"}</small></span>
+        <span><i>🏎️</i><b>{isEnglish ? "Pocket Race" : "포켓 레이스"}</b><small>{isEnglish ? "Party · Racing" : "파티 · 레이싱"}</small></span>
       </div>
       <strong>CHOOSE · INVITE · PLAY</strong>
     </div>
@@ -32,10 +34,10 @@ const { variant, title } = Astro.props;
   )}
   {variant === "kana" && (
     <div class="visual-content kana-content">
-      <div class="kana-mini-head"><span>かな<br /><b>KANA ATELIER</b></span><small><em>1</em> / 149 표기</small></div>
-      <div class="kana-course"><small>두 문자를 한 흐름으로</small><b><em>あ</em>와 <em>ア</em>, 같은 소리로 연결해요.</b><i>통합 학습 시작　›</i></div>
+      <div class="kana-mini-head"><span>かな<br /><b>KANA ATELIER</b></span><small><em>1</em> / 149 {isEnglish ? "forms" : "표기"}</small></div>
+      <div class="kana-course"><small>{isEnglish ? "One sound, two scripts" : "두 문자를 한 흐름으로"}</small><b><em>あ</em> {isEnglish ? "and" : "와"} <em>ア</em>, {isEnglish ? "the same sound." : "같은 소리로 연결해요."}</b><i>{isEnglish ? "Start lesson" : "통합 학습 시작"}　›</i></div>
       <div class="kana-mark"><span>あ</span><i></i></div>
-      <strong>듣고, 말하고,<br /><em>손끝으로 익혀요.</em></strong>
+      <strong>{isEnglish ? <>Listen, speak,<br /><em>learn by hand.</em></> : <>듣고, 말하고,<br /><em>손끝으로 익혀요.</em></>}</strong>
     </div>
   )}
   {variant === "guitar" && (
@@ -50,8 +52,8 @@ const { variant, title } = Astro.props;
     <div class="visual-content collaboard-content">
       <div class="collaboard-mini-head"><b>🤝 CollaBoard</b><span>PRIVATE P2P SPACE</span></div>
       <div class="collaboard-panes" aria-hidden="true">
-        <section><small>🚀 새 팀 룸 만들기</small><div class="room-field">우리 팀 프라이빗 룸</div><div class="tool-grid"><i>🎨</i><i>💡</i><i>❓</i><i>📚</i><i>🗳️</i><i>📁</i></div></section>
-        <section><small>🔑 기존 팀 룸 참여</small><div class="room-field muted">ABCD–1234</div><div class="join-button">룸 입장하기</div></section>
+        <section><small>🚀 {isEnglish ? "Create team room" : "새 팀 룸 만들기"}</small><div class="room-field">{isEnglish ? "Our private room" : "우리 팀 프라이빗 룸"}</div><div class="tool-grid"><i>🎨</i><i>💡</i><i>❓</i><i>📚</i><i>🗳️</i><i>📁</i><i>📢</i><i>💬</i></div></section>
+        <section><small>🔑 {isEnglish ? "Join existing room" : "기존 팀 룸 참여"}</small><div class="room-field muted">ABCD–1234</div><div class="join-button">{isEnglish ? "Join room" : "룸 입장하기"}</div></section>
       </div>
       <strong>SHARE WITH THE TEAM, <em>NOT THE SERVER.</em></strong>
     </div>
