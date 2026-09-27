@@ -10,14 +10,14 @@
 ## 🌐 라이브 사이트
 
 - **공식 도메인**: [https://still-coding.cc](https://still-coding.cc)
-- **보조 도메인**: [https://www.still-coding.cc](https://www.still-coding.cc)
-- **Cloudflare Workers**: [https://still-coding-portfolio.kimiyohome.workers.dev](https://still-coding-portfolio.kimiyohome.workers.dev)
+- **보조 도메인**: `www.still-coding.cc` — Cloudflare Redirect Rule로 루트 도메인에 301 리다이렉트합니다(아래 배포 절 참고).
+- `*.workers.dev` 주소와 미리보기 URL은 중복 색인을 막기 위해 끕니다(`workers_dev: false`, `preview_urls: false`).
 
 ### 등록된 앱 목록
 
 | 앱 | 카테고리 | 상태 | 설명 | 링크 |
 |---|---|---|---|---|
-| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구 등 7종) | [바로가기](https://dp.still-coding.cc/) |
+| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구, 미니 스도쿠 등 9종) | [바로가기](https://dp.still-coding.cc/) |
 | **Pinhole Lab** | Play | `Public` | 작은 규칙과 관찰을 중심으로 한 퍼즐 게임 컬렉션 (Pinhole, Sum Drop) | [바로가기](https://pinhole-game.still-coding.cc/) |
 | **가나 공방** | Learn | `Public` | 히라가나와 가타카나를 듣고 말하고 쓰며 익히는 일본어 학습 도구 | [바로가기](https://study-hiragana.still-coding.cc/) |
 | **Guitar Auto-Strum** | Create | `Private beta` | 코드와 리듬을 선택해 기타 자동 반주를 연주하는 웹 오디오 도구 | *검증 중 (Access 제한)* |
@@ -61,16 +61,22 @@ still-coding/
 │  ├─ favicon.svg
 │  └─ robots.txt
 ├─ src/
+│  ├─ content/notes/         # 개발 노트 Markdown (content.config.ts 스키마로 검증)
 │  ├─ components/
 │  │  ├─ AppCard.astro       # 앱 카드 컴포넌트 (상태, 태그, CTA 링크)
 │  │  ├─ AppVisual.astro     # 앱별 고유 기하학 비주얼 일러스트
 │  │  └─ GeometryBackground.astro # 반응형 인터랙티브 Canvas 배경
 │  ├─ data/
-│  │  └─ apps.ts            # 앱 카탈로그 레지스트리 (데이터 모델)
+│  │  ├─ apps.ts            # 앱 카탈로그 레지스트리 (데이터 모델)
+│  │  └─ site.ts            # 운영자·연락처·AdSense 게시자 ID 설정
 │  ├─ layouts/
 │  │  └─ BaseLayout.astro    # 공통 HTML 레이아웃 (SEO, Meta, OG)
 │  ├─ pages/
-│  │  ├─ index.astro        # 메인 페이지 (Hero, Bento Grid, About, Footer)
+│  │  ├─ index.astro        # 메인 페이지 (Hero, 소개, Works, 노트, About, Footer)
+│  │  ├─ notes/             # 개발 노트 목록·상세 (한국어)
+│  │  ├─ privacy·terms·contact·about.astro  # 정책·운영 페이지 (en/ 아래 영어판)
+│  │  ├─ sitemap.xml.ts     # 앱·노트 데이터로 사이트맵 생성
+│  │  ├─ ads.txt.ts         # PUBLIC_ADSENSE_CLIENT가 있을 때만 판매자 행 출력
 │  │  └─ 404.astro          # 커스텀 404 페이지
 │  └─ styles/
 │     └─ global.css         # 글로벌 토큰 및 리셋 스타일
@@ -108,6 +114,34 @@ pnpm run build
 pnpm run preview
 ```
 
+### 빌드 환경변수
+
+| 변수 | 용도 |
+| --- | --- |
+| `PUBLIC_ADSENSE_CLIENT` | AdSense 게시자 ID(`ca-pub-` + 16자리). 값이 있으면 모든 페이지 `<head>`에 `google-adsense-account` 메타 태그와 `adsbygoogle.js`를 넣고, `/ads.txt`에 판매자 행을 출력합니다. 형식이 틀리면 무시합니다. |
+| `PUBLIC_FEEDBACK_APP_ID` | 테스터 피드백 위젯 앱 ID. 없으면 위젯을 넣지 않습니다. |
+
+빌드는 로컬에서 하고 `dist/`를 배포하므로, 값은 저장소 루트의 `.env`(커밋하지 않음)에 둡니다.
+
+```bash
+# .env
+PUBLIC_ADSENSE_CLIENT=ca-pub-0000000000000000
+```
+
+### 개발 노트 추가
+
+`src/content/notes/`에 Markdown 파일을 추가하면 `/notes/<파일명>/`으로 게시되고, 노트 목록·홈·사이트맵에 자동으로 들어갑니다. `app`에 `apps.ts`의 `id`를 적으면 해당 앱 상세 페이지에도 링크가 붙습니다.
+
+```markdown
+---
+title: "글 제목"
+description: "목록과 검색 결과에 보일 한두 문장 요약"
+pubDate: 2026-10-01
+app: vocal-check   # 선택
+tags: ["Web Audio"]
+---
+```
+
 ---
 
 ## 🚀 배포 (Cloudflare Workers)
@@ -125,15 +159,19 @@ npx wrangler deploy
 
 ### 도메인 및 라우트 구성 (`wrangler.jsonc`)
 
-Cloudflare의 **CNAME Flattening** 덕분에 루트 도메인(`still-coding.cc`)과 `www` 서브도메인을 모두 Worker Custom Domain으로 직접 매핑하여 운영합니다.
+루트 도메인(`still-coding.cc`)과 `www` 서브도메인을 모두 Worker Custom Domain으로 연결하되, 대표 주소는 루트 도메인 하나입니다. 같은 내용이 두 주소로 색인되지 않도록 Cloudflare 대시보드에서 `www`를 루트로 301 리다이렉트합니다.
+
+1. Cloudflare 대시보드 → `still-coding.cc` → **Rules → Redirect Rules → Create rule**
+2. 템플릿 **Redirect from WWW to root**를 선택하거나, 조건 `Hostname equals www.still-coding.cc`, 동작 `Dynamic` / `concat("https://still-coding.cc", http.request.uri.path)` / `301` / 쿼리 문자열 유지로 만듭니다.
+3. `curl -I https://www.still-coding.cc/about/`가 `301`과 `location: https://still-coding.cc/about/`를 돌려주는지 확인합니다.
 
 ```jsonc
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "still-coding-portfolio",
   "compatibility_date": "2026-09-01",
-  "workers_dev": true,
-  "preview_urls": true,
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"

@@ -8,8 +8,10 @@ const text = common[locale];
   <a href={localizedPath("/", locale)} class="footer-brand">STILL / CODING</a>
   <p>{text.footerIdea}</p>
   <nav aria-label={locale === "en" ? "Site information" : "사이트 안내"}>
+    <a href="/notes/">{text.notes}</a>
     <a href={localizedPath("/about/", locale)}>{text.about}</a>
     <a href={localizedPath("/privacy/", locale)}>{text.privacy}</a>
+    <a href={localizedPath("/terms/", locale)}>{text.terms}</a>
     <a href={localizedPath("/contact/", locale)}>{text.contact}</a>
   </nav>
   <p>© {new Date().getFullYear()} JH KIM · SEOUL</p>

@@ -5,3 +5,5 @@ dist/
 .sites-runtime/
 *.log
 .pnpm-store/
+.env
+.env.*

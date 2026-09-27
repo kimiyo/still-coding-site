@@ -15,6 +15,26 @@
 | piano-play.still-coding.cc | kimiyo/piano-songnote |
 | vocal-check.still-coding.cc | kimiyo/vocal-check-app |
 
+## 진행 현황 (포털)
+
+같은 날 포털 저장소에서 아래 항목을 반영했다. 하위 앱 저장소의 조치는 아직이다.
+
+| 항목 | 상태 | 반영 내용 |
+| --- | --- | --- |
+| P0-1 개인정보처리방침 광고 고지 | 완료 | ko/en 4항 "광고와 쿠키", 앱별 방침 링크, 이메일 문의, 이용자 권리 |
+| P0-2 확인 코드 | 완료 | `PUBLIC_ADSENSE_CLIENT` 설정 시 `BaseLayout.astro`가 메타 태그·스크립트 출력 |
+| P0-3 ads.txt | 코드 완료, **값 입력 필요** | `src/pages/ads.txt.ts`. 게시자 ID를 `.env`에 넣고 빌드·배포 |
+| P0-4 콘텐츠 | 시작 | `/notes/` 섹션과 노트 4편, 홈 소개문·최근 노트, 앱 상세의 관련 노트. 15–20편까지 계속 추가 필요 |
+| P0-5 연락처 | 완료 | `still.coding.cc@gmail.com`(하위 앱들이 이미 쓰는 운영자 주소), GitHub 이슈 |
+| P1-6 중복 호스트 | 코드 완료, **대시보드 작업 필요** | `workers_dev`/`preview_urls` 끔. `www` → 루트 301은 Cloudflare Redirect Rule로 설정(README 참고) |
+| P1-7 이용약관 | 완료 | `/terms/`, `/en/terms/`, 푸터·사이트맵 |
+| P1-8 가이드 링크 | 완료 | 가나 공방·Bus Explorer `helpUrl`을 정적 `/guide/`로 |
+| P1-9 게임 수 | 완료 | Direct Play 9개 게임, Pinhole Lab과의 관계 FAQ |
+| P1-10 앱별 방침 링크 | 완료 | 개인정보처리방침 3항 |
+| P1-11 홈 한국어 본문 | 완료 | 홈 "00 / WHAT IS STILL CODING" 소개, 최근 노트 섹션 |
+| (추가) 사이트맵 자동 생성 | 완료 | `src/pages/sitemap.xml.ts`, 노트 `lastmod` 포함 |
+| (추가) CSS 버그 | 완료 | 정의되지 않은 `--muted`/`--accent` 변수 정의, 데스크톱 정보 페이지 푸터의 가로 넘침(2,336px) 수정 |
+
 ## 요약: 신청 전에 반드시 고칠 것 (P0)
 
 1. **포털 개인정보처리방침이 광고 게재와 모순된다.** `src/pages/privacy.astro`, `src/pages/en/privacy.astro`에 "광고 식별자 수집을 운영하지 않습니다"라고 적혀 있다. AdSense 프로그램 정책은 Google 등 제3자 공급업체가 쿠키로 광고를 게재한다는 사실과 사용자가 맞춤 광고를 끌 수 있는 방법을 개인정보처리방침에 공개하도록 요구한다.

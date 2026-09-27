@@ -1,6 +1,6 @@
 # Google AdSense 승인 요청 절차 (still-coding.cc)
 
-작성일 2026-09-28
+작성일 2026-09-27 (같은 날 `ADSENSE_REVIEW_2026-09-27.md` 점검 결과를 반영해 정정)
 
 ## 개요
 
@@ -19,10 +19,13 @@ still-coding.cc는 Astro로 빌드되어 Cloudflare(wrangler)로 배포되는 �
 
 - [x] 도메인 소유 및 HTTPS 배포 (`astro.config.mjs`의 `site: "https://still-coding.cc"`)
 - [x] `/privacy/` 개인정보처리방침 페이지 게시 (`src/pages/privacy.astro`, `src/pages/en/privacy.astro`)
-- [x] `/contact/` 문의 페이지 게시 (`src/pages/contact.astro`)
-- [x] `robots.txt`, `sitemap.xml` 공개 (`public/robots.txt`, `public/sitemap.xml`)
-- [x] 고유 콘텐츠 7개 앱 소개 포털 + 운영자 소개(About)
-- [ ] `/ads.txt` 미게시 — `public/ads.txt`가 아직 없음 (AdSense 계정 승인 후 실제 게시자 ID로 게시해야 함)
+- [x] `/contact/` 문의 페이지 게시 — 운영자 이메일 `still.coding.cc@gmail.com` (`src/data/site.ts`)
+- [x] `/terms/` 이용약관 게시 (`src/pages/terms.astro`, `src/pages/en/terms.astro`)
+- [x] 개인정보처리방침에 Google 광고 쿠키와 맞춤 광고 해제 방법 고지 (4항 "광고와 쿠키")
+- [x] AdSense 확인 코드: `PUBLIC_ADSENSE_CLIENT` 환경변수로 `BaseLayout.astro`에 메타 태그·스크립트 출력
+- [x] `robots.txt`, `sitemap.xml` 공개 (`public/robots.txt`, 사이트맵은 `src/pages/sitemap.xml.ts`가 앱·노트 데이터로 생성)
+- [ ] 고유 콘텐츠 — 앱 상세 7개 + 개발 노트 4편으로 시작. 노트를 15–20편 이상으로 늘린 뒤 신청 권장 (`src/content/notes/`)
+- [ ] `/ads.txt` — `src/pages/ads.txt.ts`가 `PUBLIC_ADSENSE_CLIENT` 값으로 판매자 행을 만든다. 게시자 ID는 가입 즉시 발급되므로 **신청 전에** 값을 넣고 배포한다.
 - [ ] 최근 30일 내 충분히 확보된 실제 방문 트래픽 확보 (미검증, AdSense 자체는 최소 트래픽을 명시하지 않지만 검토자가 실제 이용 정황을 확인함)
 - [ ] 만 18세 이상이어야 하며 계정 소유자의 은행 개인정보가 AdSense 계정에 등록되어 있어야 함(지급을 위해 필수)
 
@@ -51,11 +54,11 @@ still-coding.cc는 Astro로 빌드되어 Cloudflare(wrangler)로 배포되는 �
 
 still-coding.cc는 Astro로 빌드해 wrangler로 Cloudflare에 배포된다. 모든 페이지가 `src/layouts/BaseLayout.astro`를 공유하므로, 이곳에 한 번만 적용하면 사이트 전체에 적용된다.
 
-1. **사이트 소유권 확인 코드 삽입** — AdSense가 발급한 `<meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">` 또는 `adsbygoogle.js` 스크립트 태그를 `BaseLayout.astro`의 `<head>` 내부(기존 `<meta>` 태그들 바로 아래)에 추가한다.
-2. **`ads.txt` 게시** — AdSense 계정이 발급한 행(예: `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`)을 그대로 `public/ads.txt`에 일반 텍스트로 넣고 빌드한다. Astro는 `public/` 아래 파일을 루트에 그대로 복사하므로 배포 후 `https://still-coding.cc/ads.txt`가 일반 텍스트로 응답되는지 반드시 확인한다(SPA/404 핸들러가 HTML을 대신 반환하지 않도록 주의).
-3. **검토용 vs 실서빙 코드 분리** — 사이트 등록/소유권 확인 단계에는 확인 태그만 필요하다. 승인 이전에 실제 광고 유닛(Auto Ads 또는 디스플레이 광고)을 미리 삽입하지 않는다 — 승인되지 않은 사이트에서 광고 코드만 먼저 돌아가는 것은 정책상 문제가 되지는 않지만, 승인 후 실제 게재 코드를 따로 추가하는 편이 변경 이력 관리에 유리하다.
+1. **사이트 소유권 확인 코드** — `PUBLIC_ADSENSE_CLIENT`가 설정되면 `BaseLayout.astro`가 모든 페이지 `<head>`에 `<meta name="google-adsense-account">`와 `adsbygoogle.js` 스크립트를 출력한다. 코드를 직접 붙여 넣을 필요는 없다.
+2. **`ads.txt` 게시** — 저장소 루트 `.env`에 `PUBLIC_ADSENSE_CLIENT=ca-pub-…`를 넣고 빌드하면 `/ads.txt`에 `google.com, pub-…, DIRECT, f08c47fec0942fa0` 행이 생긴다. 값이 없으면 주석 한 줄만 출력하고, 가짜 ID는 절대 넣지 않는다. Astro는 `public/` 아래 파일을 루트에 그대로 복사하므로 배포 후 `https://still-coding.cc/ads.txt`가 일반 텍스트로 응답되는지 반드시 확인한다(SPA/404 핸들러가 HTML을 대신 반환하지 않도록 주의).
+3. **검토용 vs 실서빙 코드 분리** — `adsbygoogle.js` 스크립트는 Google이 안내하는 공식 확인 방법 중 하나이며, 승인 전에는 광고가 표시되지 않을 뿐이다. 개별 광고 단위(`<ins class="adsbygoogle">`)나 Auto Ads 설정은 승인 후 읽기 페이지에만 추가한다.
 4. **배포** — `pnpm run build`(`astro check && astro build`) 후 `pnpm run deploy`(`wrangler deploy`)로 반영한다. 변경 후 반드시 실제 배포 도메인에서 `view-source:`로 `<meta name="google-adsense-account">` 태그와 `/ads.txt` 응답을 직접 확인한다.
-5. **앱별 하위 도메인** — Vocal Check 등 `*.still-coding.cc` 하위 앱은 별도 배포체로, 각 앱이 자체 `ads.txt`가 필요한지는 해당 저장소에서 별도로 관리해야 한다.
+5. **앱별 하위 도메인** — Google은 루트 도메인의 `https://still-coding.cc/ads.txt`를 확인하므로 하위 도메인마다 ads.txt를 둘 필요는 없다. 두려면 실제 ID만 넣고, 플레이스홀더(`pub-XXXX…`) 행은 두지 않는다.
 
 ## 콘텐츠 및 정책 요구사항
 
@@ -63,13 +66,13 @@ Google이 가장 자주 거절하는 사유는 정책 위반이 아니라 '검�
 
 | 항목 | 요구사항 | still-coding.cc 현황 |
 | --- | --- | --- |
-| 고유 콘텐츠 | 다른 사이트에 없는 자체 설명·평가·문서가 충분해야 함 | 7개 앱 소개 문구가 실제 기능과 일치하는지 재점검 필요(CollaBoard 기능 수, Piano Play→Songnote 명칭 불일치 미검증) |
+| 고유 콘텐츠 | 다른 사이트에 없는 자체 설명·평가·문서가 충분해야 함 | 앱 설명을 실제 앱과 대조해 정정(Direct Play 9개 게임, CollaBoard 8개 도구, Songnote 명칭). 개발 노트 4편 게시, 15–20편 이상으로 확대 필요 |
 | 탐색 가능성 | 메뉴/링크로 페이지 간 이동이 명확해야 함 | 각 앱 카드 → 앱 → 포털 외론 경로 점검 필요 |
-| 개인정보처리방침 | 실제 데이터 처리 방식과 일치하는 문서가 공개되어야 함 | `/privacy/`, `/en/privacy/` 게시됨(커밋 `872ed63`) |
-| 연락처 | 운영자에게 연락할 수 있는 경로 필요 | `/contact/` 게시됨 |
+| 개인정보처리방침 | 실제 데이터 처리 방식과 광고 쿠키 사용을 공개해야 함 | `/privacy/`, `/en/privacy/`에 광고와 쿠키(4항), 앱별 방침 링크 게시 |
+| 연락처 | 운영자에게 연락할 수 있는 경로 필요 | `/contact/`에 운영자 이메일과 GitHub 이슈 경로 게시 |
 | 네비게이션 | 사용자가 실수로 광고를 클릭하도록 유도하는 UI 금지 | 앱 조작 화면에 광고를 배치하지 않고 포털·소개 영역으로 제한 |
 | 금지 콘텐츠 | 성인·폭력·저작권 침해 등이 없어야 함 | 포트폴리오 성격상 해당 없음(직접 확인 권장) |
-| 사이트 안정성 | 404·깨진 링크 없이 정상 작동해야 함 | `/ads.txt`는 아직 404 — 승인 후 게시로 입력 문제 없도록 해야 함 |
+| 사이트 안정성 | 404·깨진 링크 없이 정상 작동해야 함 | `/ads.txt`는 text/plain으로 항상 응답. 게시자 ID 설정 후 판매자 행 출력 |
 | 유럽/영국 방문자 | EEA·영국·스위스 방문자에게는 CMP(동의 관리 플랫폼) 적용 검토 필요 | 해당 지역 방문자 비율 미계측 — 미리 검토 권장 |
 
 참고: [AdSense에 적합한 사이트 준비](https://support.google.com/adsense/answer/7299563), [유럽 지역 CMP 요건](https://support.google.com/adsense/answer/13554116)
@@ -101,5 +104,5 @@ Google이 가장 자주 거절하는 사유는 정책 위반이 아니라 '검�
 
 - 검토 중에는 사이트 내용을 자유롭게 수정해도 되지만, 이미 게재된 광고 코드를 임의로 제거하지 말 것.
 - 거절 후 재신청은 횟수 제한이 명시되어 있지 않지만, 개선 없이 반복 재신청하면 검토 지연이나 계정 제한으로 이어질 수 있다.
-- 승인 전까지는 사이트에 실제 광고를 노출하지 않는다(정책 위반 소지).
-- 한 계정으로 여러 도메인(하위 앱 포함)을 관리할 수 있으므로, 포털이 승인되면 각 `*.still-coding.cc` 앱은 별도 승인 절차 없이 같은 계정에 추가할 수 있다(각 앱이 자체 `ads.txt`를 가지는지는 개별 확인 필요).
+- 승인 전에는 광고가 표시되지 않는다. 확인용 `adsbygoogle.js` 스크립트는 넣어 두어도 된다.
+- 루트 도메인 `still-coding.cc`가 승인되면 `*.still-coding.cc` 하위 앱에도 같은 계정으로 광고를 게재할 수 있다. ads.txt는 루트 도메인 파일 하나로 충분하다.

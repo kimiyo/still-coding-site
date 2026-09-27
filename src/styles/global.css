@@ -5,6 +5,8 @@
   --line:rgba(238,234,224,.16);
   --line-strong:rgba(238,234,224,.35);
   --focus:#d9bf8b;
+  --muted:var(--ink-muted);
+  --accent:var(--focus);
   --page:min(1360px,calc(100% - 112px));
   --sans:"Manrope Variable",sans-serif;
   --serif:"Noto Serif KR",serif
@@ -1785,7 +1787,7 @@ footer {
 .policy-copy h2 { margin: 0 0 14px; font-size: 1.1rem; font-weight: 500; }
 .policy-copy p, .policy-copy li { color: var(--muted); line-height: 1.9; }
 .policy-copy strong { color: var(--ink); font-weight: 500; }
-.site-footer { min-height: 110px; padding: 24px var(--page); display: flex; align-items: center; gap: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .55rem; letter-spacing: .1em; }
+.site-footer { min-height: 110px; padding: 24px calc((100% - var(--page)) / 2); display: flex; align-items: center; gap: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .55rem; letter-spacing: .1em; }
 .site-footer .footer-brand { color: var(--ink); margin-right: auto; }
 .site-footer p { margin: 0; }
 .app-detail-hero { display: flex; justify-content: space-between; gap: 50px; margin-bottom: 120px; padding: 32px 0 42px; border-top: 2px solid var(--detail-accent); border-bottom: 1px solid var(--line); }
@@ -1822,3 +1824,39 @@ footer {
   .detail-actions .primary-link, .detail-actions .secondary-link { margin-top: 0; }
   .policy-meta { line-height: 1.8; }
 }
+
+/* Development notes */
+.note-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.note-list li { border-bottom: 1px solid var(--line); }
+.note-list a { display: block; padding: 34px 0; color: inherit; text-decoration: none; }
+.note-list a:hover h2, .note-list a:hover h3 { color: var(--accent); }
+.note-list h2, .note-list h3 { margin: 12px 0; font: 400 clamp(1.5rem, 3vw, 2.2rem)/1.25 var(--serif); letter-spacing: -.04em; }
+.note-list p { max-width: 680px; margin: 0; color: var(--muted); line-height: 1.8; }
+.note-meta, .note-byline { display: flex; gap: 18px; flex-wrap: wrap; color: var(--muted); font-size: .66rem; letter-spacing: .08em; }
+.note-byline { margin-bottom: 48px; }
+.note-body { max-width: 720px; color: var(--muted); font-size: 1.02rem; line-height: 1.95; overflow-wrap: break-word; }
+.note-body h2 { margin: 64px 0 18px; color: var(--ink); font: 400 clamp(1.5rem, 3vw, 2.1rem)/1.25 var(--serif); letter-spacing: -.04em; }
+.note-body h3 { margin: 40px 0 12px; color: var(--ink); font-size: 1.1rem; font-weight: 600; }
+.note-body strong { color: var(--ink); font-weight: 600; }
+.note-body a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 4px; }
+.note-body ul, .note-body ol { padding-left: 1.3rem; }
+.note-body li + li { margin-top: 6px; }
+.note-body code { padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); font-size: .88em; }
+.note-body pre { margin: 24px 0; padding: 18px 20px; overflow-x: auto; border: 1px solid var(--line); background: rgba(255, 255, 255, .03); line-height: 1.6; }
+.note-body pre code { padding: 0; border: 0; font-size: .84rem; }
+.note-body table { width: 100%; margin: 24px 0; border-collapse: collapse; font-size: .92rem; display: block; overflow-x: auto; }
+.note-body th, .note-body td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.note-body th { color: var(--ink); font-weight: 500; }
+.note-body blockquote { margin: 24px 0; padding-left: 18px; border-left: 2px solid var(--accent); }
+.note-footer { max-width: 720px; margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--line-strong); color: var(--muted); }
+.detail-notes { list-style: none; padding: 0; margin: 0; }
+.detail-notes li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.home-intro { width: var(--page); margin: 0 auto; padding: 110px 0 40px; }
+.home-intro p { max-width: 720px; color: var(--muted); font-size: 1.05rem; line-height: 1.95; }
+.home-intro h2 { margin: 22px 0 28px; font: 400 clamp(2rem, 4vw, 3.4rem)/1.12 var(--serif); letter-spacing: -.06em; }
+.home-intro h2 em { color: var(--accent); font-style: italic; }
+.home-notes { width: var(--page); margin: 0 auto; padding: 60px 0 120px; }
+.home-notes h2 { margin: 22px 0 28px; font: 400 clamp(2rem, 4vw, 3.4rem)/1.12 var(--serif); letter-spacing: -.06em; }
+.home-notes h2 em { color: var(--accent); font-style: italic; }
+.detail-notes p { margin: 6px 0 0; color: var(--muted); line-height: 1.7; }
+.home-notes .note-list p { max-width: 720px; }

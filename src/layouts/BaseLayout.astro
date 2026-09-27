@@ -5,14 +5,18 @@ import "@fontsource/noto-serif-kr/600.css";
 import "../styles/global.css";
 import FeedbackWidget from "../components/FeedbackWidget.astro";
 import { localizedPath, type Locale } from "../i18n";
+import { adsenseClient } from "../data/site";
 
 interface Props {
   title: string;
   description: string;
   locale?: Locale;
+  /** false for pages that exist in only one language, so no hreflang points at a missing page. */
+  translated?: boolean;
+  ogType?: "website" | "article";
 }
 
-const { title, description, locale = "ko" } = Astro.props;
+const { title, description, locale = "ko", translated = true, ogType = "website" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const alternate = new URL(localizedPath(Astro.url.pathname, locale === "ko" ? "en" : "ko"), Astro.site);
 const defaultUrl = new URL(localizedPath(Astro.url.pathname, "ko"), Astro.site);
@@ -29,11 +33,11 @@ const feedbackBaseUrl = import.meta.env.PUBLIC_FEEDBACK_BASE_URL || "https://use
     <meta name="theme-color" content="#090b0d" />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={locale} href={canonical} />
-    <link rel="alternate" hreflang={locale === "ko" ? "en" : "ko"} href={alternate} />
-    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+    {translated && <link rel="alternate" hreflang={locale} href={canonical} />}
+    {translated && <link rel="alternate" hreflang={locale === "ko" ? "en" : "ko"} href={alternate} />}
+    {translated && <link rel="alternate" hreflang="x-default" href={defaultUrl} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content={locale === "en" ? "en_US" : "ko_KR"} />
     <meta property="og:site_name" content="Still Coding" />
     <meta property="og:title" content={title} />
@@ -44,6 +48,8 @@ const feedbackBaseUrl = import.meta.env.PUBLIC_FEEDBACK_BASE_URL || "https://use
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL("/images/brand/orbital-study.webp", Astro.site)} />
+    {adsenseClient && <meta name="google-adsense-account" content={adsenseClient} />}
+    {adsenseClient && <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossorigin="anonymous"></script>}
     <slot name="head" />
     <title>{title}</title>
   </head>

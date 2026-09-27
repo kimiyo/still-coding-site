@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from "astro:content";
+import InfoLayout from "../../layouts/InfoLayout.astro";
+import { apps } from "../../data/apps";
+import { site } from "../../data/site";
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+  return notes.map(note => ({ params: { slug: note.id }, props: { note } }));
+}
+const { note } = Astro.props;
+const { Content } = await render(note);
+const app = apps.find(item => item.id === note.data.app);
+const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  headline: note.data.title,
+  description: note.data.description,
+  inLanguage: "ko",
+  datePublished: note.data.pubDate.toISOString(),
+  dateModified: (note.data.updatedDate ?? note.data.pubDate).toISOString(),
+  author: { "@type": "Person", name: site.operator, url: site.githubUrl },
+  publisher: { "@type": "Organization", name: site.name, url: site.url },
+  mainEntityOfPage: new URL(`/notes/${note.id}/`, site.url).toString(),
+};
+---
+<InfoLayout title={note.data.title} description={note.data.description} eyebrow="STILL CODING / NOTES" translated={false} ogType="article">
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+  <div class="policy-meta note-byline"><span>{site.operator}</span><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{note.data.updatedDate && <span>업데이트 {formatDate(note.data.updatedDate)}</span>}</div>
+  <article class="note-body"><Content /></article>
+  <aside class="note-footer">
+    {app && <p>이 글에서 다룬 앱: <a class="text-link" href={`/apps/${app.id}/`}>{app.title} 소개</a>{app.url && <> · <a class="text-link" href={app.url} target="_blank" rel="noopener noreferrer">앱 열기 ↗</a></>}</p>}
+    <p><a class="secondary-link" href="/notes/">모든 노트 보기</a></p>
+  </aside>
+</InfoLayout>
