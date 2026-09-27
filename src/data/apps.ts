@@ -7,6 +7,7 @@ export interface PortfolioApp {
   eyebrow: string;
   url?: string;
   helpUrl?: string;
+  englishReady?: boolean;
   category: AppCategory;
   status: AppStatus;
   summary: string;
@@ -174,6 +175,7 @@ export const apps: PortfolioApp[] = [
     eyebrow: "Music tool / 01",
     url: "https://vocal-check.still-coding.cc/",
     helpUrl: "https://vocal-check.still-coding.cc/guide/",
+    englishReady: true,
     category: "learn",
     status: "public",
     summary: "내 목소리의 음정을 눈으로 확인하는 실시간 보컬 체크 도구",

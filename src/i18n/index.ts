@@ -43,5 +43,12 @@ const english: Record<string, EnglishFields> = {
 
 export function getLocaleFromPath(pathname: string): Locale { return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "ko"; }
 export function localizedPath(pathname: string, locale: Locale): string { const base = pathname.replace(/^\/en(?=\/|$)/, "") || "/"; if (locale === "ko") return base; return base === "/" ? "/en/" : `/en${base}`; }
+export function localizedAppUrl(url: string | undefined, locale: Locale, englishReady?: boolean): string | undefined {
+  if (!url || locale !== "en" || !englishReady) return url;
+  const parsed = new URL(url);
+  const path = parsed.pathname.endsWith("/") ? parsed.pathname : `${parsed.pathname}/`;
+  parsed.pathname = path === "/" ? "/en/" : `/en${path}`;
+  return parsed.toString();
+}
 export function getAppText(app: PortfolioApp, locale: Locale) { const copy = editorial[locale][app.id]; if (!copy) throw new Error(`Missing ${locale} editorial content for ${app.id}`); const [discipline, line, action, note] = copy; return { ...app, ...(locale === "en" ? english[app.id] : {}), discipline, line, action, note }; }
 export type AppText = ReturnType<typeof getAppText>;
