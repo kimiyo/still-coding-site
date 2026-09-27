@@ -1,0 +1,6 @@
+---
+interface Props { appId: string; baseUrl?: string }
+const { appId, baseUrl = "https://user-feedback.still-coding.cc" } = Astro.props;
+---
+<!-- The feedback service owns tester authentication, launcher visibility, rate limits, uploads, and authorization. -->
+<script is:inline src={`${baseUrl}/widget/common-feedback-widget.js`} data-feedback-app-id={appId} data-feedback-base-url={baseUrl} defer></script>
