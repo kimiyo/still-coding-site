@@ -3,4 +3,14 @@
   <url>
     <loc>https://still-coding.cc/</loc>
   </url>
+  <url><loc>https://still-coding.cc/about/</loc></url>
+  <url><loc>https://still-coding.cc/privacy/</loc></url>
+  <url><loc>https://still-coding.cc/contact/</loc></url>
+  <url><loc>https://still-coding.cc/apps/direct-play/</loc></url>
+  <url><loc>https://still-coding.cc/apps/pinhole-lab/</loc></url>
+  <url><loc>https://still-coding.cc/apps/kana-atelier/</loc></url>
+  <url><loc>https://still-coding.cc/apps/collaboard/</loc></url>
+  <url><loc>https://still-coding.cc/apps/bus-explorer/</loc></url>
+  <url><loc>https://still-coding.cc/apps/piano-play/</loc></url>
+  <url><loc>https://still-coding.cc/apps/vocal-check/</loc></url>
 </urlset>

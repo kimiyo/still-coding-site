@@ -17,6 +17,10 @@ export interface PortfolioApp {
   visual: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
   size: "wide" | "standard";
   order: number;
+  audience: string;
+  steps: string[];
+  dataPolicy: string;
+  faqs: { question: string; answer: string }[];
 }
 
 export const apps: PortfolioApp[] = [
@@ -36,6 +40,10 @@ export const apps: PortfolioApp[] = [
     visual: "direct-play",
     size: "wide",
     order: 1,
+    audience: "친구·가족·동료와 설치 없이 짧은 게임을 즐기고 싶은 사람",
+    steps: ["게임을 고르고 방을 만듭니다.", "초대 링크를 친구에게 공유합니다.", "같은 방에서 게임을 선택하고 플레이합니다."],
+    dataPolicy: "포털은 게임 화면을 저장하지 않습니다. 방과 플레이 데이터의 처리 방식은 게임별 운영 정책을 따르므로 플레이 전 앱 화면의 안내를 확인하세요.",
+    faqs: [{ question: "회원가입이 필요한가요?", answer: "포털 계정 없이 시작할 수 있습니다. 게임방 공유에 필요한 링크를 함께 사용할 사람에게 보내면 됩니다." }, { question: "모바일에서도 되나요?", answer: "지원 브라우저에서 열 수 있지만, 게임별 조작 방식과 화면 크기는 다를 수 있습니다." }],
   },
   {
     id: "pinhole-lab",
@@ -53,6 +61,10 @@ export const apps: PortfolioApp[] = [
     visual: "pinhole",
     size: "standard",
     order: 2,
+    audience: "관찰력과 계산 감각을 가볍게 연습하고 싶은 사람",
+    steps: ["Pinhole 또는 Sum Drop을 선택합니다.", "혼자 플레이하거나 게임방을 엽니다.", "제한된 시야 또는 합 10 규칙으로 기록을 만듭니다."],
+    dataPolicy: "이 포털은 플레이 기록을 보관하지 않습니다. 게임에서 제공하는 저장 기능이 있다면 앱 화면에 표시된 브라우저 저장 안내를 따릅니다.",
+    faqs: [{ question: "두 게임은 어떻게 다른가요?", answer: "Pinhole은 작은 시야로 대상을 관찰하고, Sum Drop은 떨어지는 숫자를 조합해 합 10을 만듭니다." }, { question: "친구와도 할 수 있나요?", answer: "게임방 기능이 제공되는 경우 방 링크를 공유해 함께 플레이할 수 있습니다." }],
   },
   {
     id: "kana-atelier",
@@ -70,6 +82,10 @@ export const apps: PortfolioApp[] = [
     visual: "kana",
     size: "standard",
     order: 3,
+    audience: "히라가나·가타카나를 쓰고 듣고 말하며 익히려는 학습자",
+    steps: ["학습할 문자와 표기 범위를 선택합니다.", "문자를 직접 쓰고 소리와 단어를 확인합니다.", "비슷한 글자 짝과 복습하며 진도를 이어갑니다."],
+    dataPolicy: "학습 진도는 브라우저에 기록되며 포털 서버로 전송되지 않습니다. 음성 기능을 사용할 때는 브라우저의 마이크 권한이 필요할 수 있습니다.",
+    faqs: [{ question: "149개 표기를 모두 학습할 수 있나요?", answer: "기본 문자와 확장 표기를 포함한 149개 범위를 제공하며, 원하는 범위부터 시작할 수 있습니다." }, { question: "설치해야 하나요?", answer: "설치 없이 브라우저에서 사용할 수 있습니다." }],
   },
   {
     id: "guitar-auto-strum",
@@ -85,6 +101,10 @@ export const apps: PortfolioApp[] = [
     visual: "guitar",
     size: "wide",
     order: 4,
+    audience: "코드 입력만으로 기타 반주 아이디어를 실험하고 싶은 음악가",
+    steps: ["코드를 입력합니다.", "자동 스트럼 패턴을 고릅니다.", "리듬과 사운드를 들으며 편곡을 다듬습니다."],
+    dataPolicy: "현재 비공개 베타이며 운영 방식은 공개 전 검증 중입니다. 공개 후 앱 화면에 최신 저장·권한 안내를 제공합니다.",
+    faqs: [{ question: "지금 사용할 수 있나요?", answer: "현재 개발자와 테스트 사용자만 접근할 수 있는 비공개 실험입니다." }],
   },
   {
     id: "collaboard",
@@ -95,13 +115,17 @@ export const apps: PortfolioApp[] = [
     category: "create",
     status: "public",
     summary: "방은 서버가 만들고, 팀의 자료는 팀원 사이에만 남는 협업 공간",
-    detail: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 즉석 투표와 파일 공유를 하나의 비밀 룸에서 WebRTC로 직접 연결합니다.",
-    tags: ["6 team tools", "WebRTC P2P", "No storage"],
+    detail: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 투표, 파일 공유, 공지, 피드백 8가지 도구를 하나의 비밀 룸에서 WebRTC로 직접 연결합니다.",
+    tags: ["8 team tools", "WebRTC P2P", "No storage"],
     accent: "#00c8e7",
     accentSoft: "#6657f5",
     visual: "collaboard",
     size: "wide",
     order: 5,
+    audience: "작은 팀이 별도 계정 없이 자료를 함께 보고 싶은 사람",
+    steps: ["비밀 룸을 만들고 이름을 정합니다.", "초대 링크를 팀원에게 공유합니다.", "화이트보드·Q&A·퀴즈·투표 등 필요한 도구를 엽니다."],
+    dataPolicy: "방을 찾기 위한 신호 교환은 서버를 거치지만 팀 자료는 WebRTC로 참여자 사이에 직접 전달되는 구조입니다. 포털은 협업 자료를 저장하지 않습니다. 민감한 자료는 팀의 보안 기준을 확인한 뒤 사용하세요.",
+    faqs: [{ question: "어떤 협업 도구가 있나요?", answer: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 투표, 파일 공유, 공지, 피드백의 8가지 도구를 제공합니다." }, { question: "파일도 서버에 저장되나요?", answer: "이 포털 설명 기준으로 팀 자료는 P2P로 전달되며, 연결이 끊기면 다시 공유해야 할 수 있습니다." }],
   },
   {
     id: "bus-explorer",
@@ -118,22 +142,31 @@ export const apps: PortfolioApp[] = [
     visual: "bus",
     size: "standard",
     order: 6,
+    audience: "버스 노선과 정류장의 연결을 지도처럼 탐색하고 싶은 사람",
+    steps: ["관심 있는 도시·노선을 엽니다.", "정류장과 연결된 경로를 따라갑니다.", "새로운 이동 경로를 발견하고 다시 탐색합니다."],
+    dataPolicy: "포털은 버스 탐색 기록을 저장하지 않습니다. 지도와 교통 데이터는 앱이 연결한 외부 데이터 제공자의 운영 상태에 영향을 받을 수 있습니다.",
+    faqs: [{ question: "실시간 도착 정보인가요?", answer: "Bus Explorer는 노선과 연결을 탐색하는 경험에 초점을 둡니다. 실시간 운행 정보로 사용하기 전 앱의 데이터 기준일을 확인하세요." }, { question: "어떤 화면에서 시작하나요?", answer: "앱 링크를 열고 노선 또는 정류장을 선택하면 연결된 경로를 따라갈 수 있습니다." }],
   },
   {
     id: "piano-play",
-    title: "Piano Play",
-    eyebrow: "Creative tool / 02",
+    title: "Songnote",
+    eyebrow: "Piano Play / 02",
     url: "https://piano-play.still-coding.cc/",
+    helpUrl: "https://piano-play.still-coding.cc/guide/",
     category: "create",
     status: "public",
-    summary: "건반을 누르는 순간 브라우저가 작은 연주 공간이 되는 웹 피아노",
-    detail: "별도의 설치 없이 화면과 키보드로 음을 연주합니다. 떠오른 멜로디를 가장 짧은 거리에서 소리로 바꾸는 도구입니다.",
-    tags: ["Piano", "Web Audio", "Keyboard"],
+    summary: "ABC 악보를 고치고 108건반으로 듣는 Songnote 스튜디오",
+    detail: "Piano Play는 제품 Songnote의 포털 이름입니다. 예제 악보를 따라 ABC를 편집하고, 합성 피아노로 재생하고, 화면의 108건반으로 연주합니다. 만든 악보는 서버가 아니라 이 브라우저에만 남습니다.",
+    tags: ["ABC score", "108 keys", "On this browser"],
     accent: "#87d8e8",
     accentSoft: "#e96487",
     visual: "piano",
     size: "standard",
     order: 7,
+    audience: "ABC 악보를 편집하고 피아노 소리로 바로 확인하고 싶은 사람",
+    steps: ["예제 악보를 열거나 ABC 표기를 입력합니다.", "악보를 확인하고 필요한 부분을 고칩니다.", "합성 피아노로 재생하거나 108건반으로 연주합니다."],
+    dataPolicy: "만든 악보는 서버가 아니라 이 브라우저에만 남습니다. 브라우저 데이터를 삭제하거나 다른 기기에서 열면 저장한 작업을 잃을 수 있습니다.",
+    faqs: [{ question: "Piano Play와 Songnote는 다른 앱인가요?", answer: "Piano Play는 포털에서의 이름이고, 앱 화면의 제품명은 Songnote입니다. 같은 주소의 같은 악보·피아노 스튜디오입니다." }, { question: "어떤 악보 형식을 쓰나요?", answer: "ABC 표기를 편집하고 화면에서 악보와 소리로 확인할 수 있습니다." }],
   },
   {
     id: "vocal-check",
@@ -150,6 +183,10 @@ export const apps: PortfolioApp[] = [
     visual: "vocal",
     size: "standard",
     order: 8,
+    audience: "노래 연습 중 음정의 움직임을 눈으로 확인하고 싶은 사람",
+    steps: ["마이크 권한을 허용하고 시작합니다.", "편한 음을 내며 실시간 음정 표시를 봅니다.", "표시된 음과 흔들림을 참고해 다시 연습합니다."],
+    dataPolicy: "마이크 입력은 음정 분석을 위해 브라우저에서 사용됩니다. 포털은 음성 녹음을 저장하지 않습니다. 브라우저와 기기의 마이크 권한을 직접 관리하세요.",
+    faqs: [{ question: "노래를 녹음하나요?", answer: "포털 설명 기준으로 녹음 파일을 저장하지 않고 실시간 음정 확인에 사용합니다." }, { question: "정확한 튜너인가요?", answer: "연습을 돕는 시각 피드백 도구입니다. 전문 튜너나 의료·음향 측정 장비를 대신하지 않습니다." }],
   },
 ];
 

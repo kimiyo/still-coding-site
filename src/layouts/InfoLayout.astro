@@ -1,0 +1,18 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+interface Props { title: string; description: string; eyebrow?: string }
+const { title, description, eyebrow = "STILL CODING / PUBLIC NOTES" } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <header class="info-header">
+    <a href="/" class="brand" aria-label="Still Coding 홈"><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
+    <nav aria-label="주요 메뉴"><a href="/">Works</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+  </header>
+  <main class="info-main">
+    <p class="section-number">{eyebrow}</p>
+    <h1>{title}</h1>
+    <slot />
+  </main>
+  <SiteFooter />
+</BaseLayout>
