@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AppCard from "../components/AppCard.astro";
 import AppVisual from "../components/AppVisual.astro";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import { apps } from "../data/apps";
 const selected = ["direct-play", "kana-atelier", "pinhole-lab", "collaboard", "bus-explorer", "piano-play", "vocal-check"].map(id => apps.find(app => app.id === id)!);
 const newApps = selected.slice(-3);
@@ -19,7 +20,7 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
   <header class="site-header" data-header>
     <a href="#top" class="brand" aria-label="Still Coding 홈"><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
     <span class="header-note">INDEPENDENT DEVELOPER · SEOUL</span>
-    <nav aria-label="주요 메뉴"><a href="#apps">Works <sup>{String(selected.length).padStart(2, "0")}</sup></a><a href="#about">About <span aria-hidden="true">↗</span></a></nav>
+    <nav aria-label="주요 메뉴"><a href="#apps">Works <sup>{String(selected.length).padStart(2, "0")}</sup></a><a href="#about">About <span aria-hidden="true">↗</span></a><LanguageSwitcher locale="ko" /></nav>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">

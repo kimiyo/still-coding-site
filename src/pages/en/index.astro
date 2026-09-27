@@ -2,12 +2,13 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import AppCard from "../../components/AppCard.astro";
 import AppVisual from "../../components/AppVisual.astro";
+import LanguageSwitcher from "../../components/LanguageSwitcher.astro";
 import { apps } from "../../data/apps";
-import { getAppText } from "../../i18n";
+import { getAppText, localizedAppUrl } from "../../i18n";
 const locale = "en" as const;
 const selected = ["direct-play", "kana-atelier", "pinhole-lab", "collaboard", "bus-explorer", "piano-play", "vocal-check"].map(id => apps.find(app => app.id === id)!);
 const description = "Still Coding is an independent practice by JH Kim: browser games, learning tools, music, collaboration, and urban exploration.";
-const structuredData = { "@context": "https://schema.org", "@type": "ItemList", name: "Still Coding — Selected works", numberOfItems: selected.length, itemListElement: selected.map((app, index) => ({ "@type": "ListItem", position: index + 1, name: getAppText(app, locale).title, url: app.url })) };
+const structuredData = { "@context": "https://schema.org", "@type": "ItemList", name: "Still Coding — Selected works", numberOfItems: selected.length, itemListElement: selected.map((app, index) => ({ "@type": "ListItem", position: index + 1, name: getAppText(app, locale).title, url: localizedAppUrl(app.url, locale, app.englishReady) })) };
 ---
 <BaseLayout title="Still Coding — Ideas, made real." description={description} locale={locale}>
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
@@ -15,7 +16,7 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
   <header class="site-header" data-header>
     <a href="/en/" class="brand" aria-label="Still Coding home"><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
     <span class="header-note">INDEPENDENT DEVELOPER · SEOUL</span>
-    <nav aria-label="Primary navigation"><a href="#apps">Works <sup>{String(selected.length).padStart(2, "0")}</sup></a><a href="#about">About <span aria-hidden="true">↗</span></a></nav>
+    <nav aria-label="Primary navigation"><a href="#apps">Works <sup>{String(selected.length).padStart(2, "0")}</sup></a><a href="#about">About <span aria-hidden="true">↗</span></a><LanguageSwitcher locale={locale} /></nav>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title"><div class="hero-art" aria-hidden="true"><img src="/images/brand/orbital-study.webp" width="1536" height="1024" alt="" fetchpriority="high" /></div><div class="hero-copy"><p class="hero-kicker"><span class="signal-dot"></span> AN INDEPENDENT PRACTICE</p><h1 id="hero-title">Make ideas<br /><em>work.</em></h1><p class="hero-description">Between an idea and reality.<br />Small worlds, designed and run directly.</p><a href="#apps" class="hero-link">Explore the work <span aria-hidden="true">↓</span></a></div><div class="artifact-label" aria-hidden="true"><span>FIG. 001 — IDEAS IN ORBIT</span><i></i><span>FORM / LOGIC / MOTION</span></div><div class="hero-bottom"><span>JH KIM — DESIGN & DEVELOPMENT</span><span>STILL CURIOUS. STILL CODING.</span><a href="#apps">SCROLL TO DISCOVER <span aria-hidden="true">↓</span></a></div></section>
