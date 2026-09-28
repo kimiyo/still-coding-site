@@ -1,35 +1,40 @@
 ---
+import { directPlayGames } from "../data/directPlayGames";
+
 interface Props {
-  variant: "direct-play" | "pinhole" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
+  variant: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
   title: string;
   locale?: "ko" | "en";
 }
 
 const { variant, title, locale = "ko" } = Astro.props;
 const isEnglish = locale === "en";
+const lang = isEnglish ? "en" : "ko";
 ---
 
-<div class:list={["app-visual", `visual-${variant}`]} aria-label={`${title} ${isEnglish ? "preview" : "미리보기"}`} role="img">
+<div class:list={["app-visual", `visual-${variant}`]} aria-label={variant === "direct-play" ? (isEnglish ? `${title} preview: ${directPlayGames.length} games shown in turn` : `${title} 미리보기: ${directPlayGames.length}개 게임을 차례로 소개`) : `${title} ${isEnglish ? "preview" : "미리보기"}`} role="img">
   {variant === "direct-play" && (
-    <div class="visual-content direct-content">
-      <div class="direct-mini-head"><span class="direct-logo"><i></i><b>{isEnglish ? "DIRECT PLAY" : "다이렉트 플레이"}</b></span><span>PUBLIC ROOM</span></div>
-      <div class="direct-tabs"><b>{isEnglish ? "PUBLIC" : "공개방"}</b><span>{isEnglish ? "PRIVATE" : "비밀방"}</span></div>
-      <div class="direct-games" aria-hidden="true">
-        <span><i>🧩</i><b>{isEnglish ? "Photo Puzzle" : "사진퍼즐게임"}</b><small>{isEnglish ? "Co-op · Puzzle" : "협동 · 퍼즐"}</small></span>
-        <span><i>🔢</i><b>{isEnglish ? "Number Baseball" : "숫자 야구"}</b><small>{isEnglish ? "Logic · Guess" : "두뇌 · 추리"}</small></span>
-        <span><i>🏎️</i><b>{isEnglish ? "Pocket Race" : "포켓 레이스"}</b><small>{isEnglish ? "Party · Racing" : "파티 · 레이싱"}</small></span>
+    <div class="visual-content dp-spotlight" data-dp-spotlight>
+      <div class="dp-slides">
+        {directPlayGames.map((game, index) => (
+          <figure class:list={["dp-slide", index === 0 && "is-active"]} data-dp-slide>
+            <img src={index === 0 ? game.image : undefined} data-src={game.image} alt="" width="880" height="495" decoding="async" />
+            <figcaption class="dp-panel">
+              <small>{game.tags[lang]}</small>
+              <b>{game.title[lang]}</b>
+              <span>{game.pitch[lang]}</span>
+              <em><i>{isEnglish ? `${game.players[0]}–${game.players[1]} players` : `${game.players[0]}–${game.players[1]}명`}</i><i>{isEnglish ? `~${game.minutes} min` : `약 ${game.minutes}분`}</i></em>
+            </figcaption>
+          </figure>
+        ))}
       </div>
-      <strong>CHOOSE · INVITE · PLAY</strong>
-    </div>
-  )}
-  {variant === "pinhole" && (
-    <div class="visual-content pinhole-content">
-      <span class="visual-label">PINHOLE <em>LAB</em></span>
-      <div class="lab-games" aria-hidden="true">
-        <div class="lab-game lab-observe"><small>GAME / 01 · OBSERVE</small><span class="pinhole-lens">?</span><b>PINHOLE</b></div>
-        <div class="lab-game lab-calculate"><small>GAME / 02 · CALCULATE</small><span class="sum-stack"><i>4</i><i>+</i><i>6</i></span><b>SUM DROP</b></div>
+      <div class="dp-bar">
+        <span class="direct-logo"><i></i><b>DIRECT PLAY</b></span>
+        <span class="dp-count"><b data-dp-index>01</b> / {String(directPlayGames.length).padStart(2, "0")}</span>
       </div>
-      <strong>SMALL RULES. <em>SHARP DECISIONS.</em></strong>
+      <ol class="dp-rail">
+        {directPlayGames.map((game, index) => <li class:list={[index === 0 && "is-active"]} data-dp-dot><img src={game.icon} alt="" width="28" height="28" loading="lazy" /><b></b></li>)}
+      </ol>
     </div>
   )}
   {variant === "kana" && (
@@ -82,3 +87,45 @@ const isEnglish = locale === "en";
     </div>
   )}
 </div>
+
+<script>
+  // Direct Play 미리보기: 진행 막대 애니메이션이 끝날 때마다 다음 게임으로 넘긴다.
+  // 멈춤(마우스 올림·포커스·화면 밖·멈춤 버튼)은 CSS animation-play-state 로 처리하고,
+  // prefers-reduced-motion 에서는 애니메이션이 꺼져 첫 게임에 머문다.
+  document.querySelectorAll<HTMLElement>("[data-dp-spotlight]").forEach(root => {
+    const slides = [...root.querySelectorAll<HTMLElement>("[data-dp-slide]")];
+    const dots = [...root.querySelectorAll<HTMLElement>("[data-dp-dot]")];
+    const counter = root.querySelector<HTMLElement>("[data-dp-index]");
+    const toggle = root.closest(".app-card")?.querySelector<HTMLButtonElement>("[data-dp-toggle]");
+    let current = 0;
+
+    const load = (index: number) => {
+      const image = slides[index]?.querySelector("img");
+      if (image && !image.getAttribute("src") && image.dataset.src) image.src = image.dataset.src;
+    };
+    const show = (index: number) => {
+      slides[current]?.classList.remove("is-active");
+      dots[current]?.classList.remove("is-active");
+      current = index;
+      load(current);
+      load((current + 1) % slides.length);
+      slides[current]?.classList.add("is-active");
+      dots[current]?.classList.add("is-active");
+      if (counter) counter.textContent = String(current + 1).padStart(2, "0");
+    };
+
+    root.addEventListener("animationend", event => {
+      if (event.target === dots[current]?.querySelector("b")) show((current + 1) % slides.length);
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([entry]) => {
+        root.classList.toggle("is-offscreen", !entry?.isIntersecting);
+        if (entry?.isIntersecting) load((current + 1) % slides.length);
+      }).observe(root);
+    }
+    toggle?.addEventListener("click", () => {
+      const paused = root.classList.toggle("is-paused");
+      toggle.setAttribute("aria-pressed", String(paused));
+    });
+  });
+</script>

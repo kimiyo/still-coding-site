@@ -101,13 +101,12 @@ Cloudflare Access 로그인 실패 화면으로 일반 사용자를 불필요하
 | 앱 | URL | 카테고리 | 상태 | 설명 초안 |
 |---|---|---|---|---|
 | Direct Play | `https://dp.still-coding.cc/` | Play | Public | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 |
-| Pinhole Lab | `https://pinhole-game.still-coding.cc/` | Play | Public | 작은 규칙과 관찰, 계산을 중심으로 만든 게임 컬렉션 |
 | 가나 공방 | `https://study-hiragana.still-coding.cc/` | Learn | Public | 히라가나와 가타카나를 듣고 말하고 쓰며 익히는 학습 도구 |
 | Guitar Auto-Strum | `https://guitar-play.still-coding.cc/` | Create | Private beta | 코드와 리듬을 선택해 기타 자동 반주를 만드는 브라우저 음악 도구 |
 
 Guitar Auto-Strum은 `guitar-auto-strum-app` Workers 앱으로 migration이 완료된 상태다. 현재 Cloudflare Access로 개발자와 테스트 사용자만 접근할 수 있으며, 검증 완료 후 Public으로 상태를 변경한다.
 
-Direct Play 내부의 여러 게임과 Pinhole Lab 내부의 두 게임은 초기 포트폴리오에서 별도 최상위 카드로 중복 등록하지 않는다. 각 서비스 자체가 게임 컬렉션이므로 컬렉션 단위로 소개한다.
+Direct Play 내부의 게임은 별도 최상위 카드로 중복 등록하지 않는다. 서비스 자체가 게임 컬렉션이므로 컬렉션 단위로 소개한다. 예전 Pinhole Lab의 두 게임(PINHOLE, SUM DROP)은 2026-09-28 Direct Play로 옮겨져 Pinhole Lab 카드를 제거했다.
 
 ## 6. 정보 구조
 
@@ -161,20 +160,26 @@ designed, built and operated by JH Kim.
 - 앱 썸네일이 카드 면적의 60~70%를 차지
 - 상태, 카테고리, 한 줄 설명만 기본 노출
 - 호버와 키보드 포커스 시 추가 정보와 CTA 표시
+- Direct Play 대표 카드는 Direct Play 로비의 자동 소개(spotlight)를 축소한 미리보기로, 9개 게임의 일러스트·이름·한 줄 설명·인원/시간을 5.2초마다 교체한다. 하단 아이콘 레일의 진행 막대가 다 차면 다음 게임으로 넘어가며, 마우스 올림·포커스·화면 밖·멈춤 버튼에서 정지하고 `prefers-reduced-motion`에서는 첫 게임에 머문다.
 
-권장 초기 배치:
+현재 배치 (12열 그리드, 2026-09-28 기준):
 
 ```text
-┌─────────────────────────────┐ ┌───────────────┐
-│ DIRECT PLAY                 │ │ PINHOLE LAB   │
-│ Featured / large            │ └───────────────┘
-│                             │ ┌───────────────┐
-└─────────────────────────────┘ │ 가나 공방      │
-┌───────────────────────┐       └───────────────┘
-│ GUITAR AUTO-STRUM     │
-│ PRIVATE BETA          │
-└───────────────────────┘
+┌───────────────────────────────────────────────────────┐
+│ 01 DIRECT PLAY — 전체 폭 / 9개 게임 spotlight 미리보기 │
+└───────────────────────────────────────────────────────┘
+┌─────────────────────────┐ ┌─────────────────────────┐
+│ 02 가나 공방             │ │ 03 VOCAL CHECK          │
+└─────────────────────────┘ └─────────────────────────┘
+    ┌───────────────────────────────────────────┐
+    │ 04 COLLABOARD — 가운데 넓게 (2/12 열)      │
+    └───────────────────────────────────────────┘
+┌─────────────────────────┐ ┌─────────────────────────┐
+│ 05 BUS EXPLORER         │ │ 06 SONGNOTE             │
+└─────────────────────────┘ └─────────────────────────┘
 ```
+
+카드 수가 홀수가 되어 한 줄에 카드가 혼자 남지 않도록, 짝 카드는 같은 카테고리나 성격끼리 묶는다. Guitar Auto-Strum(비공개 베타)은 목록이 아니라 별도 작업대(Workbench) 섹션에 둔다.
 
 ### 7.4 All Apps
 
@@ -251,7 +256,6 @@ Play · Multiplayer · 7 games                    OPEN ↗
 | 앱 | Primary | Secondary |
 |---|---|---|
 | Direct Play | `#66C7F2` | `#FF8066` |
-| Pinhole Lab | `#70E1EC` | `#F0B65D` |
 | 가나 공방 | `#C94132` | `#E9B33F` |
 | Guitar Auto-Strum | `#D6AA43` | `#704D38` |
 

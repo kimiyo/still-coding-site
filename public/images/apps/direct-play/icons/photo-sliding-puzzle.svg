@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="sliding puzzle">
+  <rect width="256" height="256" fill="#fff8ef"/>
+  <g stroke="#18211f" stroke-width="3">
+    <rect x="36" y="36" width="56" height="56" rx="6" fill="#18746b"/>
+    <rect x="100" y="36" width="56" height="56" rx="6" fill="#d99f2b"/>
+    <rect x="164" y="36" width="56" height="56" rx="6" fill="#c9472c"/>
+    <rect x="36" y="100" width="56" height="56" rx="6" fill="#d99f2b"/>
+    <rect x="100" y="100" width="56" height="56" rx="6" fill="#18746b"/>
+    <rect x="164" y="100" width="56" height="56" rx="6" fill="#18746b"/>
+    <rect x="36" y="164" width="56" height="56" rx="6" fill="#c9472c"/>
+    <rect x="100" y="164" width="56" height="56" rx="6" fill="#d99f2b"/>
+    <rect x="164" y="164" width="56" height="56" rx="6" fill="#fff8ef" stroke-dasharray="10 8"/>
+  </g>
+  <path d="M188 188 L220 220 M220 188 L188 220" stroke="#18211f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M118 188 L154 188" stroke="#fff8ef" stroke-width="8" stroke-linecap="round"/>
+  <polygon points="154,188 142,180 142,196" fill="#fff8ef"/>
+</svg>

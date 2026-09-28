@@ -17,11 +17,15 @@
 
 | 앱 | 카테고리 | 상태 | 설명 | 링크 |
 |---|---|---|---|---|
-| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구, 미니 스도쿠 등 9종) | [바로가기](https://dp.still-coding.cc/) |
-| **Pinhole Lab** | Play | `Public` | 작은 규칙과 관찰을 중심으로 한 퍼즐 게임 컬렉션 (Pinhole, Sum Drop) | [바로가기](https://pinhole-game.still-coding.cc/) |
+| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구, 미니 스도쿠, PINHOLE, SUM DROP 등 9종) | [바로가기](https://dp.still-coding.cc/) |
 | **가나 공방** | Learn | `Public` | 히라가나와 가타카나를 듣고 말하고 쓰며 익히는 일본어 학습 도구 | [바로가기](https://study-hiragana.still-coding.cc/) |
 | **Guitar Auto-Strum** | Create | `Private beta` | 코드와 리듬을 선택해 기타 자동 반주를 연주하는 웹 오디오 도구 | *검증 중 (Access 제한)* |
 | **CollaBoard** | Create | `Public` | 서버 저장 없이 WebRTC로 연결하는 8가지 협업 공간 (화이트보드·브레인스토밍·Q&A·퀴즈·투표·파일 공유·공지·피드백) | [바로가기](https://collaboard.still-coding.cc/) |
+| **Bus Explorer** | Explore | `Public` | 정류장과 노선을 따라 도시의 연결을 탐색하는 버스 노선 도구 | [바로가기](https://bus-explorer.still-coding.cc/) |
+| **Songnote** (Piano Play) | Create | `Public` | ABC 악보를 편집하고 108건반 합성 피아노로 듣는 스튜디오 | [바로가기](https://piano-play.still-coding.cc/) |
+| **Vocal Check** | Learn | `Public` | 마이크 입력의 음정을 실시간으로 시각화하는 보컬 연습 도구 | [바로가기](https://vocal-check.still-coding.cc/) |
+
+> Pinhole Lab(PINHOLE, SUM DROP)은 2026-09-28 Direct Play로 통합되었습니다. 예전 상세 주소 `/apps/pinhole-lab/`은 `public/_redirects`로 `/apps/direct-play/`에 301 연결합니다.
 
 ---
 
@@ -29,7 +33,8 @@
 
 앱이 개발자를 소개하는 개인 전시 공간입니다. 생성한 금속 궤도 조형물, 절제된 타이포그래피, 선별된 작품과 제작 관점으로 감각과 구현력을 전달합니다.
 
-- 네 개의 공개 작품과 별도의 비공개 실험 작업대.
+- 여섯 개의 공개 작품과 별도의 비공개 실험 작업대.
+- Direct Play 카드 미리보기는 9개 게임을 5.2초마다 차례로 소개합니다(마우스 올림·포커스·화면 밖·멈춤 버튼에서 정지, 모션 감소 설정 시 첫 게임 고정). 게임 목록은 `src/data/directPlayGames.ts`, 이미지는 `public/images/apps/direct-play/`에 있으며 Direct Play 카탈로그가 바뀌면 함께 갱신합니다.
 - 썸네일·제목·행동 링크와 네이티브 details 기반 제작 노트.
 - 모션 감소 설정 지원, 키보드 포커스, 본문 바로가기, JavaScript 없이도 읽을 수 있는 콘텐츠.
 - 이미지 생성 프롬프트와 원본 위치: [디자인 기록](docs/design/independent-practice.md).

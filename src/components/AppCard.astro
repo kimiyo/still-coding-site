@@ -12,9 +12,12 @@ const guideUrl = localizedAppUrl(sourceApp.helpUrl, locale, sourceApp.englishRea
 ---
 <article class:list={["app-card", `work-${app.id}`, index === 1 && "featured-work"]} data-accent={app.accent} style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}>
   <div class="card-head"><span>{text.work} / {String(index).padStart(2, "0")}</span><span>{index === 1 ? text.selected : copy.discipline}</span><span class="public-mark">{text.live} <i></i></span></div>
-  <a class="visual-link" href={openUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${locale === "en" ? "open in a new window" : "체험하기, 새 창"}`}>
-    {app.id === "collaboard" ? <img class="collaboard-help-hero" src="/images/apps/collaboard-help-hero.svg" alt={locale === "en" ? "Several devices collaborating directly in a private CollaBoard room" : "여러 기기가 서버를 거치지 않고 서로 직접 연결되어 협업하는 CollaBoard"} /> : <AppVisual variant={app.visual} title={app.title} locale={locale} />}
-    <span class="visual-open" aria-hidden="true">↗</span>
-  </a>
+  <div class="visual-stage">
+    <a class="visual-link" href={openUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${locale === "en" ? "open in a new window" : "체험하기, 새 창"}`}>
+      {app.id === "collaboard" ? <img class="collaboard-help-hero" src="/images/apps/collaboard-help-hero.svg" alt={locale === "en" ? "Several devices collaborating directly in a private CollaBoard room" : "여러 기기가 서버를 거치지 않고 서로 직접 연결되어 협업하는 CollaBoard"} /> : <AppVisual variant={app.visual} title={app.title} locale={locale} />}
+      <span class="visual-open" aria-hidden="true">↗</span>
+    </a>
+    {app.visual === "direct-play" && <button class="dp-toggle" type="button" data-dp-toggle aria-pressed="false" aria-label={locale === "en" ? "Pause game preview" : "게임 소개 넘김 멈추기"}><svg class="is-pause" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0h3v10H1zM6 0h3v10H6z" /></svg><svg class="is-play" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z" /></svg></button>}
+  </div>
   <div class="card-copy"><span class="eyebrow">{copy.discipline}</span><div class="work-title-row"><h3><a href={openUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title}, ${locale === "en" ? "opens in a new window" : "새 창"}`}>{app.title}</a></h3><span class="work-number" aria-hidden="true">0{index}</span></div><p class="summary">{copy.line}</p><p class="detail">{app.detail}</p><div class="card-foot"><ul class="tags" aria-label={`${app.title} ${locale === "en" ? "features" : "특징"}`}>{app.tags.map(tag => <li>{tag}</li>)}</ul><div class="card-actions"><a class="help-link" href={localizedPath(`/apps/${app.id}/`, locale)} aria-label={`${app.title} ${text.details}`}>{text.details} <span aria-hidden="true">?</span></a>{guideUrl && <a class="help-link" href={guideUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${text.howTo}`}>{text.howTo} <span aria-hidden="true">↗</span></a>}<a class="app-link" href={openUrl} target="_blank" rel="noopener noreferrer" aria-label={`${copy.action}`}>{copy.action} <span aria-hidden="true">↗</span></a></div></div><details class="project-note"><summary>{text.perspective} <span aria-hidden="true">+</span></summary><p>{copy.note}</p></details></div>
 </article>

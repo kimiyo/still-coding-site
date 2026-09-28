@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">스파이 게임</title>
+  <desc id="desc">돋보기와 가면을 표현한 스파이 게임 아이콘</desc>
+  <rect width="256" height="256" fill="#0c7c82"/>
+  <circle cx="118" cy="112" r="64" fill="#fff8ef" stroke="#142f3d" stroke-width="12"/>
+  <path d="M165 160l45 45" fill="none" stroke="#ff725e" stroke-linecap="round" stroke-width="22"/>
+  <path d="M72 105c14-24 78-24 92 0-10 29-82 29-92 0Z" fill="#ff725e" stroke="#142f3d" stroke-width="9"/>
+  <circle cx="101" cy="106" r="9" fill="#142f3d"/>
+  <circle cx="135" cy="106" r="9" fill="#142f3d"/>
+  <path d="M112 125c9 6 18 6 27 0" fill="none" stroke="#142f3d" stroke-linecap="round" stroke-width="7"/>
+</svg>
