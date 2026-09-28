@@ -1478,51 +1478,32 @@ footer {
   font-style: normal;
   font-size: .67em;
 }
-.visual-bus {
-  color:#172026;
-  background:#e7e1d2;
-  background-image:linear-gradient(rgba(23,32,38,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(23,32,38,.07) 1px,transparent 1px);
-  background-size:22px 22px
-}
-.transit-head,.vocal-head {
+.visual-bus { color:#14211f; background:linear-gradient(115deg,#f7f5ee 0%,#eef1f3 100%); }
+.bus-content { padding:0; }
+.bus-map { position:absolute; top:0; right:0; bottom:0; width:60%; height:100%; }
+.bus-content:before { content:""; position:absolute; z-index:1; top:0; bottom:0; left:40%; width:14%; background:linear-gradient(90deg,#f6f5ef,rgba(246,245,239,0)); pointer-events:none; }
+.bus-guide { position:absolute; z-index:2; left:24px; top:50%; transform:translateY(-50%); width:46%; display:grid; gap:12px; }
+.bus-guide small { color:#1d4f9c; font-size:.5rem; font-weight:800; letter-spacing:.16em; }
+.bus-guide b { font-size:clamp(1.05rem,2vw,1.45rem); font-weight:800; line-height:1.32; letter-spacing:-.03em; }
+.bus-guide b em { color:#1d4f9c; font-style:normal; }
+.bus-guide ol { display:grid; gap:6px; margin:4px 0 0; padding:0; list-style:none; }
+.bus-guide li { display:flex; align-items:center; gap:8px; font-size:.64rem; font-weight:700; color:#33403d; }
+.bus-guide li i { display:grid; place-items:center; width:18px; height:18px; border-radius:50%; background:#1d4f9c; color:#fff; font-size:.5rem; font-style:normal; }
+.bus-guide li:nth-child(2) i { background:#17b8a6; }
+.bus-guide li:nth-child(3) i { background:#e77854; }
+.bus-caption { position:absolute; z-index:2; top:12px; right:12px; padding:3px 8px; border-radius:99px; background:rgba(20,33,31,.66); color:#f3f1ea; font-size:.46rem; letter-spacing:.02em; }
+.bus-transfer circle { transform-box:fill-box; transform-origin:center; animation:bus-ping 2.8s ease-out infinite; }
+.bus-transfer circle:nth-child(2) { animation-delay:1.4s; }
+.bus-vehicle { animation:bus-roll 6s ease-in-out infinite alternate; }
+@keyframes bus-ping { from { transform:scale(1); opacity:.7; } to { transform:scale(2.6); opacity:0; } }
+@keyframes bus-roll { from { transform:translate(-8px,-12px); } to { transform:translate(14px,20px); } }
+.vocal-head {
   display:flex;
   justify-content:space-between;
   align-items:center;
   font-size:.52rem;
   letter-spacing:.13em
 }
-.transit-head span { padding:3px 7px; background:#172026; color:#e7e1d2 }
-.route-map {
-  position:absolute;
-  inset:64px 38px 58px;
-  border-top:7px solid #ef5b3f;
-  transform:rotate(-5deg)
-}
-.route-map:after {
-  content:"";
-  position:absolute;
-  left:17%; right:8%; top:28px;
-  border-top:5px solid #2c6b88;
-  transform:rotate(15deg)
-}
-.route-map i {
-  position:absolute;
-  top:-12px;
-  width:17px; height:17px;
-  border:4px solid #ef5b3f;
-  border-radius:50%;
-  background:#e7e1d2
-}
-.route-map i:nth-child(1){left:3%}.route-map i:nth-child(2){left:35%}.route-map i:nth-child(3){left:68%}.route-map i:nth-child(4){right:0}
-.route-map span {
-  position:absolute; right:9%; top:-50px;
-  padding:3px 10px;
-  border:2px solid #172026;
-  font-weight:800;
-  box-shadow:3px 3px 0 #f3c34f
-}
-.bus-content strong { color:#172026; font-size:.73rem }
-.bus-content strong em { color:#ef5b3f; font-style:normal }
 .visual-piano { background:radial-gradient(circle at 48% 25%,rgba(135,216,232,.18),transparent 28%),#0a1014 }
 .piano-display {
   position:absolute;
@@ -1621,6 +1602,15 @@ footer {
   .dp-rail img { width: 22px; height: 22px; border-radius: 6px; }
   .dp-rail li::after, .dp-rail b { bottom: 5px; left: 18%; right: 18%; }
   .dp-toggle { top: 6px; right: 10px; }
+  .bus-guide { left:16px; width:52%; gap:7px; }
+  .bus-guide b { font-size:1rem; }
+  .bus-guide ol { gap:4px; margin-top:0; }
+  .bus-guide li { font-size:.58rem; gap:6px; }
+  .bus-guide li i { width:15px; height:15px; font-size:.44rem; }
+  .bus-map { width:56%; }
+  .bus-content:before { left:44%; }
+  .bus-caption { top:auto; right:auto; bottom:8px; left:16px; padding:0; background:none; color:#6b7572; font-size:.42rem; }
+  .bus-guide { top:calc(50% - 6px); }
   .work-direct-play .visual-open { bottom: 5px; right: 10px; width: 34px; height: 34px; }
 }
 
