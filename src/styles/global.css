@@ -1730,3 +1730,16 @@ footer {
 .home-notes h2 em { color: var(--accent); font-style: italic; }
 .detail-notes p { margin: 6px 0 0; color: var(--muted); line-height: 1.7; }
 .home-notes .note-list p { max-width: 720px; }
+
+.guitar-demo-video {
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#100b08;
+  transition:transform .7s cubic-bezier(.2,.7,.2,1)
+}
+.visual-link:hover .guitar-demo-video { transform:scale(1.025) }
+.detail-demo-video { display:block; width:100%; max-width:960px; aspect-ratio:16/9; background:#100b08; border:1px solid var(--line); }
+.demo-section { max-width:960px; }
+.demo-caption { margin-top:16px; }
