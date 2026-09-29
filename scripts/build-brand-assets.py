@@ -115,6 +115,7 @@ def main() -> None:
     # Browser tab icons use the simplified master with rounded corners.
     fav = rounded(favicon_master(full.resize((1024, 1024), Image.LANCZOS)), 0.2237)
     fav.resize((32, 32), Image.LANCZOS).save(PUBLIC / "favicon-32.png", optimize=True)
+    fav.resize((72, 72), Image.LANCZOS).save(BRAND / "brand-mark.png", optimize=True)  # site header, shown at 36px for 2x screens
     fav.save(PUBLIC / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     og = og_card(full)
     og.save(BRAND / "og-still-coding.png", optimize=True)

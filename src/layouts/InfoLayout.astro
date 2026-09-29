@@ -9,7 +9,7 @@ const text = common[locale];
 ---
 <BaseLayout title={title} description={description} locale={locale} translated={translated} ogType={ogType}>
   <header class="info-header">
-    <a href={localizedPath("/", locale)} class="brand" aria-label={text.home}><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
+    <a href={localizedPath("/", locale)} class="brand" aria-label={text.home}><img class="brand-mark" src="/images/brand/brand-mark.png" width="30" height="30" alt="" /><span>STILL</span><i aria-hidden="true"></i><span>CODING</span></a>
     <nav aria-label={locale === "en" ? "Primary navigation" : "주요 메뉴"}><a href={localizedPath("/", locale)}>{text.works}</a><a href="/notes/">{text.notes}</a><a href={localizedPath("/about/", locale)}>{text.about}</a><a href={localizedPath("/contact/", locale)}>{text.contact}</a>{translated && <LanguageSwitcher locale={locale} />}</nav>
   </header>
   <main class="info-main">
