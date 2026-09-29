@@ -396,7 +396,7 @@ still-coding/
 ├─ public/
 │  ├─ images/apps/
 │  ├─ fonts/
-│  └─ favicon.svg
+│  └─ favicon.ico, favicon-32.png, apple-touch-icon.png, icon-*.png, manifest.webmanifest
 ├─ src/
 │  ├─ components/
 │  │  ├─ AppCard.astro

@@ -63,7 +63,7 @@ still-coding/
 │  ├─ images/
 │  │  ├─ brand/             # 브랜드 키 비주얼 자산
 │  │  └─ apps/              # 앱 썸네일 이미지
-│  ├─ favicon.svg
+│  ├─ favicon.ico, favicon-32.png, apple-touch-icon.png, icon-*.png, manifest.webmanifest
 │  └─ robots.txt
 ├─ src/
 │  ├─ content/notes/         # 개발 노트 Markdown (content.config.ts 스키마로 검증)

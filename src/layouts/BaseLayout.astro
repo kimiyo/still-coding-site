@@ -20,6 +20,7 @@ const { title, description, locale = "ko", translated = true, ogType = "website"
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const alternate = new URL(localizedPath(Astro.url.pathname, locale === "ko" ? "en" : "ko"), Astro.site);
 const defaultUrl = new URL(localizedPath(Astro.url.pathname, "ko"), Astro.site);
+const ogImage = new URL("/images/brand/og-still-coding.png", Astro.site);
 const feedbackAppId = import.meta.env.PUBLIC_FEEDBACK_APP_ID;
 const feedbackBaseUrl = import.meta.env.PUBLIC_FEEDBACK_BASE_URL || "https://user-feedback.still-coding.cc";
 ---
@@ -36,18 +37,24 @@ const feedbackBaseUrl = import.meta.env.PUBLIC_FEEDBACK_BASE_URL || "https://use
     {translated && <link rel="alternate" hreflang={locale} href={canonical} />}
     {translated && <link rel="alternate" hreflang={locale === "ko" ? "en" : "ko"} href={alternate} />}
     {translated && <link rel="alternate" hreflang="x-default" href={defaultUrl} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content={locale === "en" ? "en_US" : "ko_KR"} />
     <meta property="og:site_name" content="Still Coding" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL("/images/brand/orbital-study.webp", Astro.site)} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Still Coding — a small figure at the start of an ink-brush road" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL("/images/brand/orbital-study.webp", Astro.site)} />
+    <meta name="twitter:image" content={ogImage} />
     {adsenseClient && <meta name="google-adsense-account" content={adsenseClient} />}
     {adsenseClient && <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossorigin="anonymous"></script>}
     <slot name="head" />

@@ -36,3 +36,14 @@ All prompts explicitly excluded text, logos, people, devices, screenshots, water
 - Add the site name and description as HTML in the hero.
 - Add Open Graph text with a deterministic build step so typography remains accurate.
 - App-card thumbnails should be real captures of the deployed products and belong in `public/images/apps/`.
+
+## App icon and Open Graph card
+
+Source: `assets/brand/still-coding-app-icon.png` (ink road with a small figure at its start). Regenerate every derived file with `python scripts/build-brand-assets.py`.
+
+| File | Use |
+|---|---|
+| `public/favicon.ico`, `public/favicon-32.png` | Browser tab. Redrawn with a larger figure so it survives 16–32 px |
+| `public/apple-touch-icon.png` | iOS home screen (180 px, full bleed; iOS applies its own mask) |
+| `public/icon-192.png`, `icon-512.png`, `icon-maskable-512.png` | Web manifest icons (maskable keeps the art inside the 80% safe circle) |
+| `og-still-coding.png` | Open Graph and Twitter card, 1200 × 630 |
