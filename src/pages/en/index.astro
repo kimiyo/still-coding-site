@@ -8,7 +8,7 @@ import { getAppText, localizedAppUrl } from "../../i18n";
 import { getNoteCounts } from "../../lib/notes";
 const locale = "en" as const;
 const noteCounts = await getNoteCounts();
-const selected = ["direct-play", "kana-atelier", "vocal-check", "collaboard", "bus-explorer", "piano-play", "guitar-auto-strum"].map(id => apps.find(app => app.id === id)!);
+const selected = ["direct-play", "kana-atelier", "vocal-check", "collaboard", "pdf-flow-studio", "bus-explorer", "piano-play", "guitar-auto-strum"].map(id => apps.find(app => app.id === id)!);
 const description = "Still Coding is an independent practice by JH Kim: browser games, learning tools, music, collaboration, and urban exploration.";
 const structuredData = { "@context": "https://schema.org", "@type": "ItemList", name: "Still Coding — Selected works", numberOfItems: selected.length, itemListElement: selected.map((app, index) => ({ "@type": "ListItem", position: index + 1, name: getAppText(app, locale).title, url: localizedAppUrl(app.url, locale, app.englishReady) })) };
 ---

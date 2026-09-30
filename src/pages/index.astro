@@ -5,7 +5,7 @@ import AppVisual from "../components/AppVisual.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import { apps } from "../data/apps";
 import { getNoteCounts, getSortedNotes } from "../lib/notes";
-const selected = ["direct-play", "kana-atelier", "vocal-check", "collaboard", "bus-explorer", "piano-play", "guitar-auto-strum"].map(id => apps.find(app => app.id === id)!);
+const selected = ["direct-play", "kana-atelier", "vocal-check", "collaboard", "pdf-flow-studio", "bus-explorer", "piano-play", "guitar-auto-strum"].map(id => apps.find(app => app.id === id)!);
 const newApps = ["bus-explorer", "piano-play", "vocal-check"].map(id => apps.find(app => app.id === id)!);
 const recentNotes = (await getSortedNotes()).slice(0, 4);
 const noteCounts = await getNoteCounts();

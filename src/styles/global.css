@@ -467,6 +467,17 @@ p,h1,h2,h3 {
   transition:transform .7s cubic-bezier(.2,.7,.2,1)
 }
 .visual-link:hover .collaboard-help-hero { transform:scale(1.025) }
+.pdf-help-hero {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1.12;
+  object-fit:cover;
+  object-position:50% 30%;
+  background:#f5efe0;
+  transition:transform .7s cubic-bezier(.2,.7,.2,1)
+}
+.visual-link:hover .pdf-help-hero { transform:scale(1.025) }
 .card-actions {
   display:flex;
   align-items:center;
