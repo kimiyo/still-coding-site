@@ -1553,6 +1553,19 @@ footer {
 .pitch-wave i { flex:1; height:22%; background:#b6e36f; opacity:.7; border-radius:9px }
 .pitch-wave i:nth-child(2),.pitch-wave i:nth-child(8){height:42%}.pitch-wave i:nth-child(3),.pitch-wave i:nth-child(7){height:68%}.pitch-wave i:nth-child(4),.pitch-wave i:nth-child(6){height:92%}.pitch-wave i:nth-child(5){height:55%;background:#65b8ea}
 .vocal-content strong { bottom:14px; font-size:.58rem }.vocal-content strong em { color:#b6e36f; font-style:normal }
+.visual-pdf { background:radial-gradient(circle at 60% 30%,rgba(56,189,248,.18),transparent 45%),#0b1329; color:#f8fafc }
+.pdf-head { position:absolute; left:25px; right:25px; top:18px; display:flex; justify-content:space-between; align-items:center }
+.pdf-head b { font-size:.52rem; letter-spacing:.12em; color:#38bdf8 }
+.pdf-head span { font-size:.42rem; font-weight:600; color:#10b981; background:rgba(16,185,129,.15); padding:2px 6px; border-radius:4px }
+.pdf-stage-preview { position:absolute; left:25px; right:25px; top:54px; bottom:56px; display:flex; align-items:center; justify-content:center; gap:8px }
+.pdf-page-card { width:46px; height:62px; background:#1e293b; border:1px solid #334155; border-radius:5px; padding:5px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 4px 10px rgba(0,0,0,.3) }
+.pdf-page-card.is-active { border-color:#38bdf8; box-shadow:0 0 10px rgba(56,189,248,.35) }
+.pdf-page-card i { font-style:normal; font-size:9px; font-weight:700; color:#94a3b8 }
+.pdf-page-card span { display:block; height:2px; background:#475569; border-radius:1px; width:70% }
+.pdf-page-card.is-active span { background:#38bdf8 }
+.pdf-flow-arrow { color:#38bdf8; font-size:12px; opacity:.8 }
+.pdf-content strong { bottom:14px; font-size:.55rem }
+.pdf-content strong em { color:#38bdf8; font-style:normal }
 /* Product previews are illustrative interface compositions, not live embeds. */
 .featured-work .app-visual {
   aspect-ratio:1.35

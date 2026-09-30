@@ -2,7 +2,7 @@
 import { directPlayGames } from "../data/directPlayGames";
 
 interface Props {
-  variant: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
+  variant: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal" | "pdf";
   title: string;
   locale?: "ko" | "en";
 }
@@ -103,6 +103,19 @@ const lang = isEnglish ? "en" : "ko";
       <div class="pitch-readout"><small>CURRENT NOTE</small><b>A<sup>4</sup></b><span>440.0 <i>Hz</i></span></div>
       <div class="pitch-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <strong>SEE YOUR <em>VOICE.</em></strong>
+    </div>
+  )}
+  {variant === "pdf" && (
+    <div class="visual-content pdf-content">
+      <div class="pdf-head"><b>PDF FLOW STUDIO</b><span>{isEnglish ? "IN BROWSER RAM" : "브라우저 메모리"}</span></div>
+      <div class="pdf-stage-preview" aria-hidden="true">
+        <div class="pdf-page-card"><i>01</i><span></span></div>
+        <div class="pdf-flow-arrow">➔</div>
+        <div class="pdf-page-card is-active"><i>02</i><span></span></div>
+        <div class="pdf-flow-arrow">➔</div>
+        <div class="pdf-page-card"><i>03</i><span></span></div>
+      </div>
+      <strong>{isEnglish ? <>REARRANGE & MERGE, <br /><em>100% PRIVATE.</em></> : <>순서 변경부터 결합까지, <br /><em>서버 전송 없이 안전하게.</em></>}</strong>
     </div>
   )}
 </div>

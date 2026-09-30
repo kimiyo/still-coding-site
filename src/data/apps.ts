@@ -15,7 +15,7 @@ export interface PortfolioApp {
   tags: string[];
   accent: string;
   accentSoft: string;
-  visual: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal";
+  visual: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal" | "pdf";
   size: "wide" | "standard";
   order: number;
   audience: string;
@@ -173,6 +173,49 @@ export const apps: PortfolioApp[] = [
     steps: ["마이크 없이 데모나 사용 가이드로 먼저 둘러봅니다.", "준비되면 마이크를 허용하고 한 음을 길게 냅니다.", "음이름, 센트, 12초 그래프를 보고 다시 잽니다."],
     dataPolicy: "앱은 마이크 소리를 파일로 저장하거나 서버로 보내지 않습니다. 음정 숫자만 브라우저 메모리에 잠시 남고, 탭을 떠나면 마이크가 꺼집니다. 처리 범위는 Vocal Check 개인정보 문서(https://vocal-check.still-coding.cc/privacy/)를 기준으로 합니다.",
     faqs: [{ question: "노래를 녹음하나요?", answer: "앱은 녹음 파일을 만들지 않고 소리를 서버로 보내지 않습니다. 최근 12초 그래프에는 음정 숫자만 남으며 마이크를 끄면 지워집니다." }, { question: "사용법은 어디에 있나요?", answer: "앱의 사용 가이드(https://vocal-check.still-coding.cc/guide/)에서 마이크 거부, 장치 없음, 소음, 그래프 읽는 법을 확인할 수 있습니다." }, { question: "정확한 튜너인가요?", answer: "연습을 돕는 시각 피드백 도구입니다. 전문 튜너나 의료·음향 측정 장비를 대신하지 않습니다." }],
+  },
+  {
+    id: "pdf-flow-studio",
+    title: "PDF Flow Studio",
+    eyebrow: "Document tool / 01",
+    url: "https://pdf-flow-studio.still-coding.cc/",
+    helpUrl: "https://pdf-flow-studio.still-coding.cc/guide/",
+    englishReady: true,
+    category: "create",
+    status: "public",
+    summary: "서버 전송 없이 브라우저에서 안전하게 재배치·추출·결합하는 PDF 워크스페이스",
+    detail: "업로드한 PDF 파일을 외부 서버로 보내지 않고 브라우저 메모리 안에서만 처리합니다. 페이지 순서 변경, 90도 회전, 빈 페이지 삽입, 자유 펜 및 도형 주석, 원하는 페이지만 골라 새로운 PDF로 병합 다운로드까지 하나의 화면에서 안전하게 마칩니다.",
+    tags: ["On this browser", "Visual editor", "No server upload"],
+    accent: "#38bdf8",
+    accentSoft: "#10b981",
+    visual: "pdf",
+    size: "wide",
+    order: 8,
+    audience: "계약서나 개인정보가 담긴 PDF를 유출 걱정 없이 브라우저에서 직접 재배치·편집·병합하려는 사용자",
+    steps: [
+      "PDF 파일을 사이드바에 드래그하여 워크스페이스에 올립니다.",
+      "썸네일을 작업 영역에 추가하고 순서를 바꾸거나 주석을 작성합니다.",
+      "원하는 페이지만 골라 새 PDF로 병합 다운로드합니다."
+    ],
+    dataPolicy: "모든 PDF 파일과 편집 작업은 브라우저 메모리 안에서만 처리되며 서버로 전송되거나 저장되지 않습니다. 자세한 처리 범위는 PDF Flow Studio 개인정보처리방침(https://pdf-flow-studio.still-coding.cc/privacy/)을 따릅니다.",
+    faqs: [
+      {
+        question: "내 PDF 파일이 외부 서버에 저장되나요?",
+        answer: "아닙니다. 파일 렌더링, 썸네일 생성, 페이지 결합 모두 브라우저 메모리(pdf-lib 및 pdf.js)에서 실행되며 외부 서버로 전송되지 않습니다."
+      },
+      {
+        question: "파일 용량이나 페이지 수에 제한이 있나요?",
+        answer: "서버 제한은 없으며 사용하는 기기의 브라우저 메모리 용량에 따라 결정됩니다. 수백 페이지 분량의 문서도 처리 가능합니다."
+      },
+      {
+        question: "오프라인에서도 쓸 수 있나요?",
+        answer: "첫 방문 후 브라우저에 코드가 캐시되므로 인터넷 연결이 없어도 안전하게 PDF를 편집하고 다운로드할 수 있습니다."
+      },
+      {
+        question: "사용 가이드가 있나요?",
+        answer: "앱의 사용 가이드(https://pdf-flow-studio.still-coding.cc/guide/)에서 자세한 기능과 단축키를 확인하실 수 있습니다."
+      }
+    ],
   },
 ];
 

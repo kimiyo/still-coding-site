@@ -87,6 +87,7 @@
 | Songnote (`piano-play` / piano-songnote) | about, guide, library 5편, privacy, terms, contact (ko/en) | 있음 | 있음(Google 언급 없음) | 있음 | 모범 사례. 개인정보 문서에 Google 광고 쿠키 문구만 보강 |
 | Vocal Check (`vocal-check` / vocal-check-app) | guide, privacy, contact (ko/en) | 있음 | 있음 | 있음 | 모범 사례 |
 | Guitar Auto-Strum (`guitar-play`) | 9/27 점검 이후 공개 앱이 됨 | 점검 안 함 | 점검 안 함 | 점검 안 함 | `/guide/`, `/privacy/`, robots·sitemap, 포털 링크를 다른 앱과 같은 기준으로 점검 |
+| PDF Flow Studio (`pdf-flow-studio` / pdf-flow-studio) | guide, privacy, terms, contact (ko/en 정적 HTML) | 있음 (전체 허용 + sitemap.xml) | 있음 (Google 광고 쿠키, 해제 링크, 워크스페이스 비적격) | 있음 (헤더/푸터) | 없음. 모범 사례로 구축 완료 [9/30 확인] |
 
 Pinhole Lab(`pinhole-game.still-coding.cc`)은 포털 카드에서 제거되어 신청 범위에서 빠졌다(PINHOLE·SUM DROP은 Direct Play로 이식). 다만 도메인이 살아 있으면 SPA fallback 때문에 없는 경로가 모두 `index.html`(200)을 돌려주는 soft 404 문제가 있었다(9/27). 서비스를 유지하려면 `not_found_handling`을 `404-page`로 바꾸고 `robots.txt`, 정적 페이지, 포털 링크를 추가하고, 유지하지 않으면 도메인을 정리한다.
 
