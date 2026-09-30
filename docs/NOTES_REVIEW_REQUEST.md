@@ -216,4 +216,29 @@ grep -rnE "또한|뿐만 아니라|결론적으로|요약하자면|살펴보|시
 
 | 파일 | 검토 완료 | 공개일 | 메모 |
 | --- | --- | --- | --- |
-| (예) `direct-play-room-lifecycle` | ☐ | | |
+| `direct-play-room-lifecycle` | 코드·퇴고 완료 | 미정 | 500방 상수·알람 확인. 한도 선정 근거·실제 운영·남용 대응은 사용자 확인 |
+| `direct-play-game-domains` | 코드·퇴고 완료 | 미정 | 호스트 첫 라벨 판별 정정. 도메인 사고·유입 경험 확인 |
+| `direct-play-p2p-game-assets` | 코드·퇴고 완료 | 미정 | 해시 확인을 건너뛰는 조건 명시. 사진 미업로드 동기·연결 실패 경험 확인 |
+| `direct-play-game-module-registry` | 코드·퇴고 완료 | 미정 | 현재 9게임과 등록 경로 확인. 실제 추가 경험 확인 |
+| `direct-play-photo-gps-place-quiz` | 코드·퇴고 완료 | 보류 | Flutter 공개 여부 미확인. 위치 정보 외부 전송·Nominatim 정책 확인 필요 |
+| `direct-play-pocket-race-netcode` | 코드·퇴고 완료 | 미정 | 다른 차 상태 직접 반영·총 연결 시도 2회 정정. 0.26 선정·방장 이탈 실기기 확인 |
+| `direct-play-spy-game-secrets` | 코드·퇴고 완료 | 보류 | 권한·개인 메시지 상세 삭제. 보안 수정·배포 확인 후 공개 판단 |
+| `bus-explorer-route-search-raptor` | 코드·퇴고 완료 | 미정 | 300쌍 결과는 과거 커밋 기록. 최신 측정·앱 동기 확인 |
+| `bus-explorer-travel-time-estimate` | 코드·퇴고 완료 | 미정 | 승차 대체 속도는 노선 예측 평균. 실제 소요 시간과 비교 필요 |
+| `bus-explorer-live-cache` | 코드·퇴고 완료 | 미정 | 캐시 hit 검사 순서·적응형 TTL 기본값 정정. 1800초 상수 미사용·운영 지표 확인 |
+| `bus-explorer-segment-observation` | 코드·퇴고 완료 | 미정 | 과거 수치를 커밋 기록으로 귀속. 운영 환경·구간 및 표본 수 확인 |
+| `kana-atelier-ipad-pencil-short-strokes` | 코드·퇴고 완료 | 미정 | 입력 처리와 재현 경험 분리. 실제 iPad 환경·해결 결과 확인 |
+| `kana-atelier-stroke-order-animation` | 코드·퇴고 완료 | 미정 | 46+46 글리프 확인. 제작 방법·시간 확인 |
+| `kana-atelier-service-worker-mime-error` | 코드·퇴고 완료 | 미정 | 수정 코드와 추정 원인 구분. 당시 응답·캐시 직접 확인 여부 필요 |
+| `kana-atelier-typing-lab-ime` | 코드·퇴고 완료 | 미정 | 물리 키·조합 이벤트 처리 대조. 실제 한글 입력기 환경·설계 이유 확인 |
+| `kana-atelier-extended-kana-rules` | 코드·퇴고 완료 | 보류 | 코드의 표기 예와 현대 용례 구분. 드문 예시의 교육 적합성·교체 여부 확인 |
+| `guitar-auto-strum-look-ahead-scheduling` | 코드·퇴고 완료 | 미정 | 0.25초·40Hz 확인. 백그라운드·실제 재생 경험 확인 |
+| `guitar-auto-strum-negative-capo` | 코드·퇴고 완료 | 미정 | 카포 테스트 통과. 범위 선정·청취 경험 확인 |
+| `guitar-auto-strum-swing-humanize` | 코드·퇴고 완료 | 미정 | Swing·Feel 위치와 결정적 해시 확인. 변경 이력·청취 판단 확인 |
+| `guitar-auto-strum-string-physical-model` | 코드·퇴고 완료 | 미정 | 분산 주석의 수치 의미 정정. 프로파일 선정·실제 기타 비교 확인 |
+| `guitar-auto-strum-golden-transport-test` | 코드·퇴고 완료 | 미정 | 178케이스·3726이벤트 직접 통과, 최초 추가일 확인. 실제 버그·기기 검증 확인 |
+| `collaboard-session-id-is-not-a-secret` | 코드·퇴고 완료 | 보류 | 로컬 인증 코드 대조. 과거 재현·남은 약점 세부 삭제. 운영 배포 확인 필요 |
+| `songnote-abc-visual-editor-model` | 코드·퇴고 완료 | 미정 | 숫자형 음 길이·초안 저장과 반영·쿼리 noindex 조건 정정. 성능·개발 경험 확인 |
+| `vocal-check-microphone-lifecycle` | 코드·퇴고 완료 | 미정 | 마이크 종료 경로·앱 자체 광고 규칙 구분. 실제 브라우저 경험·운영 광고 상태 확인 |
+
+2026-09-30 검토: 위 완료 표시는 **코드 대조와 퇴고 완료**를 뜻합니다. 사용자 경험 확인과 최종 공개 승인은 포함하지 않습니다. 6.3절에 따라 원래 `TODO(사용자)` 주석은 유지했고, 24편 모두 `draft: true`와 예정 발행일을 그대로 두었습니다. 검증 근거와 남은 공개 조건은 [검토 결과](./NOTES_REVIEW_RESULT.md)에 기록했습니다.
