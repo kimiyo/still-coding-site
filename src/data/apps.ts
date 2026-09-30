@@ -1,4 +1,4 @@
-export type AppCategory = "play" | "learn" | "create" | "explore";
+export type AppGroup = "game" | "learn" | "music" | "tools";
 export type AppStatus = "public" | "preview" | "private-beta" | "coming-soon";
 
 export interface PortfolioApp {
@@ -8,7 +8,7 @@ export interface PortfolioApp {
   url?: string;
   helpUrl?: string;
   englishReady?: boolean;
-  category: AppCategory;
+  group: AppGroup;
   status: AppStatus;
   summary: string;
   detail: string;
@@ -32,7 +32,7 @@ export const apps: PortfolioApp[] = [
     url: "https://dp.still-coding.cc/",
     helpUrl: "https://dp.still-coding.cc/about/",
     englishReady: true,
-    category: "play",
+    group: "game",
     status: "public",
     summary: "게임을 고르고 링크로 초대하면 바로 시작되는 9개의 브라우저 게임",
     detail: "사진 퍼즐과 슬라이딩 퍼즐, 숫자 야구, 숫자합 퍼즐, 6×6 미니 스도쿠, 포켓 레이스, 스파이 게임, 그리고 작은 시야로 관찰하는 PINHOLE과 합 10을 잇는 SUM DROP까지. 공개방과 비밀방을 열어 게임에 따라 최대 12명이 설치 없이 함께합니다.",
@@ -53,7 +53,7 @@ export const apps: PortfolioApp[] = [
     eyebrow: "Learning tool / 01",
     url: "https://study-hiragana.still-coding.cc/",
     helpUrl: "https://study-hiragana.still-coding.cc/guide/",
-    category: "learn",
+    group: "learn",
     status: "public",
     summary: "히라가나와 가타카나를 같은 소리와 손의 움직임으로 연결하는 학습 공방",
     detail: "149개 확장 표기까지 쓰기, 음성, 단어, 비슷한 글자와 짝 학습으로 익히고 브라우저에 진도를 이어서 기록합니다.",
@@ -74,7 +74,7 @@ export const apps: PortfolioApp[] = [
     eyebrow: "Music tool / 02",
     url: "https://guitar-play.still-coding.cc/",
     helpUrl: "https://guitar-play.still-coding.cc/guide/",
-    category: "create",
+    group: "music",
     status: "public",
     summary: "스트로크는 앱에게, 연주는 당신에게 맡기는 브라우저 기타 자동 반주",
     detail: "실시간 코드 전환과 곡 코드 차트 반주, 두 가지 방식으로 반주합니다. 키·박자·리듬·템포·스윙과 스트럼 패턴을 고르고, 물리 모델링으로 만든 어쿠스틱 기타 소리를 지판 화면과 함께 듣습니다.",
@@ -95,7 +95,7 @@ export const apps: PortfolioApp[] = [
     eyebrow: "Collaboration tool / 01",
     url: "https://collaboard.still-coding.cc/",
     helpUrl: "https://collaboard.still-coding.cc/#help",
-    category: "create",
+    group: "tools",
     status: "public",
     summary: "방은 서버가 만들고, 팀의 자료는 팀원 사이에만 남는 협업 공간",
     detail: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 투표, 파일 공유, 공지, 피드백 8가지 도구를 하나의 비밀 룸에서 WebRTC로 직접 연결합니다.",
@@ -111,33 +111,12 @@ export const apps: PortfolioApp[] = [
     faqs: [{ question: "어떤 협업 도구가 있나요?", answer: "화이트보드, 브레인스토밍, Q&A, 퀴즈, 투표, 파일 공유, 공지, 피드백의 8가지 도구를 제공합니다." }, { question: "파일도 서버에 저장되나요?", answer: "이 포털 설명 기준으로 팀 자료는 P2P로 전달되며, 연결이 끊기면 다시 공유해야 할 수 있습니다." }],
   },
   {
-    id: "bus-explorer",
-    title: "Bus Explorer",
-    eyebrow: "Exploration tool / 01",
-    url: "https://bus-explorer.still-coding.cc/",
-    helpUrl: "https://bus-explorer.still-coding.cc/guide/",
-    category: "explore",
-    status: "public",
-    summary: "버스의 흐름을 따라 도시를 새롭게 읽는 노선 탐색 도구",
-    detail: "정류장과 노선을 오가며 익숙한 도시의 연결을 다른 시선으로 살펴봅니다. 이동 정보가 하나의 탐험 경험이 됩니다.",
-    tags: ["Transit", "Route map", "Urban explore"],
-    accent: "#ef5b3f",
-    accentSoft: "#f3c34f",
-    visual: "bus",
-    size: "standard",
-    order: 5,
-    audience: "버스 노선과 정류장의 연결을 지도처럼 탐색하고 싶은 사람",
-    steps: ["관심 있는 도시·노선을 엽니다.", "정류장과 연결된 경로를 따라갑니다.", "새로운 이동 경로를 발견하고 다시 탐색합니다."],
-    dataPolicy: "포털은 버스 탐색 기록을 저장하지 않습니다. 지도와 교통 데이터는 앱이 연결한 외부 데이터 제공자의 운영 상태에 영향을 받을 수 있습니다.",
-    faqs: [{ question: "실시간 도착 정보인가요?", answer: "Bus Explorer는 노선과 연결을 탐색하는 경험에 초점을 둡니다. 실시간 운행 정보로 사용하기 전 앱의 데이터 기준일을 확인하세요." }, { question: "어떤 화면에서 시작하나요?", answer: "앱 링크를 열고 노선 또는 정류장을 선택하면 연결된 경로를 따라갈 수 있습니다." }],
-  },
-  {
     id: "piano-play",
     title: "Songnote",
     eyebrow: "Piano Play / 02",
     url: "https://piano-play.still-coding.cc/",
     helpUrl: "https://piano-play.still-coding.cc/guide/",
-    category: "create",
+    group: "music",
     status: "public",
     summary: "ABC 악보를 고치고 108건반으로 듣는 Songnote 스튜디오",
     detail: "Piano Play는 제품 Songnote의 포털 이름입니다. 예제 악보를 따라 ABC를 편집하고, 합성 피아노로 재생하고, 화면의 108건반으로 연주합니다. 만든 악보는 서버가 아니라 이 브라우저에만 남습니다.",
@@ -159,7 +138,7 @@ export const apps: PortfolioApp[] = [
     url: "https://vocal-check.still-coding.cc/",
     helpUrl: "https://vocal-check.still-coding.cc/guide/",
     englishReady: true,
-    category: "learn",
+    group: "music",
     status: "public",
     summary: "내 목소리의 음정을 눈으로 확인하는 실시간 보컬 체크 도구",
     detail: "마이크로 들어오는 목소리의 높낮이를 시각화해 음정을 바로 확인합니다. 마이크 없이도 데모와 사용 가이드를 먼저 볼 수 있습니다.",
@@ -181,7 +160,7 @@ export const apps: PortfolioApp[] = [
     url: "https://pdf-flow-studio.still-coding.cc/",
     helpUrl: "https://pdf-flow-studio.still-coding.cc/?help=true",
     englishReady: true,
-    category: "create",
+    group: "tools",
     status: "public",
     summary: "서버 전송 없이 브라우저에서 안전하게 재배치·추출·결합하는 PDF 워크스페이스",
     detail: "업로드한 PDF 파일을 외부 서버로 보내지 않고 브라우저 메모리 안에서만 처리합니다. 페이지 순서 변경, 90도 회전, 빈 페이지 삽입, 자유 펜 및 도형 주석, 원하는 페이지만 골라 새로운 PDF로 병합 다운로드까지 하나의 화면에서 안전하게 마칩니다.",
@@ -217,15 +196,49 @@ export const apps: PortfolioApp[] = [
       }
     ],
   },
+  {
+    id: "bus-explorer",
+    title: "Bus Explorer",
+    eyebrow: "Exploration tool / 01",
+    url: "https://bus-explorer.still-coding.cc/",
+    helpUrl: "https://bus-explorer.still-coding.cc/guide/",
+    group: "tools",
+    status: "public",
+    summary: "버스의 흐름을 따라 도시를 새롭게 읽는 노선 탐색 도구",
+    detail: "정류장과 노선을 오가며 익숙한 도시의 연결을 다른 시선으로 살펴봅니다. 이동 정보가 하나의 탐험 경험이 됩니다.",
+    tags: ["Transit", "Route map", "Urban explore"],
+    accent: "#ef5b3f",
+    accentSoft: "#f3c34f",
+    visual: "bus",
+    size: "standard",
+    order: 5,
+    audience: "버스 노선과 정류장의 연결을 지도처럼 탐색하고 싶은 사람",
+    steps: ["관심 있는 도시·노선을 엽니다.", "정류장과 연결된 경로를 따라갑니다.", "새로운 이동 경로를 발견하고 다시 탐색합니다."],
+    dataPolicy: "포털은 버스 탐색 기록을 저장하지 않습니다. 지도와 교통 데이터는 앱이 연결한 외부 데이터 제공자의 운영 상태에 영향을 받을 수 있습니다.",
+    faqs: [{ question: "실시간 도착 정보인가요?", answer: "Bus Explorer는 노선과 연결을 탐색하는 경험에 초점을 둡니다. 실시간 운행 정보로 사용하기 전 앱의 데이터 기준일을 확인하세요." }, { question: "어떤 화면에서 시작하나요?", answer: "앱 링크를 열고 노선 또는 정류장을 선택하면 연결된 경로를 따라갈 수 있습니다." }],
+  }
 ];
 
-export const categoryLabels: Record<"all" | AppCategory, string> = {
-  all: "All",
-  play: "Play",
-  learn: "Learn",
-  create: "Create",
-  explore: "Explore",
-};
+export interface AppGroupInfo {
+  id: AppGroup;
+  label: Record<"ko" | "en", string>;
+  description: Record<"ko" | "en", string>;
+}
+
+// 홈 화면에 표시되는 그룹의 순서와 문구. 새 그룹은 AppGroup 타입과 여기에 함께 추가한다.
+export const appGroups: AppGroupInfo[] = [
+  { id: "game", label: { ko: "게임", en: "Games" }, description: { ko: "링크 하나로 함께 즐기는 브라우저 게임.", en: "Browser games you start together with a link." } },
+  { id: "learn", label: { ko: "학습", en: "Learn" }, description: { ko: "손과 감각으로 익히는 공부 도구.", en: "Study tools built around hands-on practice." } },
+  { id: "music", label: { ko: "음악", en: "Music" }, description: { ko: "연주하고, 듣고, 소리를 눈으로 확인하는 도구.", en: "Tools for playing, hearing, and seeing sound." } },
+  { id: "tools", label: { ko: "도구", en: "Tools" }, description: { ko: "일과 일상을 덜어 주는 실용 앱.", en: "Practical apps for work and everyday errands." } },
+];
+
+// 그룹 안의 순서는 위 apps 배열의 순서를 따른다. 앱이 없는 그룹은 숨긴다.
+export function getAppGroups() {
+  return appGroups
+    .map(group => ({ ...group, apps: apps.filter(app => app.group === group.id && app.status === "public") }))
+    .filter(group => group.apps.length > 0);
+}
 
 export const statusLabels: Record<AppStatus, string> = {
   public: "Public",

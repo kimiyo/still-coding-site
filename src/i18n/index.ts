@@ -11,24 +11,24 @@ export const common = {
 type Editorial = [discipline: string, line: string, action: string, note: string];
 const editorial: Record<Locale, Record<string, Editorial>> = {
   ko: {
-    "direct-play": ["PLAY / MULTIPLAYER EXPERIENCE", "함께 노는 일은, 가볍게.", "게임 고르기", "하나의 입구, 서로 다른 아홉 가지 놀이. 게임을 고르고 방을 만든 뒤 링크로 초대하는 흐름에 여러 게임을 모았습니다."],
+    "direct-play": ["GAME / MULTIPLAYER EXPERIENCE", "함께 노는 일은, 가볍게.", "게임 고르기", "하나의 입구, 서로 다른 아홉 가지 놀이. 게임을 고르고 방을 만든 뒤 링크로 초대하는 흐름에 여러 게임을 모았습니다."],
     "kana-atelier": ["LEARN / INTERACTION DESIGN", "글자를 외우는 대신, 감각으로.", "가나 학습 시작", "글자의 모양과 소리, 손의 움직임을 함께 다룹니다. 쓰기와 음성, 비슷한 글자의 짝 학습을 연결합니다."],
-    collaboard: ["CONNECT / REALTIME SYSTEMS", "함께 생각하는 공간의 구조.", "협업 도구 열기", "화이트보드부터 워크숍 피드백까지 8가지 도구를 팀원 사이의 WebRTC 연결로 협업합니다."],
-    "bus-explorer": ["EXPLORE / URBAN MOBILITY", "노선을 따라, 도시를 다시 읽기.", "노선 탐색하기", "정류장과 경로를 정보로만 보여주지 않고, 연결을 발견하는 탐색 경험으로 풀었습니다."],
-    "guitar-auto-strum": ["CREATE / AUTO ACCOMPANIMENT", "스트로크는 앱에게, 연주는 당신에게.", "반주 시작하기", "코드만 바꾸면 리듬이 이어집니다. 준비는 짧게, 음악에 쓰는 시간은 길게 가져갈 수 있도록 실시간 코드 전환과 곡 코드 차트, 두 가지 반주 방식을 만들었습니다."],
-    "piano-play": ["CREATE / PIANO PLAY", "악보에서 소리까지, 같은 스튜디오.", "Songnote 열기", "Piano Play는 앱의 제품명인 Songnote와 같은 주소의 같은 악보·피아노 스튜디오입니다."],
-    "vocal-check": ["LEARN / AUDIO FEEDBACK", "목소리의 높이를, 눈앞에.", "음정 확인하기", "마이크 입력을 분석해 현재 음과 음의 흔들림을 한눈에 확인합니다."],
-    "pdf-flow-studio": ["CREATE / PDF WORKSPACE", "페이지를 고르고 엮는 일, 안전하게.", "PDF 스튜디오 열기", "문서를 서버로 올리지 않고 브라우저 안에서 순서를 바꾸고, 회전하고, 그리고, 합칩니다."]
+    collaboard: ["TOOLS / REALTIME COLLABORATION", "함께 생각하는 공간의 구조.", "협업 도구 열기", "화이트보드부터 워크숍 피드백까지 8가지 도구를 팀원 사이의 WebRTC 연결로 협업합니다."],
+    "bus-explorer": ["TOOLS / URBAN MOBILITY", "노선을 따라, 도시를 다시 읽기.", "노선 탐색하기", "정류장과 경로를 정보로만 보여주지 않고, 연결을 발견하는 탐색 경험으로 풀었습니다."],
+    "guitar-auto-strum": ["MUSIC / AUTO ACCOMPANIMENT", "스트로크는 앱에게, 연주는 당신에게.", "반주 시작하기", "코드만 바꾸면 리듬이 이어집니다. 준비는 짧게, 음악에 쓰는 시간은 길게 가져갈 수 있도록 실시간 코드 전환과 곡 코드 차트, 두 가지 반주 방식을 만들었습니다."],
+    "piano-play": ["MUSIC / PIANO PLAY", "악보에서 소리까지, 같은 스튜디오.", "Songnote 열기", "Piano Play는 앱의 제품명인 Songnote와 같은 주소의 같은 악보·피아노 스튜디오입니다."],
+    "vocal-check": ["MUSIC / AUDIO FEEDBACK", "목소리의 높이를, 눈앞에.", "음정 확인하기", "마이크 입력을 분석해 현재 음과 음의 흔들림을 한눈에 확인합니다."],
+    "pdf-flow-studio": ["TOOLS / PDF WORKSPACE", "페이지를 고르고 엮는 일, 안전하게.", "PDF 스튜디오 열기", "문서를 서버로 올리지 않고 브라우저 안에서 순서를 바꾸고, 회전하고, 그리고, 합칩니다."]
   },
   en: {
-    "direct-play": ["PLAY / MULTIPLAYER EXPERIENCE", "Playing together should feel easy.", "Choose a game", "Nine browser games in one doorway. Choose a game, create a room, and invite people with a link."],
+    "direct-play": ["GAME / MULTIPLAYER EXPERIENCE", "Playing together should feel easy.", "Choose a game", "Nine browser games in one doorway. Choose a game, create a room, and invite people with a link."],
     "kana-atelier": ["LEARN / INTERACTION DESIGN", "Feel the character before you memorize it.", "Start learning kana", "Connect shape, sound, and hand movement through writing, listening, and paired review."],
-    collaboard: ["CONNECT / REALTIME SYSTEMS", "A room for thinking together.", "Open collaboration tools", "Create a room and share a link with your team. Eight tools connect participants through WebRTC."],
-    "bus-explorer": ["EXPLORE / URBAN MOBILITY", "Read the city along its routes.", "Explore routes", "Explore stops and connections as a way to discover a familiar city from another angle."],
-    "guitar-auto-strum": ["CREATE / AUTO ACCOMPANIMENT", "Leave the strumming to the app.", "Start accompaniment", "Change the chord and the rhythm keeps flowing. Live and song modes keep setup short so more of your time goes to music."],
-    "piano-play": ["CREATE / PIANO PLAY", "From score to sound, one studio.", "Open Songnote", "Piano Play is the portal name for Songnote. Edit ABC notation, preview the score, and play it on a 108-key keyboard."],
-    "vocal-check": ["LEARN / AUDIO FEEDBACK", "See the pitch inside your voice.", "Check your pitch", "Visualise microphone input to see the current note and its movement while you practice."],
-    "pdf-flow-studio": ["CREATE / PDF WORKSPACE", "Rearrange and merge pages safely.", "Open PDF Studio", "Reorder, rotate, annotate, and merge PDF pages inside your browser without uploading files to a server."]
+    collaboard: ["TOOLS / REALTIME COLLABORATION", "A room for thinking together.", "Open collaboration tools", "Create a room and share a link with your team. Eight tools connect participants through WebRTC."],
+    "bus-explorer": ["TOOLS / URBAN MOBILITY", "Read the city along its routes.", "Explore routes", "Explore stops and connections as a way to discover a familiar city from another angle."],
+    "guitar-auto-strum": ["MUSIC / AUTO ACCOMPANIMENT", "Leave the strumming to the app.", "Start accompaniment", "Change the chord and the rhythm keeps flowing. Live and song modes keep setup short so more of your time goes to music."],
+    "piano-play": ["MUSIC / PIANO PLAY", "From score to sound, one studio.", "Open Songnote", "Piano Play is the portal name for Songnote. Edit ABC notation, preview the score, and play it on a 108-key keyboard."],
+    "vocal-check": ["MUSIC / AUDIO FEEDBACK", "See the pitch inside your voice.", "Check your pitch", "Visualise microphone input to see the current note and its movement while you practice."],
+    "pdf-flow-studio": ["TOOLS / PDF WORKSPACE", "Rearrange and merge pages safely.", "Open PDF Studio", "Reorder, rotate, annotate, and merge PDF pages inside your browser without uploading files to a server."]
   }
 };
 

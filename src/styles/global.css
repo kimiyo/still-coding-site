@@ -40,7 +40,7 @@ img {
   display:block;
   max-width:100%
 }
-p,h1,h2,h3 {
+p,h1,h2,h3,h4 {
   word-break:keep-all;
   overflow-wrap:break-word
 }
@@ -289,6 +289,82 @@ p,h1,h2,h3 {
   gap:80px 42px;
   align-items:start
 }
+.group-nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 28px;
+  margin:-32px 0 84px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  font-size:.8rem
+}
+.group-nav a {
+  text-decoration:none;
+  color:var(--ink-muted);
+  transition:color .3s
+}
+.group-nav a:hover,.group-nav a:focus-visible {
+  color:#eeeae0
+}
+.group-nav sup {
+  margin-left:5px;
+  font-size:.5rem;
+  letter-spacing:.1em;
+  color:#b1a58e
+}
+.app-group {
+  scroll-margin-top:96px
+}
+.app-group+.app-group {
+  margin-top:130px
+}
+.group-head {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:8px 24px;
+  margin-bottom:38px
+}
+.group-index {
+  font-size:.6rem;
+  letter-spacing:.19em;
+  color:#b1a58e
+}
+.group-head h3 {
+  font-family:var(--serif);
+  font-size:clamp(1.9rem,2.8vw,2.7rem);
+  font-weight:400;
+  letter-spacing:-.04em;
+  line-height:1.3;
+  margin:0
+}
+.group-head h3 em {
+  margin-left:12px;
+  font-family:inherit;
+  font-style:normal;
+  font-size:.42em;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#a9a294
+}
+.group-head p {
+  margin:0 0 0 auto;
+  font-size:.82rem;
+  line-height:1.8;
+  color:var(--ink-muted)
+}
+@media(max-width:700px) {
+  .group-nav {
+    margin:-30px 0 60px
+  }
+  .app-group+.app-group {
+    margin-top:80px
+  }
+  .group-head p {
+    margin-left:0;
+    flex-basis:100%
+  }
+}
 .app-card {
   position:relative;
   min-width:0;
@@ -379,7 +455,7 @@ p,h1,h2,h3 {
   align-items:center;
   gap:10px
 }
-.work-title-row h3 {
+.work-title-row h4 {
   font-family:var(--serif);
   font-size:clamp(2rem,3.2vw,3.6rem);
   font-weight:400;
@@ -387,7 +463,7 @@ p,h1,h2,h3 {
   line-height:1.3;
   margin:10px 0 17px
 }
-.work-title-row h3 a {
+.work-title-row h4 a {
   text-decoration:none
 }
 .work-number {
@@ -554,7 +630,7 @@ p,h1,h2,h3 {
   padding:0 0 18px
 }
 .work-collaboard {
-  grid-column:2/12;
+  grid-column:1/-1;
   display:grid;
   grid-template-columns:1fr 1fr;
   column-gap:40px
@@ -1060,7 +1136,7 @@ footer {
   .card-copy,.featured-work .card-copy,.work-collaboard .card-copy {
     padding-top:24px
   }
-  .work-title-row h3 {
+  .work-title-row h4 {
     font-size:2.3rem
   }
   .summary {
