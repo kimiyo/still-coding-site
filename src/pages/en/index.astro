@@ -29,7 +29,7 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       {groups.map((group, groupIndex) => (
         <div class="app-group" id={`group-${group.id}`} aria-labelledby={`group-${group.id}-title`}>
           <div class="group-head"><span class="group-index">{String(groupIndex + 1).padStart(2, "0")}</span><h3 id={`group-${group.id}-title`}>{group.label.en}</h3><p>{group.description.en}</p></div>
-          <div class="app-grid">{group.apps.map((app, i) => <AppCard app={app} index={group.firstNumber + i} locale={locale} noteCount={noteCounts[app.id] ?? 0} wide={group.apps.length % 2 === 1 && i === 0} />)}</div>
+          <div class="app-grid">{group.apps.map((app, i) => <AppCard app={app} index={group.firstNumber + i} locale={locale} noteCount={noteCounts[app.id] ?? 0} />)}</div>
         </div>
       ))}<p class="works-colophon"><span>CONCEPT → DESIGN → CODE → OPERATION</span><span>Many works, one workbench.</span></p></section>
     <section class="about" id="about" aria-labelledby="about-title"><span class="section-number">02 / THE PERSON BEHIND</span><div class="about-grid"><div><p class="about-prelude">Keep the explanation short. Keep making.</p><h2 id="about-title">Still coding,<br /><em>still curious.</em></h2></div><div class="about-copy"><span class="maker-name">JH Kim <span>INDEPENDENT DEVELOPER</span></span><p>I design ideas, build them in code,<br />and run them directly.</p><p class="about-small">From games and learning tools to collaboration spaces.<br />When curiosity appears, I make something.</p><a href="https://github.com/kimiyo" target="_blank" rel="noopener noreferrer">Continue on GitHub <span aria-hidden="true">↗</span></a></div></div></section>

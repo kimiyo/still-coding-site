@@ -51,7 +51,7 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       {groups.map((group, groupIndex) => (
         <div class="app-group" id={`group-${group.id}`} aria-labelledby={`group-${group.id}-title`}>
           <div class="group-head"><span class="group-index">{String(groupIndex + 1).padStart(2, "0")}</span><h3 id={`group-${group.id}-title`}>{group.label.ko} <em>{group.label.en}</em></h3><p>{group.description.ko}</p></div>
-          <div class="app-grid">{group.apps.map((app, i) => <AppCard app={app} index={group.firstNumber + i} noteCount={noteCounts[app.id] ?? 0} wide={group.apps.length % 2 === 1 && i === 0} />)}</div>
+          <div class="app-grid">{group.apps.map((app, i) => <AppCard app={app} index={group.firstNumber + i} noteCount={noteCounts[app.id] ?? 0} />)}</div>
         </div>
       ))}
       <p class="works-colophon"><span>CONCEPT → DESIGN → CODE → OPERATION</span><span>여러 개의 작업, 하나의 작업대.</span></p>

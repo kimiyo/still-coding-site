@@ -2,15 +2,15 @@
 import type { PortfolioApp } from "../data/apps";
 import AppVisual from "./AppVisual.astro";
 import { common, getAppText, localizedAppUrl, localizedPath, type Locale } from "../i18n";
-interface Props { app: PortfolioApp; index: number; locale?: Locale; noteCount?: number; wide?: boolean }
-const { app: sourceApp, index, locale = "ko", noteCount = 0, wide = false } = Astro.props;
+interface Props { app: PortfolioApp; index: number; locale?: Locale; noteCount?: number }
+const { app: sourceApp, index, locale = "ko", noteCount = 0 } = Astro.props;
 const app = getAppText(sourceApp, locale);
 const copy = app;
 const text = common[locale];
 const openUrl = localizedAppUrl(sourceApp.url, locale, sourceApp.englishReady);
 const guideUrl = localizedAppUrl(sourceApp.helpUrl, locale, sourceApp.englishReady);
 ---
-<article class:list={["app-card", `work-${app.id}`, wide && "featured-work"]} data-accent={app.accent} style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}>
+<article class:list={["app-card", `work-${app.id}`, "featured-work"]} data-accent={app.accent} style={`--app-accent:${app.accent};--app-secondary:${app.accentSoft}`}>
   <div class="card-head"><span>{text.work} / {String(index).padStart(2, "0")}</span><span>{index === 1 ? text.selected : copy.discipline}</span><span class="public-mark">{text.live} <i></i></span></div>
   <div class="visual-stage">
     <a class="visual-link" href={openUrl} target="_blank" rel="noopener noreferrer" aria-label={`${app.title} ${locale === "en" ? "open in a new window" : "체험하기, 새 창"}`}>
