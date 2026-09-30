@@ -16,6 +16,12 @@ export async function getSortedNotes(): Promise<Note[]> {
       throw new Error(`Note "${note.id}" has app "${note.data.app}", which is not in src/data/apps.ts.`);
     }
   }
+  for (const note of all) {
+    // Draft notes carry <!-- TODO(사용자) --> prompts for the author; they must not reach a published page.
+    if (!note.data.draft && note.body?.includes("TODO(사용자)")) {
+      throw new Error(`Note "${note.id}" is published but still has a TODO(사용자) comment. Resolve it or keep draft: true.`);
+    }
+  }
   return all
     .filter(note => showDrafts || !note.data.draft)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
