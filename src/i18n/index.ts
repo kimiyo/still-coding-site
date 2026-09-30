@@ -4,7 +4,7 @@ export const supportedLocales = ["ko", "en"] as const;
 export type Locale = (typeof supportedLocales)[number];
 export const localeNames: Record<Locale, string> = { ko: "한글", en: "English" };
 export const common = {
-  ko: { language: "언어 선택", home: "Still Coding 홈", works: "Works", about: "About", contact: "문의", privacy: "개인정보처리방침", terms: "이용약관", notes: "노트", skip: "작품으로 바로 가기", selected: "SELECTED PROJECT", live: "LIVE", details: "상세 안내", howTo: "사용법", perspective: "작업의 관점", openApp: "앱 열기", allWorks: "모든 작업 보기", publicNotes: "STILL CODING / PUBLIC NOTES", work: "WORK", newRelease: "NEW RELEASE", footerIdea: "IDEAS, MADE REAL.", share: "이 사이트 공유하기", qr: "사이트 QR 코드 보기" },
+  ko: { language: "언어 선택", home: "Still Coding 홈", works: "Works", about: "About", contact: "문의", privacy: "개인정보처리방침", terms: "이용약관", notes: "개발 노트", skip: "작품으로 바로 가기", selected: "SELECTED PROJECT", live: "LIVE", details: "상세 안내", howTo: "사용법", perspective: "작업의 관점", openApp: "앱 열기", allWorks: "모든 작업 보기", publicNotes: "STILL CODING / PUBLIC NOTES", work: "WORK", newRelease: "NEW RELEASE", footerIdea: "IDEAS, MADE REAL.", share: "이 사이트 공유하기", qr: "사이트 QR 코드 보기" },
   en: { language: "Choose language", home: "Still Coding home", works: "Works", about: "About", contact: "Contact", privacy: "Privacy policy", terms: "Terms", notes: "Notes (KR)", skip: "Skip to works", selected: "SELECTED PROJECT", live: "LIVE", details: "Details", howTo: "Guide", perspective: "The thinking", openApp: "Open app", allWorks: "View all works", publicNotes: "STILL CODING / PUBLIC NOTES", work: "WORK", newRelease: "NEW RELEASE", footerIdea: "IDEAS, MADE REAL.", share: "Share this site", qr: "View site QR code" }
 } as const;
 

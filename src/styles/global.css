@@ -946,8 +946,9 @@ footer {
     font-size:.62rem;
     gap:8px
   }
+  .brand span,
   .brand i {
-    height:20px
+    display:none
   }
   .brand-mark {
     width:26px;
@@ -955,10 +956,15 @@ footer {
     border-radius:6px
   }
   .site-header nav {
-    gap:20px
+    gap:14px
   }
   .site-header nav a {
-    font-size:.67rem
+    font-size:.67rem;
+    white-space:nowrap
+  }
+  .site-header nav a > span[aria-hidden],
+  .site-header nav a > sup {
+    display:none
   }
   .hero {
     height:900px;
