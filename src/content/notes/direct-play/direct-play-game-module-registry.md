@@ -129,8 +129,6 @@ frontend/games/number-baseball/
 "test:spy-game":        "node frontend/games/spy-game/logic.test.js"
 ```
 
-<!-- TODO(사용자): 규칙을 화면에서 떼어 놓았을 때 실제로 버그를 미리 잡은 경험이 있으면 한 가지 예를 들어 주세요. -->
-
 ## 새 게임을 추가하는 순서
 
 개발자 문서에 적어 둔 절차는 단순합니다.
@@ -140,8 +138,6 @@ frontend/games/number-baseball/
 3. `catalog.js`에 카드 메타를 넣는다.
 4. `registry.js`의 `LOADERS`에 한 줄을 넣는다.
 5. `package.json`의 `check`에 새 파일을 넣는다.
-
-<!-- TODO(사용자): 가장 최근에 게임을 추가했을 때 실제로 걸린 시간이나 손댄 파일 수. 문서상의 절차가 실제와 맞는지도 확인해 주세요. -->
 
 ## 구조를 시험하다: 독립 앱 두 개를 모듈로 옮기다
 
