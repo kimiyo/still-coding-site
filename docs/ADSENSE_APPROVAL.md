@@ -1,108 +1,152 @@
-# Google AdSense 승인 요청 절차 (still-coding.cc)
+# still-coding.cc AdSense 승인 준비 (최종본)
 
-작성일 2026-09-27 (같은 날 `ADSENSE_REVIEW_2026-09-27.md` 점검 결과를 반영해 정정)
+- 갱신일: 2026-09-30
+- 이 문서는 `ADSENSE_APPROVAL.md`(신청 절차)와 `ADSENSE_REVIEW_2026-09-27.md`(사전 점검)를 하나로 합친 것이다. 두 문서는 이 문서로 대체되었다.
+- 확인 방법 표시: **[확인]** 이 저장소의 코드·빌드 결과로 2026-09-30에 확인함 / **[9/27]** 하위 앱 저장소를 9월 27일에 점검한 결과이며 이후 다시 확인하지 않음 / **[미확인]** 대시보드나 외부 도구에서 봐야 함.
+- 우선순위는 작업 순서를 정리한 것이며, Google의 공식 승인 기준이나 승인 보장이 아니다.
 
-## 개요
+## 1. 지금 상태 한눈에
 
-Google AdSense는 사이트를 심사한 뒤 광고 게재를 승인하는 방식이므로, 신청 전에 사이트가 정책 요구사항을 충족하도록 준비하는 것이 핵심이다. 전체 흐름은 다음과 같다.
+| 구분 | 상태 |
+| --- | --- |
+| 포털 코드·콘텐츠 준비 | 완료. 아래 미완료 항목은 모두 계정·대시보드·외부 확인 작업 |
+| 개발 노트 | 35편 공개 (Direct Play 14, Bus Explorer 4, Guitar Auto-Strum 5, 가나 공방 5, CollaBoard 2, Songnote 2, Vocal Check 2, 포털 1). 초안·TODO 없음 |
+| 신청 전에 사람이 해야 할 일 | AdSense 가입, 게시자 ID 입력 후 재배포, `/ads.txt` 확인, Search Console 등록, 트래픽 판단, CMP 검토, Cloudflare 봇 설정 확인 |
 
-1. 사전 준비사항 점검 (콘텐츠, 정책, 트래픽)
-2. AdSense 계정 생성 및 사이트 등록
-3. 사이트 인증 코드(ads.txt 포함) 삽입
-4. Google 검토 대기 (통상 수일~수주)
-5. 승인 또는 반려 통지, 반려 시 사유 확인 후 재신청
-6. 승인 후 광고 단위 배치 및 성과 모니터링
+## 2. 체크리스트
 
-## 사전 준비사항 체크리스트
+### 완료 [확인]
 
-still-coding.cc는 Astro로 빌드되어 Cloudflare(wrangler)로 배포되는 정적 포털 사이트다. 현재 코드베이스 기준 상태는 아래와 같다.
+- [x] 도메인·HTTPS 배포 (`astro.config.mjs` `site: "https://still-coding.cc"`)
+- [x] `/privacy/`, `/en/privacy/` — 4항 "광고와 쿠키"에 제3자 쿠키 광고, 맞춤 광고 해제 방법 고지. 3항에서 앱별 방침으로 직접 링크
+- [x] `/terms/`, `/en/terms/` — 푸터·사이트맵 포함
+- [x] `/contact/` — 운영자 이메일 `still.coding.cc@gmail.com`(`src/data/site.ts`)과 GitHub 이슈 경로
+- [x] 확인 코드 — `PUBLIC_ADSENSE_CLIENT`가 있으면 `BaseLayout.astro`가 `google-adsense-account` 메타와 `adsbygoogle.js`를 출력. 값이 없으면 아무것도 출력하지 않음
+- [x] `/ads.txt` 생성 코드 — `src/pages/ads.txt.ts`. 값이 없으면 주석 한 줄만 내고 가짜 ID는 넣지 않음
+- [x] `robots.txt`(전체 허용 + 사이트맵), `sitemap.xml` 자동 생성(`src/pages/sitemap.xml.ts`, 앱·노트 데이터 기반, 노트 `lastmod` 포함)
+- [x] 고유 콘텐츠 — 앱 상세 7개, 개발 노트 35편. 초안은 공개 빌드에서 제외되고, `TODO(사용자)`가 남은 노트는 빌드가 실패하도록 막아 둠
+- [x] 홈 한국어 본문(소개·최근 노트), 앱 ↔ 노트 상호 링크
+- [x] 앱 설명 정확성 — Direct Play 9개 게임 표기, Pinhole Lab 카드 제거와 FAQ("Pinhole Lab은 어디로 갔나요?"), 가나 공방·Bus Explorer·Guitar·Songnote·Vocal Check의 `helpUrl`을 정적 `/guide/`로
+- [x] 중복 호스트 정리 — `wrangler.jsonc`에서 `workers_dev: false`, `preview_urls: false`, `not_found_handling: "404-page"`(없는 경로는 진짜 404)
+- [x] 게임 개발 노트 — Direct Play 게임 9개 모두 노트가 있음(포켓 레이스·스파이 게임은 기존 노트, 나머지 7개는 게임별 노트)
 
-- [x] 도메인 소유 및 HTTPS 배포 (`astro.config.mjs`의 `site: "https://still-coding.cc"`)
-- [x] `/privacy/` 개인정보처리방침 페이지 게시 (`src/pages/privacy.astro`, `src/pages/en/privacy.astro`)
-- [x] `/contact/` 문의 페이지 게시 — 운영자 이메일 `still.coding.cc@gmail.com` (`src/data/site.ts`)
-- [x] `/terms/` 이용약관 게시 (`src/pages/terms.astro`, `src/pages/en/terms.astro`)
-- [x] 개인정보처리방침에 Google 광고 쿠키와 맞춤 광고 해제 방법 고지 (4항 "광고와 쿠키")
-- [x] AdSense 확인 코드: `PUBLIC_ADSENSE_CLIENT` 환경변수로 `BaseLayout.astro`에 메타 태그·스크립트 출력
-- [x] `robots.txt`, `sitemap.xml` 공개 (`public/robots.txt`, 사이트맵은 `src/pages/sitemap.xml.ts`가 앱·노트 데이터로 생성)
-- [ ] 고유 콘텐츠 — 앱 상세 7개 + 개발 노트 4편으로 시작. 노트를 15–20편 이상으로 늘린 뒤 신청 권장 (`src/content/notes/`)
-- [ ] `/ads.txt` — `src/pages/ads.txt.ts`가 `PUBLIC_ADSENSE_CLIENT` 값으로 판매자 행을 만든다. 게시자 ID는 가입 즉시 발급되므로 **신청 전에** 값을 넣고 배포한다.
-- [ ] 최근 30일 내 충분히 확보된 실제 방문 트래픽 확보 (미검증, AdSense 자체는 최소 트래픽을 명시하지 않지만 검토자가 실제 이용 정황을 확인함)
-- [ ] 만 18세 이상이어야 하며 계정 소유자의 은행 개인정보가 AdSense 계정에 등록되어 있어야 함(지급을 위해 필수)
+### 미완료
 
-이 문서는 2026-09-26자 `still-coding-adsense-improvements.md` 점검 결과 이후 변화(commit `872ed63 feat: prepare portal for AdSense review`)를 반영해 작성되었다.
+- [ ] **AdSense 계정 생성, 게시자 ID 확보** — 만 18세 이상, 지급용 개인정보·은행 정보 등록 필요 (사람만 할 수 있음)
+- [ ] **`PUBLIC_ADSENSE_CLIENT` 입력 후 재배포** — 저장소 루트에 `.env`가 없음. `PUBLIC_ADSENSE_CLIENT=ca-pub-…`를 넣고 빌드·배포해야 확인 코드와 `/ads.txt` 판매자 행이 생긴다. 게시자 ID는 가입 즉시 발급되므로 **신청 전에** 넣는다
+- [ ] **`www.still-coding.cc` → 루트 301** — 코드에는 `www`도 custom domain으로 남아 있어 같은 내용을 제공한다. Cloudflare Redirect Rule 설정 여부 [미확인]
+- [ ] **Cloudflare 봇 설정** [미확인] — Bot Fight Mode나 "AI 봇 차단" 관리형 robots.txt가 `Googlebot`/`Mediapartners-Google`에 챌린지를 걸지 않는지 대시보드에서 확인. 막히면 "사이트를 검토할 수 없음"으로 거절된다
+- [ ] **Search Console** — `still-coding.cc` 등록, 사이트맵 제출, 색인 생성 확인
+- [ ] **실제 방문 트래픽** [미확인] — AdSense가 최소 수치를 명시하지는 않지만 검토자는 실제 이용 정황을 본다
+- [ ] **EEA·영국·스위스 CMP** [미확인] — 해당 지역 방문자 비율을 측정하지 않았다. 광고 게재 전에 검토(승인 자체와는 별개 작업)
+- [ ] **하위 앱 저장소 조치** — 아래 4절. 마지막 점검(9/27) 이후 다시 확인하지 않았다
 
-## 신청 절차
+### 선택 (P2)
+
+- [ ] 구조화 데이터 — 현재는 `ItemList`만 있다. `WebSite`와 `Person`(JH Kim, `sameAs` GitHub) 추가 [확인: BaseLayout에 없음]
+- [ ] OG 이미지 형식 — 새 앱 아이콘으로 교체됨(9/29). 카카오톡 등 미리보기에서 `.webp` 호환성은 [미확인]
+
+## 3. 신청 절차
 
 ```
-계정 생성 → 사이트 등록 → 검토 통과? ──아니오──▶ 거절 확인 ──(수정 후 재제출)──┐
-                              │                                          │
-                             예                                          │
-                              ▼                                          │
-                          게재 설정 → 게재 시작                            │
-                              ▲                                          │
-                              └──────────────────────────────────────────┘
+계정 생성 → 사이트 등록 → 검토 통과? ──아니오──▶ 거절 사유 확인 ──(수정 후 검토 요청)──┐
+                              │                                                │
+                             예                                                │
+                              ▼                                                │
+                          게재 설정 → 게재 시작                                  │
+                              ▲                                                │
+                              └────────────────────────────────────────────────┘
 ```
-
-검토를 통과하면 광고 게재 설정 후 게재가 시작되고, 거절되면 사유를 확인해 사이트를 수정한 뒤 다시 검토를 요청한다. 각 단계의 세부 사항은 다음과 같다.
 
 1. **계정 생성** — Google 계정으로 [adsense.google.com](https://www.google.com/adsense/start/)에서 가입한다.
-2. **사이트 등록** — 사이트 URL(`still-coding.cc`)을 등록하고 소유권을 확인한다.
-3. **검토 대기** — Google이 콘텐츠와 정책 준수 여부를 검토한다. 보통 수일에서 수 주가 걸린다.
-4. **결과 통보** — 이메일과 AdSense 대시보드로 승인 또는 거절이 통보된다.
+2. **게시자 ID 반영** — `.env`에 `PUBLIC_ADSENSE_CLIENT=ca-pub-…`를 넣고 `pnpm run build`(`astro check && astro build`) 후 `pnpm run deploy`(`wrangler deploy`)한다.
+3. **배포 확인** — 실제 도메인에서 `view-source:https://still-coding.cc/`로 `<meta name="google-adsense-account">`를 확인하고, `https://still-coding.cc/ads.txt`가 `text/plain`으로 `google.com, pub-…, DIRECT, f08c47fec0942fa0` 한 줄을 돌려주는지 본다. 404 페이지나 HTML이 대신 나오면 안 된다.
+4. **사이트 등록** — `still-coding.cc`를 등록하고 소유권을 확인한다. 루트 도메인 하나만 등록한다.
+5. **검토 대기** — 보통 수일에서 수 주. Google은 처리 기간을 보장하지 않는다.
+6. **결과 통보** — 이메일과 대시보드로 승인 또는 거절이 통보된다.
 
-## 기술 설정 (Astro + Cloudflare 기준)
+### 원칙
 
-still-coding.cc는 Astro로 빌드해 wrangler로 Cloudflare에 배포된다. 모든 페이지가 `src/layouts/BaseLayout.astro`를 공유하므로, 이곳에 한 번만 적용하면 사이트 전체에 적용된다.
+- **ads.txt** — Google은 루트 도메인의 `https://still-coding.cc/ads.txt`를 확인한다. 하위 도메인마다 둘 필요가 없고, 두려면 실제 ID만 넣는다. 플레이스홀더(`pub-XXXX…`) 행은 두지 않는다.
+- **승인 범위** — 루트 도메인이 승인되면 `*.still-coding.cc` 하위 앱에도 같은 계정으로 광고를 게재할 수 있다. 다만 광고가 나오는 모든 페이지는 프로그램 정책을 지켜야 한다.
+- **확인 코드와 광고 단위** — `adsbygoogle.js`는 공식 확인 방법 중 하나이며, 승인 전에는 광고가 표시되지 않을 뿐이다. 개별 광고 단위(`<ins class="adsbygoogle">`)나 Auto Ads는 승인 후 읽을거리가 있는 페이지에만 추가한다.
+- **광고 배치** — 게임·측정·편집 화면처럼 조작하는 곳 근처에 광고를 두면 실수 클릭 유도로 제재받을 수 있다. Songnote와 Vocal Check의 `ads.js` 허용 목록(읽기 페이지만 허용) 방식을 모범으로 삼는다.
+- **포털 링크** — 모든 앱의 헤더나 푸터에 `still-coding.cc`로 돌아가는 링크를 둔다.
+- 검토 중에는 사이트를 자유롭게 고쳐도 되지만 이미 넣은 확인 코드를 임의로 빼지 않는다.
 
-1. **사이트 소유권 확인 코드** — `PUBLIC_ADSENSE_CLIENT`가 설정되면 `BaseLayout.astro`가 모든 페이지 `<head>`에 `<meta name="google-adsense-account">`와 `adsbygoogle.js` 스크립트를 출력한다. 코드를 직접 붙여 넣을 필요는 없다.
-2. **`ads.txt` 게시** — 저장소 루트 `.env`에 `PUBLIC_ADSENSE_CLIENT=ca-pub-…`를 넣고 빌드하면 `/ads.txt`에 `google.com, pub-…, DIRECT, f08c47fec0942fa0` 행이 생긴다. 값이 없으면 주석 한 줄만 출력하고, 가짜 ID는 절대 넣지 않는다. Astro는 `public/` 아래 파일을 루트에 그대로 복사하므로 배포 후 `https://still-coding.cc/ads.txt`가 일반 텍스트로 응답되는지 반드시 확인한다(SPA/404 핸들러가 HTML을 대신 반환하지 않도록 주의).
-3. **검토용 vs 실서빙 코드 분리** — `adsbygoogle.js` 스크립트는 Google이 안내하는 공식 확인 방법 중 하나이며, 승인 전에는 광고가 표시되지 않을 뿐이다. 개별 광고 단위(`<ins class="adsbygoogle">`)나 Auto Ads 설정은 승인 후 읽기 페이지에만 추가한다.
-4. **배포** — `pnpm run build`(`astro check && astro build`) 후 `pnpm run deploy`(`wrangler deploy`)로 반영한다. 변경 후 반드시 실제 배포 도메인에서 `view-source:`로 `<meta name="google-adsense-account">` 태그와 `/ads.txt` 응답을 직접 확인한다.
-5. **앱별 하위 도메인** — Google은 루트 도메인의 `https://still-coding.cc/ads.txt`를 확인하므로 하위 도메인마다 ads.txt를 둘 필요는 없다. 두려면 실제 ID만 넣고, 플레이스홀더(`pub-XXXX…`) 행은 두지 않는다.
+## 4. 하위 앱 점검표 [9/27 기준, 재확인 필요]
 
-## 콘텐츠 및 정책 요구사항
+점검 환경의 네트워크 제한으로 배포 URL에는 접속하지 못하고 각 저장소의 소스와 배포 설정만 봤다. 배포본이 저장소와 다르면 결과도 다를 수 있다.
 
-Google이 가장 자주 거절하는 사유는 정책 위반이 아니라 '검토할 수 있는 고유 콘텐츠 부족'이다. 신청 전 아래를 확인한다.
+| 앱 (도메인 / 저장소) | 공개 정적 페이지 | robots / sitemap | 광고 고지 | 포털 링크 | 남은 조치 |
+| --- | --- | --- | --- | --- | --- |
+| Direct Play (`dp` / kimiyo/direct-play-games) | about, privacy, terms, contact, 게임 가이드 9개 (ko/en) | 있음, 방·API 경로 차단 | 있음 | 있음 | 없음. 가장 잘 갖춰짐 |
+| 가나 공방 (`study-hiragana` / study-japanese-language-alphabet) | guide, privacy, contact | 있음 | 있음(Google 언급 없음) | 있음 | 개인정보 문서에 Google 광고 쿠키와 해제 링크 명시 |
+| CollaBoard (`collaboard` / collaboard-app) | **해시 뷰만** (`/#help`, `/#privacy`, `/#contact`) | 사이트맵에 `#` URL 10개. Google은 fragment를 무시하므로 사실상 `/`, `/en/` 2개 | 있음(JS 뷰 안) | 있음 | ① `frontend/ads.txt`의 `pub-XXXXXXXXXXXXXXXX` 행 **삭제**(그대로 배포됨) ② help/privacy/contact를 정적 HTML(`/guide/`, `/privacy/`, `/contact/`)로 분리 ③ 사이트맵을 정적 URL로 교체 |
+| Bus Explorer (`bus-explorer` / bus-route-in-trip) | about, guide, privacy, terms, contact | 있음 | 있음 | 정보 페이지에는 있고 **메인에는 없음** | 메인에 포털 링크와 `<meta name="description">` 추가(title이 "Bus Explorer"뿐) |
+| Songnote (`piano-play` / piano-songnote) | about, guide, library 5편, privacy, terms, contact (ko/en) | 있음 | 있음(Google 언급 없음) | 있음 | 모범 사례. 개인정보 문서에 Google 광고 쿠키 문구만 보강 |
+| Vocal Check (`vocal-check` / vocal-check-app) | guide, privacy, contact (ko/en) | 있음 | 있음 | 있음 | 모범 사례 |
+| Guitar Auto-Strum (`guitar-play`) | 9/27 점검 이후 공개 앱이 됨 | 점검 안 함 | 점검 안 함 | 점검 안 함 | `/guide/`, `/privacy/`, robots·sitemap, 포털 링크를 다른 앱과 같은 기준으로 점검 |
+
+Pinhole Lab(`pinhole-game.still-coding.cc`)은 포털 카드에서 제거되어 신청 범위에서 빠졌다(PINHOLE·SUM DROP은 Direct Play로 이식). 다만 도메인이 살아 있으면 SPA fallback 때문에 없는 경로가 모두 `index.html`(200)을 돌려주는 soft 404 문제가 있었다(9/27). 서비스를 유지하려면 `not_found_handling`을 `404-page`로 바꾸고 `robots.txt`, 정적 페이지, 포털 링크를 추가하고, 유지하지 않으면 도메인을 정리한다.
+
+## 5. 콘텐츠 및 정책 요구사항
+
+Google이 가장 자주 거절하는 사유는 정책 위반이 아니라 검토할 수 있는 고유 콘텐츠 부족이다.
 
 | 항목 | 요구사항 | still-coding.cc 현황 |
 | --- | --- | --- |
-| 고유 콘텐츠 | 다른 사이트에 없는 자체 설명·평가·문서가 충분해야 함 | 앱 설명을 실제 앱과 대조해 정정(Direct Play 9개 게임, CollaBoard 8개 도구, Songnote 명칭). 개발 노트 4편 게시, 15–20편 이상으로 확대 필요 |
-| 탐색 가능성 | 메뉴/링크로 페이지 간 이동이 명확해야 함 | 각 앱 카드 → 앱 → 포털 외론 경로 점검 필요 |
-| 개인정보처리방침 | 실제 데이터 처리 방식과 광고 쿠키 사용을 공개해야 함 | `/privacy/`, `/en/privacy/`에 광고와 쿠키(4항), 앱별 방침 링크 게시 |
-| 연락처 | 운영자에게 연락할 수 있는 경로 필요 | `/contact/`에 운영자 이메일과 GitHub 이슈 경로 게시 |
-| 네비게이션 | 사용자가 실수로 광고를 클릭하도록 유도하는 UI 금지 | 앱 조작 화면에 광고를 배치하지 않고 포털·소개 영역으로 제한 |
-| 금지 콘텐츠 | 성인·폭력·저작권 침해 등이 없어야 함 | 포트폴리오 성격상 해당 없음(직접 확인 권장) |
-| 사이트 안정성 | 404·깨진 링크 없이 정상 작동해야 함 | `/ads.txt`는 text/plain으로 항상 응답. 게시자 ID 설정 후 판매자 행 출력 |
-| 유럽/영국 방문자 | EEA·영국·스위스 방문자에게는 CMP(동의 관리 플랫폼) 적용 검토 필요 | 해당 지역 방문자 비율 미계측 — 미리 검토 권장 |
+| 고유 콘텐츠 | 다른 사이트에 없는 자체 설명·평가·문서가 충분해야 함 | 개발 노트 35편(평균 약 9KB, 실제 코드와 대조한 글), 앱 상세 7개 [확인] |
+| 탐색 가능성 | 메뉴·링크로 이동이 명확해야 함 | 홈 → 앱 → 관련 노트, 노트 → 앱 양방향 링크 [확인] |
+| 개인정보처리방침 | 실제 데이터 처리와 광고 쿠키 사용 공개 | ko/en 게시 [확인] |
+| 연락처 | 운영자에게 닿는 경로 | 이메일과 GitHub 이슈 [확인] |
+| 네비게이션 | 실수 클릭 유도 UI 금지 | 앱 조작 화면에 광고를 두지 않고 포털·소개·노트 영역으로 제한 |
+| 금지 콘텐츠 | 성인·폭력·저작권 침해 등 없음 | 포트폴리오 성격상 해당 없음. PINHOLE 문제 이미지의 재배포 권리는 확인하지 못했다고 Direct Play 저장소 `ATTRIBUTION.md`에 기록됨 |
+| 사이트 안정성 | 404·깨진 링크 없이 정상 작동 | 없는 경로는 404 [확인]. 노트끼리 링크가 서로 연결되므로 공개 후 링크 검사 권장 |
+| 유럽/영국 방문자 | CMP 적용 검토 | 미측정 [미확인] |
 
-참고: [AdSense에 적합한 사이트 준비](https://support.google.com/adsense/answer/7299563), [유럽 지역 CMP 요건](https://support.google.com/adsense/answer/13554116)
+참고: [AdSense에 적합한 사이트 준비](https://support.google.com/adsense/answer/7299563), [EEA·영국 CMP 요건](https://support.google.com/adsense/answer/13554116)
 
-## 흔한 거절 사유와 대응
+### 콘텐츠 유지
 
-| 거절 사유(Google 통지 문구) | 의미 | still-coding.cc에서 점검할 점 |
+- 노트는 계속 추가하되 같은 문장을 영어로 옮겨 분량만 늘리는 방식은 효과가 없다. 실제 개발 경험이 담긴 글이 가장 설득력 있다.
+- 앱 상세 페이지에는 실제 화면, 핵심 기능, 만든 배경, 기술 스택, 변경 이력을 채울수록 좋다.
+- 신규 노트는 `draft: true`로 시작하고 `TODO(사용자)`를 모두 해결한 뒤 공개한다(공개된 노트에 TODO가 남으면 빌드가 실패한다).
+
+## 6. 흔한 거절 사유와 대응
+
+| 거절 사유(Google 통지 문구) | 의미 | 점검할 점 |
 | --- | --- | --- |
-| Low value content | 콘텐츠가 얕다 판단 | 앱 소개가 카드 요약뿐이 아니라 사용법·대상·제약사항까지 담는지 |
-| Unable to review site | 크롤러가 사이트를 제대로 읽지 못함 | robots.txt가 크롤러를 차단하지 않는지, 주요 페이지가 JS 없이도 렌더링되는지(Astro 정적 빌드로 대부분 해소됨) |
-| Site under construction / navigation issues | 개발 중 페이지가 섞임 | 미완성 페이지에 `noindex`를 거는지, 사이트맵에서 제외되어 있는지 |
-| Insufficient traffic | 검토자가 실제 이용을 확인할 수 없음 | 공식 최소 수치는 없지만, 대량 방문 유치 후 재신청하는 것이 안전함 |
-| Violation of Google policies | 정책 위반 콘텐츠 포함 | 하위 앱(특히 외부 운영 사이트)의 사용자 생성 콘텐츠에 문제가 없는지 |
-| Additional review required | 계정 수준에서 추가 검토 진행 중 | 자동으로 결정되며 사용자가 대응 불가, 대기 외에 방법 없음 |
+| Low value content | 콘텐츠가 얕다 | 앱 소개가 카드 요약에 그치지 않고 사용법·대상·제약, 노트로 이어지는지 |
+| Unable to review site | 크롤러가 사이트를 읽지 못함 | Cloudflare 봇 설정, robots.txt, JS 없이 렌더링(Astro 정적 빌드로 대부분 해소) |
+| Site under construction / navigation issues | 개발 중 페이지가 섞임 | 미완성 페이지에 `noindex`, 사이트맵 제외 (초안 노트는 이미 제외됨) |
+| Insufficient traffic | 실제 이용을 확인할 수 없음 | 공식 최소 수치는 없음. 방문자를 늘린 뒤 재신청이 안전 |
+| Violation of Google policies | 정책 위반 콘텐츠 | 하위 앱의 사용자 생성 콘텐츠(Direct Play 방 이름 등) 점검 |
+| Additional review required | 계정 수준 추가 검토 | 자동 결정이며 대응 방법은 대기뿐 |
 
-거절 통지를 받으면 AdSense 대시보드의 사이트 상태 페이지에서 구체적인 사유를 확인한다. 지적된 문제를 수정한 뒤 같은 계정으로 '검토 요청(Request review)'을 누르면 되며, 새 계정을 만들 필요는 없다. 수정 직후 재신청하기보다 변경사항이 실제 배포에 반영되었는지를 먼저 확인한다.
+거절되면 대시보드 사이트 상태에서 사유를 확인하고, 수정이 실제 배포에 반영됐는지 확인한 뒤 같은 계정으로 검토를 다시 요청한다(새 계정 불필요). 개선 없이 반복 요청하면 검토 지연이나 계정 제한으로 이어질 수 있다.
 
-## 승인 이후 할 일
+## 7. 승인 이후
 
-- **광고 단위 배치** — 포털과 앱 소개처럼 읽을 거리가 있는 화면에만 광고 후보 영역을 검토하고, 앱 조작 화면에는 Auto Ads를 일괄 적용하지 않는다.
-- **페이지별 제외 설정** — AdSense 설정에서 Auto Ads를 사용할 경우 앱 조작 경로(URL 패턴)를 제외 목록에 추가한다.
-- **데스크톱/모바일 검증** — 광고와 조작 요소 간 거리, 레이아웃 이동(CLS), 닫기/스크롤 동작을 360/768/1280px에서 확인한다.
-- **성과 모니터링** — AdSense 리포트에서 노출수·클릭률·수익을 주기적으로 확인하고, 정책 위반 경고(Policy Center)가 있는지 수시로 점검한다.
-- **계정 정지 위험 관리** — 본인 광고 클릭, 부정 트래픽 유도, 정책 위반 콘텐츠 추가를 피한다 — 승인 후에도 Google은 지속적으로 사이트를 재검토한다.
+- **광고 단위 배치** — 포털·앱 소개·노트처럼 읽을거리가 있는 화면에만 후보 영역을 검토한다. 앱 조작 화면에는 Auto Ads를 일괄 적용하지 않는다.
+- **Auto Ads 제외** — 사용한다면 앱 조작 경로(URL 패턴)를 제외 목록에 넣는다.
+- **화면 검증** — 광고와 조작 요소의 거리, CLS, 닫기·스크롤 동작을 360/768/1280px에서 확인한다.
+- **CMP** — 유럽 방문자가 있으면 광고 게재 전에 적용한다.
+- **모니터링** — 리포트로 노출·클릭률·수익을 보고 Policy Center 경고를 수시로 확인한다.
+- **계정 보호** — 본인 광고 클릭, 부정 트래픽 유도, 정책 위반 콘텐츠 추가를 피한다. 승인 후에도 재검토가 계속된다.
 
-## 예상 소요 기간 및 유의사항
+## 8. 권장 실행 순서 (남은 일)
 
-검토는 보통 수일에서 수 주가 걸리며, 계정이나 지역에 따라 더 오래 걸릴 수 있다. Google은 정확한 처리 기간을 보장하지 않으므로 특정 날짜를 약속하지 않는다.
+1. 하위 앱 저장소 조치: CollaBoard의 가짜 `ads.txt` 삭제와 정적 페이지 분리, 가나 공방·Songnote 개인정보 문구 보강, Bus Explorer 메인 링크, Guitar Auto-Strum 점검, Pinhole Lab 정리
+2. Cloudflare: `www` → 루트 301 Redirect Rule, 봇 설정 확인
+3. Search Console에 `still-coding.cc` 등록, 사이트맵 제출, 색인 확인 (노트 35편이 색인되는지)
+4. 방문 트래픽이 어느 정도 쌓였는지 판단
+5. AdSense 가입 → 게시자 ID를 `.env`에 넣고 재배포 → `view-source:`와 `/ads.txt` 확인
+6. AdSense에서 사이트 등록 및 검토 요청
 
-- 검토 중에는 사이트 내용을 자유롭게 수정해도 되지만, 이미 게재된 광고 코드를 임의로 제거하지 말 것.
-- 거절 후 재신청은 횟수 제한이 명시되어 있지 않지만, 개선 없이 반복 재신청하면 검토 지연이나 계정 제한으로 이어질 수 있다.
-- 승인 전에는 광고가 표시되지 않는다. 확인용 `adsbygoogle.js` 스크립트는 넣어 두어도 된다.
-- 루트 도메인 `still-coding.cc`가 승인되면 `*.still-coding.cc` 하위 앱에도 같은 계정으로 광고를 게재할 수 있다. ads.txt는 루트 도메인 파일 하나로 충분하다.
+참고:
+[AdSense 프로그램 정책](https://support.google.com/adsense/answer/48182) ·
+[개인정보처리방침 필수 내용](https://support.google.com/adsense/answer/1348695) ·
+[사이트 준비](https://support.google.com/adsense/answer/7299563) ·
+[ads.txt](https://support.google.com/adsense/answer/12171612) ·
+[EEA·영국 CMP 요건](https://support.google.com/adsense/answer/13554116)
