@@ -1,18 +1,21 @@
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
 import { apps } from "../data/apps";
 import { site } from "../data/site";
+import { getAppsWithNotes, getSortedNotes, noteUpdatedAt } from "../lib/notes";
 
 // Built from the same data as the pages, so a new app or note cannot be left out.
 export const GET: APIRoute = async () => {
   const publicApps = apps.filter(app => app.status === "public");
   const translated = ["/", "/about/", "/privacy/", "/terms/", "/contact/", ...publicApps.map(app => `/apps/${app.id}/`)];
-  const notes = await getCollection("notes");
+  const notes = await getSortedNotes();
+  const groups = await getAppsWithNotes();
+  const latest = (list: typeof notes) => list.map(noteUpdatedAt).sort((a, b) => b.valueOf() - a.valueOf())[0];
   const entries: { path: string; lastmod?: Date }[] = [
     ...translated.map(path => ({ path })),
     ...translated.map(path => ({ path: path === "/" ? "/en/" : `/en${path}` })),
-    { path: "/notes/" },
-    ...notes.map(note => ({ path: `/notes/${note.id}/`, lastmod: note.data.updatedDate ?? note.data.pubDate })),
+    { path: "/notes/", lastmod: notes.length ? latest(notes) : undefined },
+    ...groups.map(({ app, notes: appNotes }) => ({ path: `/notes/app/${app.id}/`, lastmod: latest(appNotes) })),
+    ...notes.map(note => ({ path: `/notes/${note.id}/`, lastmod: noteUpdatedAt(note) })),
   ];
   const body = entries
     .map(({ path, lastmod }) => `  <url><loc>${new URL(path, site.url)}</loc>${lastmod ? `<lastmod>${lastmod.toISOString().slice(0, 10)}</lastmod>` : ""}</url>`)

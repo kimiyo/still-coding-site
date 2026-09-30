@@ -1,18 +1,24 @@
 ---
-import { getCollection } from "astro:content";
 import InfoLayout from "../../layouts/InfoLayout.astro";
 import { apps } from "../../data/apps";
-const notes = (await getCollection("notes")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+import { getAppsWithNotes, getSortedNotes } from "../../lib/notes";
+const notes = await getSortedNotes();
+const groups = await getAppsWithNotes();
 const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
 ---
 <InfoLayout title="개발 노트" description="Still Coding의 앱을 설계하고 만들고 운영하며 배운 것을 기록한 기술 노트입니다." eyebrow="STILL CODING / NOTES" translated={false}>
   <div class="info-lead"><p>만들면서 배운 것을, 다시 쓸 수 있게.</p><p>앱 하나를 공개하기까지 고민한 설계, 부딪힌 문제, 선택한 해결책을 기록합니다. 코드 조각과 수치는 실제 서비스 코드를 기준으로 적었습니다.</p></div>
+  {groups.length > 0 && <section class="note-groups" aria-labelledby="note-groups-title">
+    <h2 id="note-groups-title" class="note-section-title">앱별로 보기</h2>
+    <ul>{groups.map(({ app, notes: appNotes }) => <li style={`--group-accent:${app.accent}`}><a href={`/notes/app/${app.id}/`}><strong>{app.title}</strong><span>{app.summary}</span><em>노트 {appNotes.length}편 <span aria-hidden="true">→</span></em></a></li>)}</ul>
+  </section>}
+  <h2 class="note-section-title">전체 노트</h2>
   <ol class="note-list">
     {notes.map(note => { const app = apps.find(item => item.id === note.data.app); return (
       <li>
         <a href={`/notes/${note.id}/`}>
-          <span class="note-meta"><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{app && <span>{app.title}</span>}</span>
-          <h2>{note.data.title}</h2>
+          <span class="note-meta"><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{app && <span>{app.title}</span>}{note.data.draft && <span class="draft-badge">초안</span>}</span>
+          <h3>{note.data.title}</h3>
           <p>{note.data.description}</p>
         </a>
       </li>

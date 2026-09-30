@@ -1,12 +1,12 @@
 ---
 import InfoLayout from "../../layouts/InfoLayout.astro";
-import { getCollection } from "astro:content";
 import { apps } from "../../data/apps";
+import { getNotesByApp } from "../../lib/notes";
 export function getStaticPaths() {
   return apps.filter(app => app.status === "public").map(app => ({ params: { slug: app.id }, props: { app } }));
 }
 const { app } = Astro.props;
-const relatedNotes = (await getCollection("notes")).filter(note => note.data.app === app.id);
+const relatedNotes = await getNotesByApp(app.id);
 ---
 <InfoLayout title={app.title} description={`${app.title} — ${app.summary}`} eyebrow={`STILL CODING / WORK ${String(app.order).padStart(2, "0")}`}>
   <div class="app-detail-hero" style={`--detail-accent:${app.accent}`}><div><p class="detail-eyebrow">{app.eyebrow}</p><p class="detail-summary">{app.summary}</p><p>{app.detail}</p></div><div class="detail-actions">{app.url && <a class="primary-link" href={app.url} target="_blank" rel="noopener noreferrer">앱 열기 <span aria-hidden="true">↗</span></a>}{app.helpUrl && <a class="secondary-link" href={app.helpUrl} target="_blank" rel="noopener noreferrer">사용법 열기 <span aria-hidden="true">↗</span></a>}<a class="secondary-link" href="/">모든 작업 보기</a></div></div>
@@ -15,5 +15,5 @@ const relatedNotes = (await getCollection("notes")).filter(note => note.data.app
   <section class="detail-section"><p class="section-number">02 / START IN THREE STEPS</p><h2>처음이라면<br /><em>이렇게 시작하세요.</em></h2><ol class="step-list">{app.steps.map((step, index) => <li><span>0{index + 1}</span><p>{step}</p></li>)}</ol></section>
   <section class="detail-section"><p class="section-number">03 / DATA & LIMITS</p><h2>사용 전에<br /><em>알아둘 것.</em></h2><p>{app.dataPolicy}</p></section>
   <section class="detail-section faq-section"><p class="section-number">04 / FAQ</p><h2>자주 묻는<br /><em>질문.</em></h2>{app.faqs.map(faq => <details><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</section>
-  {relatedNotes.length > 0 && <section class="detail-section"><p class="section-number">05 / BEHIND THE BUILD</p><h2>만들면서<br /><em>배운 것.</em></h2><ul class="detail-notes">{relatedNotes.map(note => <li><a class="text-link" href={`/notes/${note.id}/`}>{note.data.title}</a><p>{note.data.description}</p></li>)}</ul></section>}
+  {relatedNotes.length > 0 && <section class="detail-section"><p class="section-number">05 / BEHIND THE BUILD</p><h2>만들면서<br /><em>배운 것.</em></h2><ul class="detail-notes">{relatedNotes.map(note => <li><a class="text-link" href={`/notes/${note.id}/`}>{note.data.title}</a><p>{note.data.description}</p></li>)}</ul><a class="secondary-link" href={`/notes/app/${app.id}/`}>{app.title} 개발 노트 전체 보기 <span aria-hidden="true">→</span></a></section>}
 </InfoLayout>

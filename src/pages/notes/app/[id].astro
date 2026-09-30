@@ -1,0 +1,39 @@
+---
+import InfoLayout from "../../../layouts/InfoLayout.astro";
+import { site } from "../../../data/site";
+import { getAppsWithNotes } from "../../../lib/notes";
+export async function getStaticPaths() {
+  return (await getAppsWithNotes()).map(({ app, notes }) => ({ params: { id: app.id }, props: { app, notes } }));
+}
+const { app, notes } = Astro.props;
+const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: site.name, item: new URL("/", site.url).toString() },
+    { "@type": "ListItem", position: 2, name: "개발 노트", item: new URL("/notes/", site.url).toString() },
+    { "@type": "ListItem", position: 3, name: `${app.title} 개발 노트`, item: new URL(`/notes/app/${app.id}/`, site.url).toString() },
+  ],
+};
+---
+<InfoLayout title={`${app.title} 개발 노트`} description={`${app.title}을(를) 설계하고 만들며 기록한 노트입니다. ${app.summary}`} eyebrow="STILL CODING / NOTES" translated={false}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+  <div class="info-lead"><p>{app.summary}</p><p>{app.detail}</p></div>
+  <div class="detail-actions note-app-actions">
+    {app.url && <a class="primary-link" href={app.url} target="_blank" rel="noopener noreferrer">앱 열기 <span aria-hidden="true">↗</span></a>}
+    <a class="secondary-link" href={`/apps/${app.id}/`}>{app.title} 소개</a>
+    <a class="secondary-link" href="/notes/">모든 노트 보기</a>
+  </div>
+  <ol class="note-list">
+    {notes.map(note => (
+      <li>
+        <a href={`/notes/${note.id}/`}>
+          <span class="note-meta"><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{note.data.draft && <span class="draft-badge">초안</span>}</span>
+          <h2>{note.data.title}</h2>
+          <p>{note.data.description}</p>
+        </a>
+      </li>
+    ))}
+  </ol>
+</InfoLayout>
