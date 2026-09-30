@@ -17,6 +17,14 @@ export async function getSortedNotes(): Promise<Note[]> {
     }
   }
   for (const note of all) {
+    // Keep the folder layout honest: notes/<app-id>/ for an app, notes/portal/ for the rest.
+    const folder = note.filePath?.replace(/\\/g, "/").split("/notes/")[1]?.split("/")[0];
+    const expected = note.data.app ?? "portal";
+    if (folder !== expected) {
+      throw new Error(`Note "${note.id}" is in folder "${folder}" but belongs in src/content/notes/${expected}/.`);
+    }
+  }
+  for (const note of all) {
     // Draft notes carry <!-- TODO(사용자) --> prompts for the author; they must not reach a published page.
     if (!note.data.draft && note.body?.includes("TODO(사용자)")) {
       throw new Error(`Note "${note.id}" is published but still has a TODO(사용자) comment. Resolve it or keep draft: true.`);
