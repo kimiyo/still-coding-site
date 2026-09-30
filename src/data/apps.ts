@@ -179,7 +179,7 @@ export const apps: PortfolioApp[] = [
     title: "PDF Flow Studio",
     eyebrow: "Document tool / 01",
     url: "https://pdf-flow-studio.still-coding.cc/",
-    helpUrl: "https://pdf-flow-studio.still-coding.cc/guide/",
+    helpUrl: "https://pdf-flow-studio.still-coding.cc/?help=true",
     englishReady: true,
     category: "create",
     status: "public",
@@ -213,7 +213,7 @@ export const apps: PortfolioApp[] = [
       },
       {
         question: "사용 가이드가 있나요?",
-        answer: "앱의 사용 가이드(https://pdf-flow-studio.still-coding.cc/guide/)에서 자세한 기능과 단축키를 확인하실 수 있습니다."
+        answer: "앱 상단의 '?' 버튼 또는 사용법 안내(https://pdf-flow-studio.still-coding.cc/?help=true)에서 5단계 시각적 튜토리얼, 상세 기능, 단축키를 전체 화면으로 확인하실 수 있습니다."
       }
     ],
   },
