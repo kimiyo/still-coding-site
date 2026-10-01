@@ -1,12 +1,12 @@
 ---
 title: "게임을 아홉 개로 늘려도 로비가 가벼운 이유 — Direct Play의 게임 모듈 구조"
-description: "Direct Play가 게임 9개를 하나의 로비에서 다루기 위해 만든 카탈로그와 지연 로딩 레지스트리, 게임 모듈 계약, 순수 로직 분리를 설명합니다. 독립 앱 두 개를 같은 계약에 맞춰 옮긴 코드도 다룹니다."
+description: "Direct Play가 게임 10개를 하나의 로비에서 다루기 위해 만든 카탈로그와 지연 로딩 레지스트리, 게임 모듈 계약, 순수 로직 분리를 설명합니다. 독립 앱 두 개를 같은 계약에 맞춰 옮긴 코드도 다룹니다."
 pubDate: 2026-10-01
 app: direct-play
 tags: ["Architecture", "JavaScript", "ES Modules", "Plugin"]
 ---
 
-[Direct Play](https://dp.still-coding.cc/)에는 지금 게임이 아홉 개 있습니다. 사진퍼즐, 슬라이딩 사진퍼즐, 숫자합 퍼즐, 숫자 야구, 미니 스도쿠, 포켓 레이스, 스파이 게임, PINHOLE, SUM DROP입니다.
+[Direct Play](https://dp.still-coding.cc/)에는 지금 게임이 열 개 있습니다. 사진퍼즐, 슬라이딩 사진퍼즐, 숫자합 퍼즐, 숫자 야구, 미니 스도쿠, 포켓 레이스, 스파이 게임, 가위바위보, PINHOLE, SUM DROP입니다.
 
 각 게임들을 최대한 모듈화 하여 구현을 했습니다. 이것을 통해서 앞으로 계속 게임을 추가할 예정입니다.
 

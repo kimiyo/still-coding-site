@@ -6,7 +6,7 @@ app: direct-play
 tags: ["Cloudflare Workers", "Routing", "Redirect", "Design Decision"]
 ---
 
-[Direct Play](https://dp.still-coding.cc/)에는 게임이 아홉 개 있습니다. 게임을 친구에게 알려 줄 때 "`dp.still-coding.cc`에 들어가서 스파이 게임을 골라"라고 하는 것보다 "`spy-game.still-coding.cc`로 와"라고 하는 편이 훨씬 쉽습니다.
+[Direct Play](https://dp.still-coding.cc/)에는 게임이 열 개 있습니다. 게임을 친구에게 알려 줄 때 "`dp.still-coding.cc`에 들어가서 스파이 게임을 골라"라고 하는 것보다 "`spy-game.still-coding.cc`로 와"라고 하는 편이 훨씬 쉽습니다.
 
 게임별 주소는 게임 선택 화면으로 바로 연결됩니다. 게임마다 주소를 따로 둔 것은 그 게임으로의 접근을 최대한 쉽게 하려는 것이었습니다. 게임별로 홍보할 수 있고, 복잡한 절차 없이 바로 시작할 수 있습니다. 주소를 나누면서 브라우저 저장소, 초대 링크, 방 생성 한도도 함께 확인해야 했습니다.
 
