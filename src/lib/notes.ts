@@ -30,6 +30,13 @@ export async function getSortedNotes(): Promise<Note[]> {
       throw new Error(`Note "${note.id}" is published but still has a TODO(사용자) comment. Resolve it or keep draft: true.`);
     }
   }
+  const now = Date.now();
+  for (const note of all) {
+    // A static build publishes every non-draft note at once, so a future pubDate would show a date that has not come yet.
+    if (!note.data.draft && note.data.pubDate.valueOf() > now) {
+      throw new Error(`Note "${note.id}" is published but has a future pubDate. Keep it draft: true until it goes live.`);
+    }
+  }
   return all
     .filter(note => showDrafts || !note.data.draft)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

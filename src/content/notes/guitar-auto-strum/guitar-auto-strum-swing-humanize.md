@@ -1,7 +1,7 @@
 ---
 title: "정확한 박자는 기계처럼 들린다 — 스윙과 사람 같은 어긋남, 그리고 '랜덤이 랜덤이면 안 되는' 이유"
 description: "Guitar Auto-Strum의 스윙과 휴머나이즈 기능이 어떻게 박자를 일부러 흔드는지 정리합니다. 뒷박을 늦추는 스윙 비율, 타이밍·세기·스트럼 속도의 미세한 변화, 그리고 난수 대신 '스트로크 번호와 시드로 정해지는 값'을 쓴 이유를 코드로 설명합니다."
-pubDate: 2026-10-04
+pubDate: 2026-10-01
 app: guitar-auto-strum
 tags: ["Music", "Web Audio", "Determinism", "JavaScript"]
 ---

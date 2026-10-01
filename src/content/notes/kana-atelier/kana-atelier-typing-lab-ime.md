@@ -1,7 +1,7 @@
 ---
 title: "일본어 타자를 가르치는데 한글 입력기가 켜져 있다면 — 물리 키로 받는 입력 연습"
 description: "가나 공방의 '가나 입력 공방'은 로마자 입력 규칙 7가지를 연습시킵니다. event.code로 물리 키를 읽고 읽기 전용 입력창에 값을 표시하는 구조, 조합 이벤트 처리의 확인 범위, sessionRef로 최신 문제를 읽는 방식을 설명합니다."
-pubDate: 2026-10-03
+pubDate: 2026-10-01
 app: kana-atelier
 tags: ["IME", "Keyboard Events", "React", "Education"]
 ---

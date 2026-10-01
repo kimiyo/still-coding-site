@@ -1,7 +1,7 @@
 ---
 title: "샘플 없이 기타 소리 만들기 — 줄을 계산해서 강철과 나일론을 구별하기"
 description: "Guitar Auto-Strum은 녹음된 기타 음원 없이 코드 계산만으로 기타 줄 소리를 만듭니다. 사인파 일곱 개를 더하던 방식이 강철과 나일론을 구별하지 못한 이유, Karplus-Strong 도파관으로 바꾼 구조, 음이 어긋나지 않게 지연을 맞춘 방법, 소리를 Node에서 측정하는 테스트를 정리합니다."
-pubDate: 2026-10-04
+pubDate: 2026-10-01
 app: guitar-auto-strum
 tags: ["Web Audio", "DSP", "Karplus-Strong", "Testing"]
 ---

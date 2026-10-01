@@ -1,7 +1,7 @@
 ---
 title: "'소리가 안 바뀌었다'를 어떻게 증명하나 — 모든 리듬을 실제 엔진에 돌려 기록하는 골든 테스트"
 description: "Guitar Auto-Strum은 모든 시스템 리듬을 실제 트랜스포트에 돌려, 엔진이 예약한 모든 음의 시각·세기·줄을 파일로 기록하고 비교합니다. 가짜 오디오 하네스, 결정적인 시간 진행, 의도한 변경일 때만 갱신하는 규칙, 스냅샷과 별개로 두는 성질 검사를 정리합니다."
-pubDate: 2026-10-04
+pubDate: 2026-10-01
 app: guitar-auto-strum
 tags: ["Testing", "Golden Test", "Snapshot", "JavaScript"]
 ---

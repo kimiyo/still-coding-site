@@ -1,7 +1,7 @@
 ---
 title: "버스를 지켜보며 구간 시간을 배우다 — 모든 구간이 40초로 나온 이유와 하루 1만 번의 예산"
 description: "Bus Explorer는 정류장 사이 소요 시간을 예측값이 아니라 관측으로 재려고 차량 위치를 반복 수집합니다. 첫 측정에서 모든 구간이 폴링 간격과 같은 40초로 나온 버그의 원인, 도착 시점을 중간에 놓는 해법, 하루 호출 한도 안에서 도는 수집기 설계를 정리합니다."
-pubDate: 2026-10-02
+pubDate: 2026-10-01
 app: bus-explorer
 tags: ["Data Collection", "Python", "SQLite", "Measurement"]
 ---

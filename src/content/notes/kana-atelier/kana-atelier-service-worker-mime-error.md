@@ -1,7 +1,7 @@
 ---
 title: "배포 뒤 MIME 오류가 남았다 — 서비스 워커의 빌드 파일 캐시를 걷어내기"
 description: "가나 공방의 MIME 오류 관련 커밋 두 개와 현재 서비스 워커 코드를 대조합니다. HTML 폴백을 캐시에서 거르는 수정 뒤에 빌드 파일 요청을 가로채지 않도록 바뀐 과정, 기존 캐시를 지우는 장치, 오프라인 동작의 확인 범위를 다룹니다."
-pubDate: 2026-10-03
+pubDate: 2026-10-01
 app: kana-atelier
 tags: ["PWA", "Service Worker", "Cache", "Debugging"]
 ---

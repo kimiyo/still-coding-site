@@ -1,7 +1,7 @@
 ---
 title: "공공 API를 덜 두드리는 법 — 30초 캐시, 동시 요청 합치기, 실패한 뒤 물러서기"
 description: "호출 한도가 있는 공공 버스 API를 쓰는 Bus Explorer가 실시간 위치를 캐시하는 방법을 정리합니다. 같은 키의 동시 요청 병합, 실패 시 30·60·120초 물러서기, 한도 초과 시 서비스 단위 차단, 오래된 값을 신선한 척하지 않는 규칙을 코드로 설명합니다."
-pubDate: 2026-10-02
+pubDate: 2026-10-01
 app: bus-explorer
 tags: ["Cache", "Python", "Public API", "Reliability"]
 ---

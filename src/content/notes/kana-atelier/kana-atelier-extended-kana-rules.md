@@ -1,7 +1,7 @@
 ---
 title: "탁음·요음·외래어를 외우지 않고 '만들게' 하기 — 149개 표기를 7가지 규칙으로"
 description: "가나 공방은 기초 46자 다음의 탁음, 반탁음, 요음, 촉음, 장음, 외래어 표기를 파생 규칙으로 가르칩니다. 데이터에서 원글자와 조립식을 생성하는 방법, 코스별 진도 분리, 예시 단어에서 확인된 내용과 남은 검토 항목을 다룹니다."
-pubDate: 2026-10-03
+pubDate: 2026-10-01
 app: kana-atelier
 tags: ["Data Modeling", "TypeScript", "Learning Design", "Kana"]
 ---
