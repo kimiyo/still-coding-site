@@ -16,7 +16,6 @@ Still Coding과 개별 웹앱의 해외 접근성과 활용도를 높이기 위�
 | Still Coding | https://still-coding.cc/ | 앱 소개, 운영자 소개, 개인정보처리방침, 문의, 앱으로 이동하는 링크 |
 | Direct Play | https://dp.still-coding.cc/ | 7개 게임 가이드, 방 초대·입장, 공략·네트워크 FAQ |
 | 가나 공방 | https://study-hiragana.still-coding.cc/ | 학습 설명과 일본어 학습 대상의 구분, 진도·권한 안내 |
-| Pinhole Lab | https://pinhole-game.still-coding.cc/ | 2개 게임 규칙, 점수·조작·게임방 안내 |
 | CollaBoard | https://collaboard.still-coding.cc/ | 협업 도구, 방 생성·참여·승인, P2P·데이터 처리 안내 |
 | Bus Explorer | https://bus-explorer.still-coding.cc/ | 사용법, 교통 정보 출처·제한, 지역·정류소 원본 데이터 |
 | Piano Play / Songnote | https://piano-play.still-coding.cc/ | 제품명 일관성, ABC 악보·연주·편집 용어, 오류 메시지 |

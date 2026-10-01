@@ -1,6 +1,6 @@
 # still-coding.cc AdSense 승인 준비 (최종본)
 
-- 갱신일: 2026-09-30
+- 갱신일: 2026-10-01
 - 이 문서는 `ADSENSE_APPROVAL.md`(신청 절차)와 `ADSENSE_REVIEW_2026-09-27.md`(사전 점검)를 하나로 합친 것이다. 두 문서는 이 문서로 대체되었다.
 - 확인 방법 표시: **[확인]** 이 저장소의 코드·빌드 결과로 2026-09-30에 확인함 / **[9/27]** 하위 앱 저장소를 9월 27일에 점검한 결과이며 이후 다시 확인하지 않음 / **[미확인]** 대시보드나 외부 도구에서 봐야 함.
 - 우선순위는 작업 순서를 정리한 것이며, Google의 공식 승인 기준이나 승인 보장이 아니다.
@@ -38,7 +38,7 @@
 - [ ] **Cloudflare 봇 설정** [미확인] — Bot Fight Mode나 "AI 봇 차단" 관리형 robots.txt가 `Googlebot`/`Mediapartners-Google`에 챌린지를 걸지 않는지 대시보드에서 확인. 막히면 "사이트를 검토할 수 없음"으로 거절된다
 - [ ] **Search Console** — `still-coding.cc` 등록, 사이트맵 제출, 색인 생성 확인
 - [ ] **실제 방문 트래픽** [미확인] — AdSense가 최소 수치를 명시하지는 않지만 검토자는 실제 이용 정황을 본다
-- [ ] **EEA·영국·스위스 CMP** [미확인] — 해당 지역 방문자 비율을 측정하지 않았다. 광고 게재 전에 검토(승인 자체와는 별개 작업)
+- [ ] **EEA·영국·스위스 CMP** [미확인] — 해당 지역 방문자 비율을 측정하지 않았다. 개인정보처리방침은 "승인 후 도입 예정, 도입 전까지 해당 지역에는 광고 미게재"로 정정했다(10/1). 광고 단위를 붙이기 전에 CMP 도입 또는 지역 제외를 실제로 구현해야 한다(승인 자체와는 별개 작업)
 - [ ] **하위 앱 저장소 조치** — 아래 4절. 마지막 점검(9/27) 이후 다시 확인하지 않았다
 
 ### 선택 (P2)
@@ -82,14 +82,14 @@
 | --- | --- | --- | --- | --- | --- |
 | Direct Play (`dp` / kimiyo/direct-play-games) | about, privacy, terms, contact, 게임 가이드 9개 (ko/en) | 있음, 방·API 경로 차단 | 있음 | 있음 | 없음. 가장 잘 갖춰짐 |
 | 가나 공방 (`study-hiragana` / study-japanese-language-alphabet) | guide, privacy, contact | 있음 | 있음(Google 언급 없음) | 있음 | 개인정보 문서에 Google 광고 쿠키와 해제 링크 명시 |
-| CollaBoard (`collaboard` / collaboard-app) | **해시 뷰만** (`/#help`, `/#privacy`, `/#contact`) | 사이트맵에 `#` URL 10개. Google은 fragment를 무시하므로 사실상 `/`, `/en/` 2개 | 있음(JS 뷰 안) | 있음 | ① `frontend/ads.txt`의 `pub-XXXXXXXXXXXXXXXX` 행 **삭제**(그대로 배포됨) ② help/privacy/contact를 정적 HTML(`/guide/`, `/privacy/`, `/contact/`)로 분리 ③ 사이트맵을 정적 URL로 교체 |
+| CollaBoard (`collaboard` / collaboard-app) | `/guide/`, `/privacy/`, `/en/` 변형 정적 페이지 배포 [10/1 확인: 200]. 해시 뷰도 유지 | 정적 URL 사이트맵으로 교체됨. Search Console에 별도 속성으로 등록 필요 | 있음 | 있음 | 포털 링크는 `/guide/`, `/privacy/`로 교체함(10/1). `frontend/ads.txt`의 가짜 `pub-XXXXXXXXXXXXXXXX` 행이 10/1 점검 때 배포본에 남아 있었으므로 삭제 배포 여부 재확인 |
 | Bus Explorer (`bus-explorer` / bus-route-in-trip) | about, guide, privacy, terms, contact | 있음 | 있음 | 정보 페이지에는 있고 **메인에는 없음** | 메인에 포털 링크와 `<meta name="description">` 추가(title이 "Bus Explorer"뿐) |
 | Songnote (`piano-play` / piano-songnote) | about, guide, library 5편, privacy, terms, contact (ko/en) | 있음 | 있음(Google 언급 없음) | 있음 | 모범 사례. 개인정보 문서에 Google 광고 쿠키 문구만 보강 |
 | Vocal Check (`vocal-check` / vocal-check-app) | guide, privacy, contact (ko/en) | 있음 | 있음 | 있음 | 모범 사례 |
 | Guitar Auto-Strum (`guitar-play`) | 9/27 점검 이후 공개 앱이 됨 | 점검 안 함 | 점검 안 함 | 점검 안 함 | `/guide/`, `/privacy/`, robots·sitemap, 포털 링크를 다른 앱과 같은 기준으로 점검 |
 | PDF Flow Studio (`pdf-flow-studio` / pdf-flow-studio) | guide, privacy, terms, contact (ko/en 정적 HTML) | 있음 (전체 허용 + sitemap.xml) | 있음 (Google 광고 쿠키, 해제 링크, 워크스페이스 비적격) | 있음 (헤더/푸터) | 없음. 모범 사례로 구축 완료 [9/30 확인] |
 
-Pinhole Lab(`pinhole-game.still-coding.cc`)은 포털 카드에서 제거되어 신청 범위에서 빠졌다(PINHOLE·SUM DROP은 Direct Play로 이식). 다만 도메인이 살아 있으면 SPA fallback 때문에 없는 경로가 모두 `index.html`(200)을 돌려주는 soft 404 문제가 있었다(9/27). 서비스를 유지하려면 `not_found_handling`을 `404-page`로 바꾸고 `robots.txt`, 정적 페이지, 포털 링크를 추가하고, 유지하지 않으면 도메인을 정리한다.
+Pinhole Lab(`pinhole-game.still-coding.cc`)은 서비스를 종료했다. PINHOLE·SUM DROP은 Direct Play(`dp`)로 이식했고, 포털 카드와 코드의 참조는 모두 없다(2026-10-01 확인). 도메인은 연결되지 않는다. Cloudflare DNS·커스텀 도메인 레코드가 남아 있는지는 대시보드에서 확인해 정리한다 [미확인].
 
 ## 5. 콘텐츠 및 정책 요구사항
 
@@ -138,7 +138,7 @@ Google이 가장 자주 거절하는 사유는 정책 위반이 아니라 검토
 
 ## 8. 권장 실행 순서 (남은 일)
 
-1. 하위 앱 저장소 조치: CollaBoard의 가짜 `ads.txt` 삭제와 정적 페이지 분리, 가나 공방·Songnote 개인정보 문구 보강, Bus Explorer 메인 링크, Guitar Auto-Strum 점검, Pinhole Lab 정리
+1. 하위 앱 저장소 조치: CollaBoard의 가짜 `ads.txt` 삭제 배포 확인, PDF Flow Studio의 soft 404(`/zzz-nope`가 200)와 `/ads.txt` HTML 응답 수정, 가나 공방·Songnote 개인정보 문구 보강, Bus Explorer 메인 링크, Guitar Auto-Strum 점검, Pinhole Lab DNS 레코드 정리
 2. Cloudflare: `www` → 루트 301 Redirect Rule, 봇 설정 확인
 3. Search Console에 `still-coding.cc` 등록, 사이트맵 제출, 색인 확인 (노트 35편이 색인되는지)
 4. 방문 트래픽이 어느 정도 쌓였는지 판단
