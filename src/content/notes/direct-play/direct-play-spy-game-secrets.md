@@ -3,6 +3,7 @@ title: "스파이 게임의 진행 규칙 — 역할 확인, 투표, 마지막 �
 description: "4~12명이 함께하는 Direct Play 스파이 게임의 투표와 결선, 마지막 추리 규칙을 설명합니다. 로컬 코드로 확인한 제한 시간 처리와 진행 상태 복원의 한계도 기록합니다."
 pubDate: 2026-10-01
 app: direct-play
+game: spy-game
 tags: ["Game Design", "WebSocket", "Cloudflare Durable Objects", "Architecture"]
 ---
 

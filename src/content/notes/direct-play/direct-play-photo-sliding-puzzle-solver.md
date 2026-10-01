@@ -3,6 +3,7 @@ title: "슬라이딩 사진퍼즐: 섞기는 거꾸로 걸어서, 풀이는 A*�
 description: "Direct Play 슬라이딩 사진퍼즐이 풀 수 있는 배치만 만드는 방법, 한 줄을 통째로 미는 이동 규칙, 포기하면 보여 주는 정답 풀이(BFS·A*)를 코드로 설명합니다. 풀이가 3×3에서만 안정적이고 4×4부터 실패하는 것을 직접 재어 정리했습니다."
 pubDate: 2026-10-01
 app: direct-play
+game: photo-sliding-puzzle
 tags: ["Puzzle", "A*", "BFS", "Algorithm"]
 ---
 

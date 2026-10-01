@@ -57,6 +57,23 @@ export async function getAppsWithNotes(): Promise<{ app: PortfolioApp; notes: No
     .filter(group => group.notes.length > 0);
 }
 
+/** URL segment for a tag; keeps letters of any script so Korean tags stay readable. */
+export function tagSlug(tag: string): string {
+  return tag.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-+|-+$/g, "");
+}
+
+/** Tags used by at least two notes, most used first. Single-note tags would only make thin pages. */
+export async function getTagGroups(): Promise<{ tag: string; slug: string; notes: Note[] }[]> {
+  const byTag = new Map<string, Note[]>();
+  for (const note of await getSortedNotes()) {
+    for (const tag of note.data.tags) byTag.set(tag, [...(byTag.get(tag) ?? []), note]);
+  }
+  const groups = [...byTag].filter(([, notes]) => notes.length >= 2).map(([tag, notes]) => ({ tag, slug: tagSlug(tag), notes }));
+  const slugs = new Set(groups.map(group => group.slug));
+  if (slugs.size !== groups.length) throw new Error("Two note tags map to the same URL slug; rename one of them.");
+  return groups.sort((a, b) => b.notes.length - a.notes.length || a.tag.localeCompare(b.tag));
+}
+
 export function noteUpdatedAt(note: Note): Date {
   return note.data.updatedDate ?? note.data.pubDate;
 }

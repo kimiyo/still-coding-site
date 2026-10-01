@@ -3,6 +3,7 @@ title: "숫자 야구: 판정은 스무 줄이고, 나머지는 입력을 막고
 description: "Direct Play 숫자 야구의 비밀 숫자 생성, 스트라이크·볼 판정, 중복 입력 차단, 세 상태 메모, 힌트, 새로고침 뒤 복원과 순위 정렬을 실제 코드로 정리합니다. 참가자가 정답을 볼 수 있다는 한계도 함께 적습니다."
 pubDate: 2026-10-01
 app: direct-play
+game: number-baseball
 tags: ["Game Design", "JavaScript", "Puzzle", "Testing"]
 ---
 

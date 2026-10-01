@@ -3,6 +3,7 @@ title: "사진 퍼즐: 제자리에 붙은 조각은 한 덩어리로 — Union-
 description: "Direct Play 사진퍼즐이 정답 옆에 놓인 조각을 하나의 그룹으로 묶어 함께 옮기는 방법을 설명합니다. Union-Find로 그룹을 찾고, 옮길 자리를 만들어 주는 이동 규칙, 세 단계 힌트, 멀티터치에서 보드가 잠기던 버그의 원인을 코드로 정리합니다."
 pubDate: 2026-10-01
 app: direct-play
+game: photo-puzzle
 tags: ["Puzzle", "Union-Find", "Pointer Events", "JavaScript"]
 ---
 

@@ -3,6 +3,7 @@ title: "SUM DROP: 합 10을 지우는 낙하 퍼즐 — 시드 하나로 같은 
 description: "Direct Play의 SUM DROP이 시드 문자열에서 같은 보드와 같은 블록 순서를 만드는 방법, 합이 목표인 줄을 찾는 매처, 연쇄를 단계별로 기록해 애니메이션과 분리한 구조, 20개 손으로 만든 스테이지를 코드로 설명합니다. 해커톤 앱의 서버 검증이 사라진 것도 적습니다."
 pubDate: 2026-10-01
 app: direct-play
+game: sum-drop
 tags: ["Game Design", "Deterministic", "TypeScript", "Canvas"]
 ---
 

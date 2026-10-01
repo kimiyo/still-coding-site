@@ -3,6 +3,7 @@ title: "사진 한 장으로 '여기가 어디게?' — EXIF GPS, 지도 임베�
 description: "Direct Play 사진퍼즐의 EXIF GPS 읽기, 지도 표시, 장소 이름 추천을 설명합니다. 공개 여부를 확인해야 하는 로컬 Flutter 사진첩 구현과 60초 타임아웃에 관한 커밋 기록도 다룹니다."
 pubDate: 2026-10-01
 app: direct-play
+game: photo-puzzle
 tags: ["EXIF", "Geolocation", "Cloudflare Durable Objects", "Flutter", "Performance"]
 ---
 

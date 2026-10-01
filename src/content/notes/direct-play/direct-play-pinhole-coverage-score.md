@@ -3,6 +3,7 @@ title: "PINHOLE: 본 만큼 점수가 깎이는 게임 — 128×72 격자로 '�
 description: "작은 원형 시야로 장면을 살피는 PINHOLE이 본 면적을 재는 방법과 점수 공식, 한국어 짧은 답을 판정하는 규칙을 코드로 설명합니다. 해커톤용 독립 앱에서 만든 게임을 Direct Play 모듈로 옮기면서 바뀐 것과 남은 한계도 정리합니다."
 pubDate: 2026-10-01
 app: direct-play
+game: pinhole
 tags: ["Game Design", "Canvas", "TypeScript", "Cloudflare R2"]
 ---
 

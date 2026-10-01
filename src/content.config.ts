@@ -15,6 +15,8 @@ const notes = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     app: z.string().optional(),
+    /** Direct Play game id; adds a link from the note to that game's guide page on dp.still-coding.cc. */
+    game: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),

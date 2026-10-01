@@ -3,6 +3,7 @@ title: "포켓 레이스: 1분짜리 레이싱을 휴대폰 네 대로 — 방�
 description: "브라우저끼리 최대 4명이 실시간으로 달리는 포켓 레이스의 네트워크 구조를 정리합니다. 방장 권위 시뮬레이션, 순서를 포기한 상태 채널과 신뢰할 수 있는 이벤트 채널, 초당 20번의 상태 전송, 내 차의 예측과 보정을 코드로 설명합니다."
 pubDate: 2026-10-01
 app: direct-play
+game: pocket-race
 tags: ["WebRTC", "Netcode", "Game", "Prediction"]
 ---
 

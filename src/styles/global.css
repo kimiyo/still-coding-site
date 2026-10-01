@@ -1878,3 +1878,10 @@ footer {
   .app-card { --card-visual-ratio:1.3 }
   .app-group .app-grid { row-gap:45px }
 }
+
+.note-tags { margin-bottom: 56px; }
+.note-tags ul, .note-tag-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.note-tag-links { margin: -28px 0 40px; }
+.note-tags a, .note-tag-links a { display: inline-flex; gap: 8px; align-items: baseline; padding: 6px 12px; border: 1px solid var(--line-strong); color: inherit; font-size: .8rem; text-decoration: none; }
+.note-tags a:hover, .note-tag-links a:hover { border-color: var(--accent); color: var(--accent); }
+.note-tags em { color: var(--muted); font-size: .66rem; font-style: normal; }

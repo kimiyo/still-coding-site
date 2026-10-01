@@ -1,0 +1,36 @@
+---
+import InfoLayout from "../../../layouts/InfoLayout.astro";
+import { apps } from "../../../data/apps";
+import { site } from "../../../data/site";
+import { getTagGroups } from "../../../lib/notes";
+export async function getStaticPaths() {
+  return (await getTagGroups()).map(group => ({ params: { tag: group.slug }, props: { group } }));
+}
+const { group } = Astro.props;
+const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: site.name, item: new URL("/", site.url).toString() },
+    { "@type": "ListItem", position: 2, name: "개발 노트", item: new URL("/notes/", site.url).toString() },
+    { "@type": "ListItem", position: 3, name: `${group.tag} 노트`, item: new URL(`/notes/tag/${group.slug}/`, site.url).toString() },
+  ],
+};
+---
+<InfoLayout title={`${group.tag} 개발 노트`} description={`${group.tag}을(를) 다룬 Still Coding 개발 노트 ${group.notes.length}편을 한곳에 모았습니다.`} eyebrow="STILL CODING / NOTES" translated={false}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+  <div class="info-lead"><p>{group.tag}</p><p>여러 앱에서 {group.tag}을(를) 다루며 남긴 노트 {group.notes.length}편입니다.</p></div>
+  <div class="detail-actions note-app-actions"><a class="secondary-link" href="/notes/">모든 노트 보기</a></div>
+  <ol class="note-list">
+    {group.notes.map(note => { const app = apps.find(item => item.id === note.data.app); return (
+      <li>
+        <a href={`/notes/${note.id}/`}>
+          <span class="note-meta"><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{app && <span>{app.title}</span>}</span>
+          <h2>{note.data.title}</h2>
+          <p>{note.data.description}</p>
+        </a>
+      </li>
+    ); })}
+  </ol>
+</InfoLayout>

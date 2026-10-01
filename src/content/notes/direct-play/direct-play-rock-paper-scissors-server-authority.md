@@ -3,7 +3,8 @@ title: "가위바위보 선택은 서버에만 보인다 — Durable Object로 �
 description: "방장이 계산하는 대신 Durable Object가 참가자 등록, 비공개 선택, 승패 판정과 재접속 상태를 관리하는 Direct Play 가위바위보의 서버 권위 구조를 설명합니다."
 pubDate: 2026-10-01
 app: direct-play
-tags: ["Durable Objects", "Game Design", "Multiplayer", "Testing"]
+game: rock-paper-scissors
+tags: ["Cloudflare Durable Objects", "Game Design", "Multiplayer", "Testing"]
 ---
 
 Direct Play에 가위바위보를 추가하면서 먼저 정한 것은 그림이나 애니메이션이 아니었습니다. **누가 결과를 확정하는가**였습니다.

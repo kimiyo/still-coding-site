@@ -3,6 +3,7 @@ title: "6×6 미니 스도쿠: 해가 하나뿐인 문제를 비트마스크 솔
 description: "Direct Play의 6×6 미니 스도쿠가 문제를 만드는 방법을 정리합니다. 6비트 후보 마스크, 후보가 가장 적은 칸부터 푸는 백트래킹, 해를 두 개까지만 세는 유일성 검사, 180도 대칭 제거를 코드로 보이고 난이도 평가의 한계도 적습니다."
 pubDate: 2026-10-01
 app: direct-play
+game: mini-sudoku
 tags: ["Sudoku", "Algorithm", "Backtracking", "JavaScript"]
 ---
 

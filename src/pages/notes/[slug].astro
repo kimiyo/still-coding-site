@@ -3,13 +3,14 @@ import { render } from "astro:content";
 import InfoLayout from "../../layouts/InfoLayout.astro";
 import { apps } from "../../data/apps";
 import { site } from "../../data/site";
-import { getNotesByApp, getSortedNotes } from "../../lib/notes";
+import { getNotesByApp, getSortedNotes, getTagGroups } from "../../lib/notes";
 export async function getStaticPaths() {
   const notes = await getSortedNotes();
   return notes.map(note => ({ params: { slug: note.id }, props: { note } }));
 }
 const { note } = Astro.props;
 const { Content } = await render(note);
+const tagLinks = (await getTagGroups()).filter(group => note.data.tags.includes(group.tag));
 const app = apps.find(item => item.id === note.data.app);
 const moreNotes = app ? (await getNotesByApp(app.id)).filter(item => item.id !== note.id).slice(0, 3) : [];
 const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
@@ -29,6 +30,7 @@ const structuredData = {
 <InfoLayout title={note.data.title} description={note.data.description} eyebrow="STILL CODING / NOTES" translated={false} ogType="article">
   <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
   <div class="policy-meta note-byline"><span>{site.operator}</span><time datetime={note.data.pubDate.toISOString()}>{formatDate(note.data.pubDate)}</time>{note.data.updatedDate && <span>업데이트 {formatDate(note.data.updatedDate)}</span>}{note.data.draft && <span class="draft-badge">초안</span>}</div>
+  {tagLinks.length > 0 && <ul class="note-tag-links" aria-label="주제">{tagLinks.map(({ tag, slug }) => <li><a href={`/notes/tag/${slug}/`}>{tag}</a></li>)}</ul>}
   <article class="note-body"><Content /></article>
   <aside class="note-footer">
     {app && <>
@@ -36,6 +38,7 @@ const structuredData = {
       <p><strong>{app.title}</strong> — {app.summary}</p>
       <div class="detail-actions">
         {app.url && <a class="primary-link" href={app.url} target="_blank" rel="noopener noreferrer">앱 열기 <span aria-hidden="true">↗</span></a>}
+        {note.data.game && <a class="secondary-link" href={`https://dp.still-coding.cc/games/${note.data.game}/`} target="_blank" rel="noopener noreferrer">이 게임의 방법 보기 ↗</a>}
         <a class="secondary-link" href={`/apps/${app.id}/`}>{app.title} 소개</a>
         <a class="secondary-link" href={`/notes/app/${app.id}/`}>{app.title} 개발 노트 전체</a>
       </div>

@@ -3,6 +3,7 @@ title: "숫자합 퍼즐: 판을 거꾸로 만들면 시작하자마자 막히�
 description: "Direct Play 숫자합 퍼즐이 합이 목표인 조합을 먼저 만들고 판을 채우는 방식, 부분집합 합 DP로 종료를 판정하고 힌트를 찾는 방법, 그리고 완벽한 클리어가 보장되지 않는 이유를 코드로 설명합니다."
 pubDate: 2026-10-01
 app: direct-play
+game: sum-puzzle
 tags: ["Puzzle", "Dynamic Programming", "Algorithm", "JavaScript"]
 ---
 

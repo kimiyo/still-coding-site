@@ -1,9 +1,10 @@
 ---
 import InfoLayout from "../../layouts/InfoLayout.astro";
 import { apps } from "../../data/apps";
-import { getAppsWithNotes, getSortedNotes } from "../../lib/notes";
+import { getAppsWithNotes, getSortedNotes, getTagGroups } from "../../lib/notes";
 const notes = await getSortedNotes();
 const groups = await getAppsWithNotes();
+const tagGroups = await getTagGroups();
 const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
 ---
 <InfoLayout title="개발 노트" description="Still Coding의 앱을 설계하고 만들고 운영하며 배운 것을 기록한 기술 노트입니다." eyebrow="STILL CODING / NOTES" translated={false}>
@@ -11,6 +12,10 @@ const formatDate = (date: Date) => date.toLocaleDateString("ko-KR", { year: "num
   {groups.length > 0 && <section class="note-groups" aria-labelledby="note-groups-title">
     <h2 id="note-groups-title" class="note-section-title">앱별로 보기</h2>
     <ul>{groups.map(({ app, notes: appNotes }) => <li style={`--group-accent:${app.accent}`}><a href={`/notes/app/${app.id}/`}><strong>{app.title}</strong><span>{app.summary}</span><em>노트 {appNotes.length}편 <span aria-hidden="true">→</span></em></a></li>)}</ul>
+  </section>}
+  {tagGroups.length > 0 && <section class="note-tags" aria-labelledby="note-tags-title">
+    <h2 id="note-tags-title" class="note-section-title">주제별로 보기</h2>
+    <ul>{tagGroups.map(({ tag, slug, notes: tagNotes }) => <li><a href={`/notes/tag/${slug}/`}>{tag}<em>{tagNotes.length}</em></a></li>)}</ul>
   </section>}
   <h2 class="note-section-title">전체 노트</h2>
   <ol class="note-list">
