@@ -1,5 +1,6 @@
 ---
 import { directPlayGames } from "../data/directPlayGames";
+import { localizedAppUrl } from "../i18n";
 
 interface Props {
   variant: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal" | "pdf";
@@ -10,14 +11,16 @@ interface Props {
 const { variant, title, locale = "ko" } = Astro.props;
 const isEnglish = locale === "en";
 const lang = isEnglish ? "en" : "ko";
+// 미리보기 그림을 누르면 이 주소에 ?game=<id> 를 붙여 해당 게임의 방 설정 화면으로 바로 들어간다.
+const dpBase = localizedAppUrl("https://dp.still-coding.cc/", locale, true);
 ---
 
 <div class:list={["app-visual", `visual-${variant}`]} aria-label={variant === "direct-play" ? (isEnglish ? `${title} preview: ${directPlayGames.length} games shown in turn` : `${title} 미리보기: ${directPlayGames.length}개 게임을 차례로 소개`) : `${title} ${isEnglish ? "preview" : "미리보기"}`} role="img">
   {variant === "direct-play" && (
-    <div class="visual-content dp-spotlight" data-dp-spotlight>
+    <div class="visual-content dp-spotlight" data-dp-spotlight data-dp-base={dpBase}>
       <div class="dp-slides">
         {directPlayGames.map((game, index) => (
-          <figure class:list={["dp-slide", index === 0 && "is-active"]} data-dp-slide>
+          <figure class:list={["dp-slide", index === 0 && "is-active"]} data-dp-slide data-game-id={game.id}>
             <img src={index === 0 ? game.image : undefined} data-src={game.image} alt="" width="880" height="495" decoding="async" />
             <figcaption class="dp-panel">
               <small>{game.tags[lang]}</small>
@@ -32,9 +35,13 @@ const lang = isEnglish ? "en" : "ko";
         <span class="direct-logo"><i></i><b>DIRECT PLAY</b></span>
         <span class="dp-count"><b data-dp-index>01</b> / {String(directPlayGames.length).padStart(2, "0")}</span>
       </div>
-      <ol class="dp-rail">
-        {directPlayGames.map((game, index) => <li class:list={[index === 0 && "is-active"]} data-dp-dot><img src={game.icon} alt="" width="28" height="28" loading="lazy" /><b></b></li>)}
-      </ol>
+      <div class="dp-rail">
+        <div class="dp-rail-window">
+          <ol class="dp-track" data-dp-track>
+            {directPlayGames.map((game, index) => <li class:list={[index === 0 && "is-active"]} data-dp-dot><img src={game.icon} alt="" width="28" height="28" loading="lazy" /><b></b></li>)}
+          </ol>
+        </div>
+      </div>
     </div>
   )}
   {variant === "kana" && (
@@ -123,32 +130,62 @@ const lang = isEnglish ? "en" : "ko";
 <script>
   // Direct Play 미리보기: 진행 막대 애니메이션이 끝날 때마다 다음 게임으로 넘긴다.
   // 멈춤(마우스 올림·포커스·화면 밖·멈춤 버튼)은 CSS animation-play-state 로 처리하고,
-  // prefers-reduced-motion 에서는 애니메이션이 꺼져 첫 게임에 머문다.
+  // prefers-reduced-motion 에서는 애니메이션이 꺼져 화살표로만 넘긴다.
+  // 하단 썸네일은 --dp-visible 개만 보이는 창이며, 현재 게임이 창 밖이면 창을 밀어 따라간다.
+  // 그림을 누르면 현재 게임의 방 설정 화면(?game=<id>)이 열린다.
   document.querySelectorAll<HTMLElement>("[data-dp-spotlight]").forEach(root => {
     const slides = [...root.querySelectorAll<HTMLElement>("[data-dp-slide]")];
     const dots = [...root.querySelectorAll<HTMLElement>("[data-dp-dot]")];
+    const track = root.querySelector<HTMLElement>("[data-dp-track]");
     const counter = root.querySelector<HTMLElement>("[data-dp-index]");
+    const stage = root.closest<HTMLElement>(".visual-stage");
     const toggle = root.closest(".app-card")?.querySelector<HTMLButtonElement>("[data-dp-toggle]");
+    const link = stage?.querySelector<HTMLAnchorElement>(".visual-link");
+    const isEnglish = document.documentElement.lang.startsWith("en");
+    const base = root.dataset.dpBase;
     let current = 0;
+    let offset = 0;
 
     const load = (index: number) => {
       const image = slides[index]?.querySelector("img");
       if (image && !image.getAttribute("src") && image.dataset.src) image.src = image.dataset.src;
     };
+    const visibleCount = () => Math.min(slides.length, Number.parseInt(getComputedStyle(root).getPropertyValue("--dp-visible"), 10) || slides.length);
+    const scrollRail = () => {
+      const visible = visibleCount();
+      if (current < offset) offset = current;
+      else if (current >= offset + visible) offset = current - visible + 1;
+      offset = Math.max(0, Math.min(offset, slides.length - visible));
+      track?.style.setProperty("--dp-offset", String(offset));
+    };
+    const updateLink = () => {
+      const id = slides[current]?.dataset.gameId;
+      if (!link || !base || !id) return;
+      const url = new URL(base);
+      url.searchParams.set("game", id);
+      link.href = url.toString();
+      const name = slides[current]?.querySelector("figcaption b")?.textContent ?? "";
+      link.setAttribute("aria-label", isEnglish ? `Create a ${name} room, opens in a new window` : `${name} 방 만들기, 새 창`);
+    };
     const show = (index: number) => {
       slides[current]?.classList.remove("is-active");
       dots[current]?.classList.remove("is-active");
-      current = index;
+      current = (index + slides.length) % slides.length;
       load(current);
       load((current + 1) % slides.length);
       slides[current]?.classList.add("is-active");
       dots[current]?.classList.add("is-active");
       if (counter) counter.textContent = String(current + 1).padStart(2, "0");
+      scrollRail();
+      updateLink();
     };
 
     root.addEventListener("animationend", event => {
-      if (event.target === dots[current]?.querySelector("b")) show((current + 1) % slides.length);
+      if (event.target === dots[current]?.querySelector("b")) show(current + 1);
     });
+    stage?.querySelector("[data-dp-prev]")?.addEventListener("click", () => show(current - 1));
+    stage?.querySelector("[data-dp-next]")?.addEventListener("click", () => show(current + 1));
+    window.addEventListener("resize", scrollRail);
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(([entry]) => {
         root.classList.toggle("is-offscreen", !entry?.isIntersecting);
@@ -159,5 +196,6 @@ const lang = isEnglish ? "en" : "ko";
       const paused = root.classList.toggle("is-paused");
       toggle.setAttribute("aria-pressed", String(paused));
     });
+    updateLink();
   });
 </script>
