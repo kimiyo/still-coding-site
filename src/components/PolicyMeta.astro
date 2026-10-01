@@ -1,0 +1,15 @@
+---
+import { policyDates, type PolicyName } from "../data/policies";
+import type { Locale } from "../i18n";
+interface Props { policy: PolicyName; locale?: Locale }
+const { policy, locale = "ko" } = Astro.props;
+const { effective, updated } = policyDates[policy];
+// The dates are calendar days, so format them in UTC to keep "2026-10-01" from shifting a day.
+const format = (date: string) =>
+  new Date(`${date}T00:00:00Z`).toLocaleDateString(locale === "en" ? "en-US" : "ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+<div class="policy-meta">
+  {locale === "en"
+    ? <><span>Effective <time datetime={effective}>{format(effective)}</time></span><span>Updated <time datetime={updated}>{format(updated)}</time></span></>
+    : <><span>시행일 <time datetime={effective}>{format(effective)}</time></span><span>최종 업데이트 <time datetime={updated}>{format(updated)}</time></span></>}
+</div>
