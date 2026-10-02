@@ -1,6 +1,6 @@
 # Still Coding 웹앱 공통 표준
 
-- 문서 버전: 1.0
+- 문서 버전: 1.1 (2026-10-02: 6-1 i18n 리소스 방식 선호 추가)
 - 작성일: 2026-10-02
 - 적용 대상: `still-coding.cc` 포털과 `*.still-coding.cc`에서 운영하는 모든 웹앱
 - 원본 위치: 이 문서(`kimiyo/still-coding-site`의 `docs/APP_STANDARD.md`). 각 앱 저장소에는 복사하지 않고 이 문서를 가리키는 한 줄만 둔다(10절).
@@ -129,6 +129,32 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 | I-3 | 필수(영어가 있으면) | 번역이 끝나지 않은 영어 페이지를 공개·색인하지 않는다. 포털 `englishReady`는 영어 페이지가 실제로 있을 때만 `true` |
 | I-4 | 필수 | 브라우저 언어나 지역으로 강제 리다이렉트하지 않는다. 헤더 오른쪽에 `한글`/`English` 전환 버튼 |
 | I-5 | 필수 | 언어를 바꿔도 광고 적격 규칙(A-1)은 같다 |
+| I-6 | 권장(선호) | 화면 문자열은 **i18n 리소스**로 관리한다. 아래 6-1 참고 |
+| I-7 | 필수(I-6을 쓰면) | 언어 간 번역 키가 같은지 검사하는 테스트를 둔다. 키가 빠지면 테스트가 실패해야 한다 |
+
+### 6-1. i18n 리소스 방식 (선호)
+
+다국어는 언어별 화면을 따로 복사해 만들기보다 **i18n 리소스 방식**으로 구현하는 것을 선호한다. 문자열은 한 곳에서 관리하고, 언어를 추가할 때는 리소스 파일만 늘린다.
+
+- **리소스 구조**: 언어 코드(`ko`, `en`)별 번역 카탈로그를 두고, 화면은 `t("guide.title")` 같은 **키**로만 문자열을 가져온다. 컴포넌트·HTML에 문장을 직접 쓰지 않는다.
+- **도구 선택**: 앱의 프레임워크 관례를 따른다. 새로 정한다면 다음을 우선한다.
+
+  | 스택 | 권장 |
+  | --- | --- |
+  | React | `i18next` + `react-i18next` (본보기: PDF Flow Studio `app/src/i18n/`) |
+  | Astro (포털) | 타입이 있는 사전 모듈 (본보기: 포털 `src/i18n/index.ts`) |
+  | 프레임워크 없는 JS | 작은 사전 모듈 `i18n.js`와 `t()`·복수형(`Intl.PluralRules`) 함수 (본보기: Vocal Check `i18n.js`, CollaBoard `frontend/core/i18n.js`) |
+
+- **변수와 복수형**: 문장을 이어 붙이지 않고 `{count}`처럼 변수를 넣는다. 복수형은 `Intl.PluralRules`나 라이브러리 기능을 쓴다. 날짜·숫자는 `Intl.DateTimeFormat`·`Intl.NumberFormat`으로 언어에 맞춘다.
+- **누락 검사(I-7)**: `ko`와 `en`의 키 목록이 같은지 테스트한다. 본보기는 Vocal Check `test-i18n.cjs`, CollaBoard `test/i18n.test.js`.
+- **번역하지 않는 값**: 학습 대상 글자(가나), 정류소 ID, 게임 코드, 음악 기호처럼 의미가 고정된 값은 리소스에 넣지 않는다.
+
+**주의: i18n은 문장을 바꾸는 수단일 뿐, 언어별 URL을 대신하지 않는다.** 같은 주소에서 JavaScript로 문장만 바꾸면 검색 엔진과 AdSense 검토자는 한 언어만 본다. 그래서 색인할 공개 페이지(메인, 사용법, 소개, 방침, 읽을거리)는 다음 규칙을 따른다.
+
+1. 언어마다 고유 URL(`/en/...`)을 두고(I-1), 그 주소의 HTML에 해당 언어 본문과 `title`·description·`html lang`·canonical·hreflang이 **처음부터** 들어 있어야 한다(I-2).
+2. 가장 좋은 방법은 같은 i18n 리소스로 **빌드할 때 언어별 정적 HTML을 생성**하는 것이다(Astro, Vite SSG, 빌드 스크립트 등). 그러면 문자열은 한 곳에 있고 결과물은 언어별 페이지가 된다.
+3. 빌드 생성이 어려운 기존 앱은 정적 페이지를 언어별 HTML로 따로 두어도 된다. 이 경우 두 언어 파일을 함께 고치고, 같은 커밋에서 바꾼다.
+4. 앱 조작 화면(게임, 편집, 측정 화면)처럼 색인하지 않는 화면은 클라이언트 i18n만으로 충분하다.
 
 ## 7. 보안과 운영 (O)
 
@@ -201,6 +227,7 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 
 [6. 다국어] (영어가 있으면)
 [ ] I-2 hreflang·canonical       [ ] I-3 미완성 영어 비공개   [ ] I-4 강제 리다이렉트 없음
+[ ] I-6 i18n 리소스 (선호)        [ ] I-7 번역 키 누락 테스트
 
 [7. 보안·운영]
 [ ] O-1 API 문서 비공개          [ ] O-2 비밀값 저장소 밖
@@ -285,3 +312,5 @@ https://github.com/kimiyo/still-coding-site/blob/main/docs/APP_STANDARD.md
 | 게임별 읽기 페이지 | Direct Play | `frontend/games/<game>/` |
 | 방침 날짜 일원화 | 포털 | `src/data/policies.ts`, `src/components/PolicyMeta.astro` |
 | 미래 날짜·초안 TODO 빌드 차단 | 포털 | `src/lib/notes.ts` |
+| i18n 리소스 (React) | PDF Flow Studio | `app/src/i18n/config.ts`, `app/src/i18n/locales/` |
+| i18n 리소스 (순수 JS)와 키 누락 테스트 | Vocal Check, CollaBoard | `i18n.js`·`test-i18n.cjs`, `frontend/core/i18n.js`·`test/i18n.test.js` |
