@@ -1,6 +1,6 @@
 # still-coding.cc AdSense 승인 전 심층 점검 보고서
 
-- 점검일: 2026-10-01
+- 점검일: 2026-10-01 (진행 현황 갱신: 2026-10-02, 0절)
 - 대상: `still-coding.cc`(포털) + 하위 도메인 8개(dp, study-hiragana, guitar-play, collaboard, piano-play, vocal-check, pdf-flow-studio, bus-explorer)
 - 근거 표기
   - **[빌드]** 포털 저장소를 `pnpm run build`로 빌드한 `dist/` 97페이지를 스크립트로 전수 점검
@@ -18,6 +18,48 @@
 | Vocal Check (`vocal-check`) | vocal-check-app | a1ac345 (09/28) |
 | PDF Flow Studio (`pdf-flow-studio`) | pdf-flow-studio | d5a47f7 (10/01) |
 | Bus Explorer (`bus-explorer`) | bus-route-in-trip | 83ece98 (09/27) |
+
+---
+
+## 0. 진행 현황 (2026-10-02 갱신)
+
+- 기준: 포털 `66d35e6`(10/02 배포 완료, 운영자 확인), 하위 앱 저장소 `main` 최신 커밋. 실제 배포본은 이번에도 네트워크 정책상 직접 열어 보지 못했다 [미확인].
+- **노트 수 정정:** 처음 점검 때 "35편"으로 적었으나 실제 공개 노트는 **38편**이다(기존 문서의 숫자를 그대로 옮긴 오류). 이하 본문의 35편은 38편으로 읽는다.
+
+### 0-1. 항목별 상태
+
+| # | 항목 | 상태 | 근거 |
+| --- | --- | --- | --- |
+| 2-1 | 미래 게시일 노트 8편 | ✅ 완료 | `2638c7d` — 8편 `pubDate`를 10/01로 수정, 미래 날짜면 빌드 실패하는 검사 추가. `lastmod`도 09/27·10/01만 남음 |
+| 2-2 | 노트 JSON-LD 누락 | ✅ 완료 | `cc17f57` — `TechArticle` 38개, `BreadcrumbList` 31개(태그·허브 페이지도 같은 원인이었음) 출력 |
+| 2-3 | 게시자 ID 반영 | ⏳ 대기 | AdSense 가입 후 `.env`에 `PUBLIC_ADSENSE_CLIENT` 입력·재배포 필요 |
+| 2-4 | Search Console 색인 | ⏳ 미착수 [미확인] | 도메인 속성 등록·사이트맵 제출·URL 검사 |
+| 3-1 | 얇은 태그/허브 페이지 | ⏳ 미착수 | 사이트맵 96 URL 중 태그 23·허브 8 그대로 |
+| 3-2 | About 보강 | ⏳ 미착수 | `/about/` 474자 그대로 |
+| 3-3 | 방침 갱신일 | ✅ 완료 | `e878a1b` 최종 업데이트 10/01, `23d1c54` 날짜를 `src/data/policies.ts`로 일원화하고 7항을 "최종 업데이트 날짜와 내용을 함께 갱신"으로 변경 |
+| 3-4 | 중복 호스트 — workers.dev | ✅ 완료(소스) | Direct Play `96420ad`, Guitar `f43d398`, PDF Flow Studio `28c5493`에서 `workers_dev`·`preview_urls` 모두 `false`. 각 앱 재배포 여부 [미확인] |
+| 3-4 | 중복 호스트 — `www` 301 | ⏳ 미착수 [미확인] | Cloudflare Redirect Rule 필요 |
+| 3-4 | Guitar 구 Pages, 가나 공방 pages.dev | ⏳ 미확인 | Cloudflare 대시보드 확인 필요 |
+| 3-4 | Songnote·Vocal Check·CollaBoard `workers_dev` 명시 | ⏳ 미착수 | 세 저장소 변경 없음(낮은 우선순위) |
+| 3-5 | Bus Explorer 메인 메타·포털 링크 | ⏳ 미착수 | `web/index.html`에 description·canonical·포털 링크 없음 |
+| 3-5 | Guitar 메인 canonical·포털 링크 | ⏳ 미착수 | `web-app/index.html`에 둘 다 없음 |
+| 3-6 | PDF Flow Studio 사용법 링크 | ✅ 완료 | 포털 `42aca21`·`66d35e6`(ko `/guide/`, en `/en/guide/`), 앱 `183fc4e`(영어 가이드 추가, 사이트맵 등록). 단, 두 가이드는 `noindex` 리다이렉트 페이지 |
+| 3-7 | 콘텐츠 공개 속도 | ⏳ 진행 중 | 신청 전까지 며칠 간격으로 노트 추가 |
+| 4-1 | 하위 앱 방침 광고 문구 | 승인 후 | 변경 없음(현재 사실과 일치) |
+| 4-2 | CMP 설정 | 승인 후 | — |
+| 4-3 | 404 메타 | ⏳ 미착수 | `404.html`에 `canonical=/404/` 그대로, `noindex` 없음 |
+| 4-4 | 한국어 홈 title | ⏳ 미착수 | ko/en 모두 `Still Coding — Ideas, made real.` |
+| 4-5 | 홈 `WebSite`·`Person` | ⏳ 미착수 | `ItemList`만 있음 |
+| 4-6 | Bus Explorer FastAPI 문서 | ⏳ 미착수 | 저장소 변경 없음 |
+
+### 0-2. 남은 일 (권장 순서)
+
+1. **[포털 코드]** 4-3 404 `noindex`, 3-1 얇은 태그 페이지 `noindex`·사이트맵 제외, 3-2 About 보강, 4-4 한국어 title, 4-5 `WebSite`·`Person`
+2. **[하위 앱 코드]** 3-5 Bus Explorer·Guitar 메인 메타·포털 링크, 4-6 FastAPI 문서 비활성화
+3. **[배포 확인]** Direct Play·Guitar·PDF Flow Studio 재배포 후 workers.dev 주소가 더 이상 열리지 않는지 확인
+4. **[Cloudflare]** `www` → 루트 301, Bot Fight Mode·AI 봇 차단 확인, Guitar 구 Pages·가나 공방 pages.dev 정리, Pinhole Lab DNS 정리
+5. **[Search Console]** 등록·사이트맵 제출·색인 확인
+6. **[AdSense]** 가입 → 게시자 ID 반영·재배포 → 사이트 등록·검토 요청
 
 ---
 
