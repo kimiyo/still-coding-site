@@ -162,7 +162,6 @@ export const apps: PortfolioApp[] = [
     eyebrow: "Document tool / 01",
     url: "https://pdf-flow-studio.still-coding.cc/",
     helpUrl: "https://pdf-flow-studio.still-coding.cc/guide/",
-    englishHelpUrl: "https://pdf-flow-studio.still-coding.cc/en/?help=true",
     englishReady: true,
     group: "tools",
     status: "public",

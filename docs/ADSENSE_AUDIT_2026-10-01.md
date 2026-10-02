@@ -162,6 +162,7 @@ AdSense 검토자와 Google 품질 평가는 "누가 운영하는가"를 본다.
 
 - **[10/2 반영]** 한국어 링크는 `/guide/`로 바꿨다. PDF Flow Studio에는 `/en/guide/`가 없어서, 영어 페이지는 새 필드 `englishHelpUrl`로 기존 `/en/?help=true`를 유지한다.
 - **[10/2 정정]** 처음 점검 때 "`/guide/`가 사이트맵에 있다"고 적었지만 사실이 아니다. `pdf-flow-studio` 저장소의 `app/public/sitemap.xml`에는 `/guide/`가 없다. 그 앱 저장소에서 사이트맵에 `/guide/`를 추가하고, 영어 가이드(`/en/guide/`)를 만드는 작업이 남아 있다.
+- **[10/2 반영]** `pdf-flow-studio` `183fc4e`에서 `/en/guide/`를 만들고 두 가이드를 사이트맵에 넣었다. 포털은 `englishHelpUrl`을 지워 영어 링크도 `/en/guide/`를 쓴다. 두 가이드 페이지는 `noindex` 리다이렉트 페이지라 색인되지 않는다.
 
 ### 3-7. 콘텐츠 공개 속도 [빌드]
 
