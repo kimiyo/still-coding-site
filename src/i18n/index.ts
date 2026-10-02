@@ -53,5 +53,9 @@ export function localizedAppUrl(url: string | undefined, locale: Locale, english
   parsed.pathname = path === "/" ? "/en/" : `/en${path}`;
   return parsed.toString();
 }
+export function localizedHelpUrl(app: PortfolioApp, locale: Locale): string | undefined {
+  if (locale === "en" && app.englishHelpUrl) return app.englishHelpUrl;
+  return localizedAppUrl(app.helpUrl, locale, app.englishReady);
+}
 export function getAppText(app: PortfolioApp, locale: Locale) { const copy = editorial[locale][app.id]; if (!copy) throw new Error(`Missing ${locale} editorial content for ${app.id}`); const [discipline, line, action, note] = copy; return { ...app, ...(locale === "en" ? english[app.id] : {}), discipline, line, action, note }; }
 export type AppText = ReturnType<typeof getAppText>;

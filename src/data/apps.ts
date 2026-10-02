@@ -7,6 +7,8 @@ export interface PortfolioApp {
   eyebrow: string;
   url?: string;
   helpUrl?: string;
+  /** English guide when the app has no /en/ copy of its helpUrl page; otherwise the /en/ prefix is added to helpUrl. */
+  englishHelpUrl?: string;
   englishReady?: boolean;
   group: AppGroup;
   status: AppStatus;
@@ -159,7 +161,8 @@ export const apps: PortfolioApp[] = [
     title: "PDF Flow Studio",
     eyebrow: "Document tool / 01",
     url: "https://pdf-flow-studio.still-coding.cc/",
-    helpUrl: "https://pdf-flow-studio.still-coding.cc/?help=true",
+    helpUrl: "https://pdf-flow-studio.still-coding.cc/guide/",
+    englishHelpUrl: "https://pdf-flow-studio.still-coding.cc/en/?help=true",
     englishReady: true,
     group: "tools",
     status: "public",
@@ -193,7 +196,7 @@ export const apps: PortfolioApp[] = [
       },
       {
         question: "사용 가이드가 있나요?",
-        answer: "앱 상단의 '?' 버튼 또는 사용법 안내(https://pdf-flow-studio.still-coding.cc/?help=true)에서 5단계 시각적 튜토리얼, 상세 기능, 단축키를 전체 화면으로 확인하실 수 있습니다."
+        answer: "사용 가이드(https://pdf-flow-studio.still-coding.cc/guide/) 또는 앱 상단의 '?' 버튼에서 5단계 시각적 튜토리얼, 상세 기능, 단축키를 전체 화면으로 확인하실 수 있습니다."
       }
     ],
   },

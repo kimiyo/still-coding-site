@@ -158,7 +158,10 @@ AdSense 검토자와 Google 품질 평가는 "누가 운영하는가"를 본다.
 
 ### 3-6. 포털의 PDF Flow Studio 도움말 링크가 쿼리 문자열 주소 [소스]
 
-`src/data/apps.ts`의 PDF Flow Studio `helpUrl`이 `https://pdf-flow-studio.still-coding.cc/?help=true`(앱 내부 모달)다. 해당 앱에는 이제 정적 `/guide/` 페이지가 있고 사이트맵에도 들어 있으므로, 다른 앱처럼 **`/guide/`로 바꿔** 크롤러가 따라갈 수 있는 링크로 만든다.
+`src/data/apps.ts`의 PDF Flow Studio `helpUrl`이 `https://pdf-flow-studio.still-coding.cc/?help=true`(앱 내부 모달)다. 해당 앱에는 이제 정적 `/guide/` 페이지가 있으므로, 다른 앱처럼 **`/guide/`로 바꿔** 크롤러가 따라갈 수 있는 링크로 만든다.
+
+- **[10/2 반영]** 한국어 링크는 `/guide/`로 바꿨다. PDF Flow Studio에는 `/en/guide/`가 없어서, 영어 페이지는 새 필드 `englishHelpUrl`로 기존 `/en/?help=true`를 유지한다.
+- **[10/2 정정]** 처음 점검 때 "`/guide/`가 사이트맵에 있다"고 적었지만 사실이 아니다. `pdf-flow-studio` 저장소의 `app/public/sitemap.xml`에는 `/guide/`가 없다. 그 앱 저장소에서 사이트맵에 `/guide/`를 추가하고, 영어 가이드(`/en/guide/`)를 만드는 작업이 남아 있다.
 
 ### 3-7. 콘텐츠 공개 속도 [빌드]
 
