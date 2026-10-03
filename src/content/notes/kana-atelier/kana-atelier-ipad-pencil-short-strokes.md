@@ -6,7 +6,7 @@ app: kana-atelier
 tags: ["Apple Pencil", "Pointer Events", "iPadOS", "Debugging"]
 ---
 
-[가나 공방](https://study-hiragana.still-coding.cc/)은 히라가나와 가타카나를 펜으로 크게 따라 쓰며 익히는 학습 앱입니다. 글자를 쓰는 화면이 이 앱의 중심이라, 쓴 획이 화면에 남지 않으면 앱이 성립하지 않습니다.
+[가나 공방](https://study-hiragana.still-coding.com/)은 히라가나와 가타카나를 펜으로 크게 따라 쓰며 익히는 학습 앱입니다. 글자를 쓰는 화면이 이 앱의 중심이라, 쓴 획이 화면에 남지 않으면 앱이 성립하지 않습니다.
 
 개발 문서 `reusable/ipad-pencil-short-stroke-siri-gesture.md`에는 iPad의 Chrome에서 Apple Pencil로 짧은 획을 연달아 그릴 때 입력이 사라졌다고 적혀 있습니다. 시리 요청 화면이 뜨는 순간과 입력 중단이 겹쳤다는 기록도 있습니다. 현재 코드에서 확인되는 것은 포인터 처리의 보강입니다. 시스템 내부에서 어떤 제스처가 실행됐는지와 수정 뒤 재현 빈도는 추가 확인이 필요합니다.
 

@@ -6,7 +6,7 @@ app: collaboard
 tags: ["Security", "Cloudflare Durable Objects", "WebSocket", "Code Review"]
 ---
 
-[CollaBoard](https://collaboard.still-coding.cc/)는 참가자끼리 WebRTC로 자료를 주고받는 협업 앱입니다. [이전 글](/notes/collaboard-webrtc-p2p-room/)에서는 방과 연결 구조를 설명했습니다. 여기서는 참가자를 가리키는 값과 그 참가자의 권한을 증명하는 값을 어떻게 나누었는지 다룹니다. 여럿이 한 방에서 자료를 주고받는 만큼, 협업 쪽 보안을 더 강화하려고 이 구분을 넣었습니다.
+[CollaBoard](https://collaboard.still-coding.com/)는 참가자끼리 WebRTC로 자료를 주고받는 협업 앱입니다. [이전 글](/notes/collaboard-webrtc-p2p-room/)에서는 방과 연결 구조를 설명했습니다. 여기서는 참가자를 가리키는 값과 그 참가자의 권한을 증명하는 값을 어떻게 나누었는지 다룹니다. 여럿이 한 방에서 자료를 주고받는 만큼, 협업 쪽 보안을 더 강화하려고 이 구분을 넣었습니다.
 
 ## 참가자를 가리키는 값과 권한을 증명하는 값
 

@@ -6,7 +6,7 @@ app: direct-play
 tags: ["Cloudflare Durable Objects", "Alarms", "Cost", "Architecture"]
 ---
 
-[Direct Play](https://dp.still-coding.cc/)의 방은 설정 중인 방, 플레이할 수 있는 방, 보관된 방으로 나뉩니다. 각 상태에 만료 시각이 있고, 별도로 하루 방 생성 한도를 둡니다.
+[Direct Play](https://dp.still-coding.com/)의 방은 설정 중인 방, 플레이할 수 있는 방, 보관된 방으로 나뉩니다. 각 상태에 만료 시각이 있고, 별도로 하루 방 생성 한도를 둡니다.
 
 방에 수명을 둔 것은 서버 자원을 효율적으로 쓰려는 것입니다. 방은 서버 자원을 쓰고, 그 자원은 관리 비용으로 이어집니다. 그래서 쓰지 않는 방은 시간이 지나면 끝나게 했습니다.
 

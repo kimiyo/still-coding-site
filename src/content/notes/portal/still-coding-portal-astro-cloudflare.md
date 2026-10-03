@@ -13,7 +13,7 @@ Still Coding은 제가 만든 웹 앱을 한곳에 모아 소개하는 포털입
 
 그래서 원칙을 정했습니다.
 
-- **앱은 각자의 하위 도메인과 저장소, 배포 파이프라인을 가진다.** `dp.still-coding.cc`, `vocal-check.still-coding.cc`처럼 나눕니다.
+- **앱은 각자의 하위 도메인과 저장소, 배포 파이프라인을 가진다.** `dp.still-coding.com`, `vocal-check.still-coding.com`처럼 나눕니다.
 - **포털은 앱을 호출하지 않는다.** 포털은 앱의 소개, 사용 방법, 데이터 처리 방식을 설명하고 링크만 겁니다. 앱이 잠시 멈춰도 포털은 영향을 받지 않습니다.
 - **포털은 서버 코드 없이 정적 파일만 배포한다.** 공격 표면과 운영 부담을 최소로 줄이기 위해서입니다.
 
@@ -33,7 +33,7 @@ Still Coding은 제가 만든 웹 앱을 한곳에 모아 소개하는 포털입
 {
   "name": "still-coding-portfolio",
   "assets": { "directory": "./dist", "not_found_handling": "404-page" },
-  "routes": [{ "pattern": "still-coding.cc", "custom_domain": true }]
+  "routes": [{ "pattern": "still-coding.com", "custom_domain": true }]
 }
 ```
 

@@ -7,8 +7,8 @@ The portal loads the feedback widget only when a server-issued public app ID is 
 Set these values in the deployment environment; do not commit them to source control:
 
 ```text
-PUBLIC_FEEDBACK_APP_ID=<the appId registered for still-coding.cc>
-PUBLIC_FEEDBACK_BASE_URL=https://user-feedback.still-coding.cc
+PUBLIC_FEEDBACK_APP_ID=<the appId registered for still-coding.com>
+PUBLIC_FEEDBACK_BASE_URL=https://user-feedback.still-coding.com
 ```
 
 `PUBLIC_FEEDBACK_APP_ID` identifies the portal; it is not a secret. The feedback service must still authenticate the tester session and authorize every form-open, upload, submit, and read request. A missing or invalid session must be rejected by the service, including requests made directly to its API.

@@ -7,7 +7,7 @@ game: pinhole
 tags: ["Game Design", "Canvas", "TypeScript", "Cloudflare R2"]
 ---
 
-[PINHOLE](https://pinhole.still-coding.cc)은 화면 전체가 아니라 작은 원 안만 보이는 게임입니다. 원을 움직여 장면 곳곳을 살피고, 무엇이 있는지 맞힙니다. 적게 볼수록 점수가 높습니다.
+[PINHOLE](https://pinhole.still-coding.com)은 화면 전체가 아니라 작은 원 안만 보이는 게임입니다. 원을 움직여 장면 곳곳을 살피고, 무엇이 있는지 맞힙니다. 적게 볼수록 점수가 높습니다.
 
 이 게임은 Direct Play에서 처음 만든 것이 아닙니다. 해커톤용으로 만든 독립 앱에서 시작했고(나중에 SUM DROP이 더해져 PINHOLE LAB이라는 이름이 됐습니다), 그다음 Direct Play의 게임 모듈로 옮겼습니다. 두 시점을 나눠서 적습니다.
 

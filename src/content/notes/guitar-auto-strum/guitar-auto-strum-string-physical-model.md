@@ -6,7 +6,7 @@ app: guitar-auto-strum
 tags: ["Web Audio", "DSP", "Karplus-Strong", "Testing"]
 ---
 
-[Guitar Auto-Strum](https://guitar-play.still-coding.cc/)의 코드 반주는 녹음된 기타 소리를 재생하지 않습니다. 매번 줄이 어떻게 진동하는지를 계산해서 파형을 만듭니다. 이 글은 그 소리를 만드는 코드(`web-app/js/engine/string-voice.js`)가 어떤 생각으로 짜였는지, 그리고 이전 방식이 왜 막다른 길이었는지를 정리합니다. 신호처리 지식이 없어도 따라올 수 있도록 개념 위주로 썼고, 수치는 모두 코드 주석에 적힌 측정값입니다.
+[Guitar Auto-Strum](https://guitar-play.still-coding.com/)의 코드 반주는 녹음된 기타 소리를 재생하지 않습니다. 매번 줄이 어떻게 진동하는지를 계산해서 파형을 만듭니다. 이 글은 그 소리를 만드는 코드(`web-app/js/engine/string-voice.js`)가 어떤 생각으로 짜였는지, 그리고 이전 방식이 왜 막다른 길이었는지를 정리합니다. 신호처리 지식이 없어도 따라올 수 있도록 개념 위주로 썼고, 수치는 모두 코드 주석에 적힌 측정값입니다.
 
 ## 처음 방식: 사인파 일곱 개
 
