@@ -3,7 +3,7 @@ export const APP_DOMAIN = "still-coding.com";
 /** Domain apps stay on until they move; remove this and `migratedApps` once every app has. */
 const LEGACY_APP_DOMAIN = "still-coding.cc";
 /** Subdomains already served from APP_DOMAIN. Add an app's name here when its migration goes live. */
-const migratedApps = new Set<string>(["user-feedback", "dp", "guitar-play", "collaboard", "piano-play", "vocal-check", "pdf-flow-studio"]);
+const migratedApps = new Set<string>(["user-feedback", "dp", "guitar-play", "collaboard", "piano-play", "vocal-check", "pdf-flow-studio", "study-hiragana"]);
 
 /** Absolute URL of an app (or service) subdomain; `path` has no leading slash, e.g. "guide/". */
 export function appUrl(app: string, path = ""): string {
