@@ -65,6 +65,8 @@
 3. **피드백 API의 허용 출처는 DB에 저장되어 있다.**
    - `project_origins` 테이블을 쓰고, 이 값이 CORS와 `frame-ancestors` 둘 다 결정한다.
    - 코드를 고치는 것이 아니라 **관리자 화면에서 앱마다 `.com` 출처를 추가**해야 한다.
+   - 앱은 이전할 때 위젯 주소를 `.com`으로 바꾼다. 따라서 피드백 서버의 `.com` 호스트는 **첫 앱(A6)보다 먼저** 열려 있어야 한다.
+   - 테스터 세션 쿠키(`tester_session`)는 호스트 단위이고 초대 링크는 한 번만 쓸 수 있다. 위젯이 `.com`을 보게 되면 기존 테스터는 **`.com`으로 다시 초대**해야 한다.
 4. **Direct Play 게임 도메인 리디렉트는 도메인 이름에 의존하지 않는다.**
    - `worker/game-domains.js`는 호스트의 첫 라벨만 본다.
    - 그래서 Worker에 `.cc`와 `.com` 게임 도메인을 모두 붙이고 `APP_ORIGIN`만 `.com`으로 바꾸면 된다.
@@ -122,6 +124,8 @@
 ### 2-3. 피드백 API를 먼저 열어 두기 (S, 1차)
 
 - 관리자 화면에서 모든 앱 프로젝트에 `.com` 출처를 **추가**한다. `.cc`는 아직 지우지 않는다.
+- 터널에 `user-feedback.still-coding.com` → `localhost:4100`을 **추가**해 `.cc`와 `.com` 두 호스트가 같은 서버를 보게 한다. `APP_BASE_URL`은 아직 `.cc`로 둔다.
+- 운영 `.env`의 `TRUST_PROXY=1`을 확인한다. `0`이면 `.com` 호스트로 들어온 피드백 제출이 403으로 거부된다(§3-S).
 - 이것을 먼저 해 두면 이후 앱 이전 순서에 의존하지 않게 된다. 상세는 §3-S.
 
 ---
@@ -134,7 +138,7 @@
 - 포털과 다른 앱으로 가는 상호 링크
 - 연락처 메일 `still.coding.cc@gmail.com` → `still.coding.com@gmail.com`
 - 개인정보처리방침·약관의 도메인 표기와 **최종 업데이트 날짜**
-- 피드백 위젯 `baseUrl` → `https://user-feedback.still-coding.com`
+- 피드백 위젯 `baseUrl` → `https://user-feedback.still-coding.com`. 배포 전에 그 앱의 테스터에게 `.com` 초대를 다시 보낸다(§3-S 테스터). `data-feedback-app-id`는 DB 식별자이므로 바꾸지 않는다.
 - 배포 라우트를 `.com`으로 교체 → 배포 → `.cc` 호스트를 §4 리디렉트 목록에 추가 → 포털 `src/data/apps.ts`의 해당 앱 URL 교체
 
 ### P. 포털 — still-coding
@@ -226,10 +230,15 @@
 
 | 구분 | 작업 |
 | --- | --- |
-| 설정 | `wrangler.jsonc` route → `vocal-check.still-coding.com` |
-| 링크 | 루트의 `index.html`, `en/index.html`, `guide`, `privacy`, `contact`(ko/en), `404.html`, `sitemap.xml`, `robots.txt`, `README.md`, `test-public.cjs` |
-| 메일 | 문의·방침 페이지에 **신규 추가** |
-| 데이터 | 없음. 가장 먼저 이전하는 시범 대상이다. |
+| 설정 | `wrangler.jsonc`의 `custom_domain` route를 `vocal-check.still-coding.com`으로 바꾼다. 배포 후 `.cc` 커스텀 도메인이 떨어지므로 proxied 더미 레코드(`AAAA 100::`)를 만들어야 §4 리디렉트가 동작한다. |
+| 링크 | `index.html`, `en/index.html`, `guide`, `privacy`, `contact`(ko/en), `404.html`, `sitemap.xml`(8 URL, `lastmod` 갱신), `robots.txt`, `README.md`(5곳: 배포 주소, 영어 화면 예시, 커스텀 도메인, wrangler 예시, 개인정보 링크), `test-public.cjs`(포털 링크·sitemap 기대값) |
+| 포털 링크 | 포털(P)은 A6보다 뒤(4단계)에 이전한다. 그 전에 포털 링크를 `.com`으로 바꾸면 없는 사이트를 가리키므로, **A6에서는 `https://still-coding.cc/…` 포털 링크를 그대로 둔다.** 포털 이전 뒤 별도 커밋으로 바꾼다(`.cc` 링크 30곳(`test-public.cjs` 기대값 4곳 포함), 포털 소개·문의·방침 포함). |
+| 피드백 위젯 | 한국어 페이지 5곳(`index`, `guide`, `privacy`, `contact`, `404`)의 `src`와 `data-feedback-base-url`만 `.com`으로 바꾼다. **`data-feedback-app-id="vocal-check-still-coding-cc"`는 DB에 등록된 식별자이므로 바꾸지 않는다.** 배포 전에 §2-3에서 `vocal-check` 프로젝트에 `https://vocal-check.still-coding.com` 출처를 추가해 둔다. |
+| 메일 | 문의·방침 페이지에 `still.coding.com@gmail.com`을 **신규 추가**한다. 두 페이지가 "문의 폼 없음, GitHub으로만 연락"이라고 적고 있으므로 문구를 "이메일이나 GitHub"으로 함께 고친다(`contact` 본문과 `meta`·`og:description`, `privacy` 운영자 절, ko/en). 방침 기준일을 갱신하고, `test-public.cjs`에 메일 단언을 추가한다. |
+| 문서 | `still-coding-multilingual-requirements.md`, `tester-feedback-widget-abuse-protection (1).md`, `vocal-check-adsense-improvements.md`는 `.assetsignore`의 `*.md`로 배포되지 않는 과거 기록이므로 고치지 않는다. 완료 기준의 `git grep` 예외로 본다. |
+| 데이터 | 없음(브리지 불필요, 서비스 워커 없음). 가장 먼저 이전하는 시범 대상이다. |
+| 순서 | ① §2-3에서 피드백 출처 추가 → ② 코드 수정·테스트·`.com` 배포 → ③ `.com` 검증 → ④ `.cc` 해제 + 더미 레코드 → ⑤ §4 목록에 `vocal-check.` 추가 → ⑥ 포털 이전 후 포털 링크 교체 |
+
 
 ### A7. PDF Flow Studio — pdf-flow-studio
 
@@ -261,10 +270,14 @@
 
 | 구분 | 작업 |
 | --- | --- |
-| 1차 (가장 먼저) | 관리자 화면 `/admin/projects`에서 각 앱 프로젝트에 `.com` 출처를 추가한다: 포털, dp, study-hiragana, guitar-play, collaboard, piano-play, vocal-check, pdf-flow-studio, bus-explorer |
-| 2차 (호스트 이전) | 터널에 `user-feedback.still-coding.com` → `localhost:4100`을 추가한다. `.env`의 `APP_BASE_URL`을 `.com`으로 바꾸고 재시작한다. C7의 OAuth 원본을 추가한다. 관리자는 다시 로그인한다(쿠키는 호스트 단위). |
-| 코드·문서 | `compose.yaml`·`.env.example`의 기본 `APP_BASE_URL`, `docs/widget-integration-guide.md`, `docs/admin-operation-guide.md`, `README.md`, `public/admin/projects.html`의 예시, `tests/unit/testers.test.js` |
-| 마무리 (6개월 후) | 브리지를 제거할 때 `.cc` 출처도 DB에서 삭제한다. |
+| 1차 (가장 먼저, 6단계 2) | ① 관리자 화면 `/admin/projects`에서 각 앱 프로젝트에 `.com` 출처를 추가한다: 포털, dp, study-hiragana, guitar-play, collaboard, piano-play, vocal-check, pdf-flow-studio, bus-explorer. 포털은 `https://still-coding.com`만 추가한다(`www.`는 C2에서 루트로 리디렉트). ② 터널에 `user-feedback.still-coding.com` → `localhost:4100`을 **추가**한다(`.cc` 유지). ③ 운영 `.env`의 `TRUST_PROXY=1`을 확인하고 재시작한다. ④ C7의 `.com` OAuth 원본을 추가한다. ⑤ `.com` 호스트에서 테스트 초대로 실제 제출 1건을 확인한다. |
+| 1차 검증 이유 | 제출 API는 `isFeedbackOrigin`으로 요청 Origin을 `APP_BASE_URL` 또는 `${req.protocol}://${host}`와 비교한다. `APP_BASE_URL`이 `.cc`인 동안 `.com`으로 들어온 제출은 뒤쪽 비교로만 통과한다. `TRUST_PROXY=0`(기본값)이면 터널 뒤에서 `req.protocol`이 `http`가 되어 **403**이 난다. `TRUST_PROXY=1`에서 cloudflared가 `X-Forwarded-Proto: https`를 넘기는지 ⑤로 확인한다 [미확인]. |
+| 테스터 | `tester_session` 쿠키는 호스트 단위이고 초대는 1회용이다. 앱마다 위젯 주소를 `.com`으로 바꾸기 **전에** 그 앱의 테스터에게 새 초대를 보낸다. 2차 전에는 관리자 화면이 `.cc` 초대 URL을 만들므로 호스트만 `user-feedback.still-coding.com`으로 바꿔 보낸다(토큰은 DB에 있어 어느 호스트에서나 유효). 한 초대가 여러 앱을 허용하므로, 전환 기간에는 `.cc`·`.com` 세션을 둘 다 가진 테스터가 생긴다. |
+| 2차 (호스트 이전, 6단계 8) | 모든 앱의 위젯 주소가 `.com`인 것을 확인한 뒤 `.env`의 `APP_BASE_URL`을 `.com`으로 바꾸고 재시작한다. 관리자는 `.com`에서 다시 로그인한다(관리자 세션은 메모리에 있어 재시작으로 사라지고, 쿠키도 호스트 단위). |
+| `.cc` 정리 | `.cc` 위젯 주소가 남은 앱이 없고 테스터 재초대가 끝난 뒤에만 `user-feedback.`을 §4 목록에 넣는다. 301은 CORS 사전 요청과 POST를 깨뜨린다. |
+| 코드·문서 | `compose.yaml`·`.env.example`의 기본 `APP_BASE_URL`, `docs/widget-integration-guide.md`, `docs/admin-operation-guide.md`, `README.md`, `public/admin/projects.html`의 예시, `server/app.js`의 허용 Origin 오류 메시지 예시, `tests/unit/testers.test.js`. 2차와 함께 반영한다. |
+| 예외 (고치지 않음) | `migrations/002-tester-access.sql`(이미 적용된 마이그레이션), `docs/widget-integration-guide.md`의 appId 예시 `dp-still-coding-cc`(DB 식별자 규칙 설명). 완료 기준 `git grep`의 예외로 본다. |
+| 마무리 (6개월 후) | 브리지를 제거할 때 `.cc` 출처도 DB에서 삭제한다. 터널의 `.cc` 호스트 이름과 OAuth `.cc` 원본도 이때 정리한다. |
 
 ### M. Kim's Memo 원격 공유 서버 — `memo.`
 
@@ -310,7 +323,7 @@
   - 대상: `https://` + (`www.` 제거, `.cc` → `.com`으로 바꾼 호스트) + 경로, 쿼리 유지, 301
   - 표현식에 `regex_replace`를 쓸 수 없으면 호스트별 규칙이나 Bulk Redirect 목록으로 대체한다.
 - 공개 호스트 목록에는 해당 앱의 이전이 끝날 때마다 하나씩 추가한다.
-  - 대상: `still-coding.cc`, `www.`, `dp.`, `study-hiragana.`, `guitar-play.`, `collaboard.`, `piano-play.`, `vocal-check.`, `pdf-flow-studio.`, `bus-explorer.`, `user-feedback.`, `memo.`(§3-M 6번 이후에만)
+  - 대상: `still-coding.cc`, `www.`, `dp.`, `study-hiragana.`, `guitar-play.`, `collaboard.`, `piano-play.`, `vocal-check.`, `pdf-flow-studio.`, `bus-explorer.`, `user-feedback.`(§3-S `.cc` 정리 조건 충족 후에만), `memo.`(§3-M 6번 이후에만)
   - **게임 도메인 10개는 넣지 않는다.** Worker가 직접 처리한다(A1).
 - Worker나 Pages, 터널에서 `.cc` 호스트를 떼어낸 뒤에는 그 호스트에 **proxied DNS 레코드(예: `AAAA 100::`)** 가 있어야 규칙이 동작한다.
 
@@ -337,13 +350,13 @@
 | 단계 | 내용 | 위험도 |
 | --- | --- | --- |
 | 1 | §2-1 C1~C7 계정·DNS 준비 | – |
-| 2 | §2-3 피드백 API에 `.com` 출처 추가 | 낮음 |
-| 3 | **A6 Vocal Check** 시범 이전. 리디렉트 규칙과 피드백 위젯을 검증한다. | 낮음 |
+| 2 | §2-3 피드백 API 1차: `.com` 출처 추가, 터널 `.com` 호스트 추가, `TRUST_PROXY` 확인, `.com` 제출 검증 | 낮음 |
+| 3 | **A6 Vocal Check** 시범 이전. 테스터 `.com` 재초대 후 리디렉트 규칙과 피드백 위젯을 검증한다. | 낮음 |
 | 4 | **P 포털** 이전 → Search Console 주소 변경 | 중간 |
 | 5 | **A7 PDF Flow Studio**, **A4 CollaBoard**, **A1 Direct Play** | 낮음~중간 |
 | 6 | §2-2 브리지 Worker를 구축하고 테스트용 호스트로 검증 | – |
 | 7 | **A5 Songnote** → **A8 Bus Explorer** → **A2 가나 공방** → **A3 기타**(IndexedDB 백업 포함) | 높음 |
-| 8 | **S 피드백 API** 호스트 이전(2차) | 중간 |
+| 8 | **S 피드백 API** 2차: `APP_BASE_URL` 전환·코드 반영 → `.cc` 정리 조건 확인 후 §4 목록에 추가 | 중간 |
 | 8-1 | **M Kim's Memo** 서버 복구 → `.com` 병행 연결 → 데스크톱 앱 새 버전 설치 → `.cc` 리디렉트 | 중간 |
 | 8-2 | **§8 `apigameroom.` 삭제** (이전 작업과 독립적이므로 언제든 가능) | 낮음 |
 | 9 | §5 AdSense 신청, 외부 링크 갱신 | – |
