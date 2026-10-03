@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://still-coding.cc/sitemap.xml
+Sitemap: https://still-coding.com/sitemap.xml

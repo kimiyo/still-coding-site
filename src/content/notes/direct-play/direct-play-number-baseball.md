@@ -7,7 +7,7 @@ game: number-baseball
 tags: ["Game Design", "JavaScript", "Puzzle", "Testing"]
 ---
 
-[숫자 야구](https://number-baseball.still-coding.cc)는 서로 다른 숫자로 된 비밀 숫자를 스트라이크와 볼 단서로 맞히는 게임입니다. 방장이 자릿수(3~5자리)와 추리 횟수 제한을 정하면 모든 참가자가 같은 비밀 숫자를 받습니다. 누가 더 적은 횟수로 맞히는지 겨룹니다.
+[숫자 야구](https://number-baseball.still-coding.com)는 서로 다른 숫자로 된 비밀 숫자를 스트라이크와 볼 단서로 맞히는 게임입니다. 방장이 자릿수(3~5자리)와 추리 횟수 제한을 정하면 모든 참가자가 같은 비밀 숫자를 받습니다. 누가 더 적은 횟수로 맞히는지 겨룹니다.
 
 ## 실시간 퀴즈를 접고 고른 게임
 

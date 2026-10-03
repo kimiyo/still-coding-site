@@ -7,7 +7,7 @@ game: sum-drop
 tags: ["Game Design", "Deterministic", "TypeScript", "Canvas"]
 ---
 
-[SUM DROP](https://sum-drop.still-coding.cc)은 위에서 떨어지는 숫자 블록을 원하는 칸에 놓아서, 가로·세로·대각선으로 이어진 숫자의 합이 10이 되면 지우는 게임입니다. 지워진 자리로 위 블록이 내려오면서 새 합이 생기면 연쇄가 이어집니다. 스테이지를 하나씩 깨는 STAGE CLIMB, 끝없이 버티는 엔들리스, 3분 스프린트 세 모드가 있습니다.
+[SUM DROP](https://sum-drop.still-coding.com)은 위에서 떨어지는 숫자 블록을 원하는 칸에 놓아서, 가로·세로·대각선으로 이어진 숫자의 합이 10이 되면 지우는 게임입니다. 지워진 자리로 위 블록이 내려오면서 새 합이 생기면 연쇄가 이어집니다. 스테이지를 하나씩 깨는 STAGE CLIMB, 끝없이 버티는 엔들리스, 3분 스프린트 세 모드가 있습니다.
 
 PINHOLE과 마찬가지로 해커톤용 독립 앱에서 만들어 Direct Play로 옮긴 게임입니다. 독립 앱에서는 2026년 8월 16일에 추가했고, 9월 26일에 Direct Play의 모듈로 가져왔습니다.
 

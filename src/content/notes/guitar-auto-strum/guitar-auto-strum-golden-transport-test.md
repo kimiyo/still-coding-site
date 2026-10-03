@@ -8,7 +8,7 @@ tags: ["Testing", "Golden Test", "Snapshot", "JavaScript"]
 
 반주 엔진을 수정하면 화면이나 오류 메시지에 드러나지 않는 타이밍 변화가 생길 수 있습니다. 화면은 멀쩡하고 오류도 없는데, 스윙을 넣은 뒤로 어떤 리듬의 두 번째 음이 0.02초 늦게 나오는 식입니다. 귀로 확인하기에는 리듬이 너무 많고, 단위 테스트 몇 개로는 모든 조합을 지킬 수 없습니다.
 
-[Guitar Auto-Strum](https://guitar-play.still-coding.cc/)은 이 문제를 골든 테스트로 풀었습니다. 실제 엔진이 예약한 모든 음을 기록해 두고, 코드가 바뀔 때마다 그 기록과 한 줄씩 비교합니다. (테스트 파일은 `web-app/js/test/transport-golden.mjs`이고, 실행 명령은 `npm run test:golden`입니다.)
+[Guitar Auto-Strum](https://guitar-play.still-coding.com/)은 이 문제를 골든 테스트로 풀었습니다. 실제 엔진이 예약한 모든 음을 기록해 두고, 코드가 바뀔 때마다 그 기록과 한 줄씩 비교합니다. (테스트 파일은 `web-app/js/test/transport-golden.mjs`이고, 실행 명령은 `npm run test:golden`입니다.)
 
 ## 무엇을 기록하나: 예약된 모든 음
 

@@ -4,6 +4,7 @@ import AppCard from "../components/AppCard.astro";
 import AppVisual from "../components/AppVisual.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import { apps, getAppGroups } from "../data/apps";
+import { APP_DOMAIN, site } from "../data/site";
 import { getNoteCounts, getSortedNotes } from "../lib/notes";
 let firstNumber = 1;
 const groups = getAppGroups().map(group => { const numbered = { ...group, firstNumber }; firstNumber += group.apps.length; return numbered; });
@@ -85,8 +86,8 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
       <div class="qr-dialog-head"><span>SCAN / CONNECT</span><button type="button" data-qr-close aria-label="QR 코드 닫기">×</button></div>
       <h2 id="qr-title">휴대폰으로<br /><em>이어보기.</em></h2>
       <p>카메라로 QR 코드를 스캔하면<br />Still Coding으로 바로 연결됩니다.</p>
-      <div class="qr-code" data-qr-code aria-label="https://still-coding.cc/로 연결되는 QR 코드"></div>
-      <div class="qr-url-row"><a href="https://still-coding.cc/">still-coding.cc</a><button type="button" data-copy-url><span data-copy-url-label>주소 복사</span></button></div>
+      <div class="qr-code" data-qr-code data-share-url={`${site.url}/`} aria-label={`${site.url}/로 연결되는 QR 코드`}></div>
+      <div class="qr-url-row"><a href={`${site.url}/`}>{APP_DOMAIN}</a><button type="button" data-copy-url><span data-copy-url-label>주소 복사</span></button></div>
     </div>
   </dialog>
   <script>
@@ -107,7 +108,7 @@ const structuredData = { "@context": "https://schema.org", "@type": "ItemList", 
     const shareButton = document.querySelector<HTMLButtonElement>("[data-share]");
     const shareLabel = shareButton?.querySelector<HTMLElement>("[data-share-label]");
     const shareStatus = document.querySelector<HTMLElement>("[data-share-status]");
-    const shareUrl = "https://still-coding.cc/";
+    const shareUrl = document.querySelector<HTMLElement>("[data-qr-code]")?.dataset.shareUrl ?? `${location.origin}/`;
     const shareTitle = "Still Coding — Ideas, made real.";
     const shareDescription = "브라우저 게임, 학습 도구, 음악·협업·도시 탐색 앱을 만나보세요.";
     const shareText = `${shareTitle}\n${shareDescription}\n${shareUrl}`;

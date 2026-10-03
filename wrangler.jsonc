@@ -10,11 +10,11 @@
   },
   "routes": [
     {
-      "pattern": "still-coding.cc",
+      "pattern": "still-coding.com",
       "custom_domain": true
     },
     {
-      "pattern": "www.still-coding.cc",
+      "pattern": "www.still-coding.com",
       "custom_domain": true
     }
   ]

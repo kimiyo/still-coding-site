@@ -1291,7 +1291,7 @@ footer {
   background: conic-gradient(#dca326 0 25%, #247d71 0 50%, #d45b42 0 75%, #f4ead5 0);
   box-shadow: 2px 2px 0 #17201f;
 }
-/* Direct Play spotlight: 9 games rotate like the lobby's auto spotlight on dp.still-coding.cc */
+/* Direct Play spotlight: 9 games rotate like the lobby's auto spotlight on dp.still-coding.com */
 .visual-direct-play { filter: saturate(.92); }
 .dp-spotlight { --dp-ms: 5200ms; --dp-bar: 46px; --dp-rail: 58px; --dp-visible: 9; --dp-rail-left: 34px; --dp-rail-right: 98px; --dp-ink: #17201f; --dp-paper: #f6f1e5; padding: 0; }
 .dp-bar {

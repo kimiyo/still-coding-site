@@ -6,7 +6,7 @@ app: vocal-check
 tags: ["Web Audio", "getUserMedia", "UX", "Privacy"]
 ---
 
-`navigator.mediaDevices.getUserMedia()`는 마이크 권한 응답이 올 때까지 기다립니다. [Vocal Check](https://vocal-check.still-coding.cc/)에서는 그 사이에 사용자가 페이지를 떠나거나 데모로 전환했는지도 확인해야 합니다. 마이크 요청과 종료가 엇갈리는 경우를 `generation`이라는 요청 번호로 처리합니다.
+`navigator.mediaDevices.getUserMedia()`는 마이크 권한 응답이 올 때까지 기다립니다. [Vocal Check](https://vocal-check.still-coding.com/)에서는 그 사이에 사용자가 페이지를 떠나거나 데모로 전환했는지도 확인해야 합니다. 마이크 요청과 종료가 엇갈리는 경우를 `generation`이라는 요청 번호로 처리합니다.
 
 마이크는 사용자에게 민감한 입력입니다. 켜져 있으면 안 될 때 켜져 있는 것이 켜지지 않는 것보다 훨씬 나쁩니다. 이 글은 음정 측정기가 마이크를 언제 켜고, 언제 끄고, 실패하면 무엇을 보여 주는지를 정리합니다. (음정을 계산하는 알고리즘은 [YIN 글](/notes/vocal-check-yin-pitch-detection/)에서 다뤘습니다.)
 

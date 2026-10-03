@@ -6,7 +6,7 @@ app: kana-atelier
 tags: ["PWA", "Service Worker", "Cache", "Debugging"]
 ---
 
-[가나 공방](https://study-hiragana.still-coding.cc/)의 서비스 워커에는 빌드 파일을 가로채지 않는 예외가 있습니다. `/assets/` 요청이면 캐시를 찾지도 않고 `respondWith`도 부르지 않습니다.
+[가나 공방](https://study-hiragana.still-coding.com/)의 서비스 워커에는 빌드 파일을 가로채지 않는 예외가 있습니다. `/assets/` 요청이면 캐시를 찾지도 않고 `respondWith`도 부르지 않습니다.
 
 이 규칙은 2026년 8월 5일의 MIME 오류 수정 두 건에서 나왔습니다. 오전에는 HTML 응답을 캐시에 넣지 않는 검사를 추가했고, 오후에는 빌드 파일 요청 자체를 서비스 워커에서 제외했습니다. 여기서는 커밋과 현재 코드로 확인되는 변경을 따라갑니다. 오류가 난 기기와 당시 캐시 내용은 아래 사용자 확인 항목으로 남겨 둡니다.
 

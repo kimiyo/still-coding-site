@@ -6,7 +6,7 @@ app: pdf-flow-studio
 tags: ["pdf.js", "Web Worker", "Cache", "Privacy"]
 ---
 
-[PDF Flow Studio](https://pdf-flow-studio.still-coding.cc/)는 PDF 파일을 서버에 올리지 않습니다. 업로드한 파일은 `File`에서 읽은 `Uint8Array`로 브라우저 메모리에 올라가고, 읽는 쪽과 합치는 쪽이 이 바이트를 나눠 씁니다.
+[PDF Flow Studio](https://pdf-flow-studio.still-coding.com/)는 PDF 파일을 서버에 올리지 않습니다. 업로드한 파일은 `File`에서 읽은 `Uint8Array`로 브라우저 메모리에 올라가고, 읽는 쪽과 합치는 쪽이 이 바이트를 나눠 씁니다.
 
 - 페이지를 그리는 일(썸네일, 편집 화면 배경)은 `pdfjs-dist`
 - 페이지를 옮겨 새 파일을 만드는 일은 `pdf-lib`

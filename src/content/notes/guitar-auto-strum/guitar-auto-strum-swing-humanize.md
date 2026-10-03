@@ -6,7 +6,7 @@ app: guitar-auto-strum
 tags: ["Music", "Web Audio", "Determinism", "JavaScript"]
 ---
 
-박자에 정확히 맞춰 정해진 세기로 연주하는 반주는 드럼 머신처럼 들립니다. 사람이 치는 기타는 뒷박이 조금 늦거나, 같은 코드라도 세기가 다르고, 훑는 속도도 매번 다릅니다. [Guitar Auto-Strum](https://guitar-play.still-coding.cc/)은 이 차이를 두 가지 손잡이로 나눠 다룹니다.
+박자에 정확히 맞춰 정해진 세기로 연주하는 반주는 드럼 머신처럼 들립니다. 사람이 치는 기타는 뒷박이 조금 늦거나, 같은 코드라도 세기가 다르고, 훑는 속도도 매번 다릅니다. [Guitar Auto-Strum](https://guitar-play.still-coding.com/)은 이 차이를 두 가지 손잡이로 나눠 다룹니다.
 
 - 스윙(swing): 뒷박의 8분음표를 뒤로 미룹니다. 같은 리듬이 곧게 들리느냐 셔플로 들리느냐의 차이입니다.
 - 휴머나이즈(humanize): 타이밍, 세기, 스트럼 속도를 조금씩 흔듭니다.

@@ -2,7 +2,7 @@
 
 - 문서 버전: 1.1 (2026-10-02: 6-1 i18n 리소스 방식 선호 추가)
 - 작성일: 2026-10-02
-- 적용 대상: `still-coding.cc` 포털과 `*.still-coding.cc`에서 운영하는 모든 웹앱
+- 적용 대상: `still-coding.com` 포털과 `*.still-coding.com`에서 운영하는 모든 웹앱
 - 원본 위치: 이 문서(`kimiyo/still-coding-site`의 `docs/APP_STANDARD.md`). 각 앱 저장소에는 복사하지 않고 이 문서를 가리키는 한 줄만 둔다(10절).
 
 ## 0. 이 문서를 쓰는 때
@@ -37,10 +37,10 @@
 
 | ID | 등급 | 요구사항 | 확인 방법 |
 | --- | --- | --- | --- |
-| D-1 | 필수 | 앱 주소는 `https://<앱>.still-coding.cc/` 하나다. 서브도메인 이름은 공개 후 바꾸지 않는다(포털 링크·색인·외부 링크가 모두 깨진다). | 포털 `apps.ts`의 `url`과 일치 |
+| D-1 | 필수 | 앱 주소는 `https://<앱>.still-coding.com/` 하나다. 서브도메인 이름은 공개 후 바꾸지 않는다(포털 링크·색인·외부 링크가 모두 깨진다). | 포털 `apps.ts`의 `url`과 일치 |
 | D-2 | 필수 | Cloudflare Workers로 배포하면 `wrangler.jsonc`에 `"workers_dev": false`, `"preview_urls": false`를 **명시**한다. 기본값에 기대지 않는다. | `grep -E 'workers_dev|preview_urls' wrangler.jsonc` |
 | D-3 | 필수 | 같은 내용이 다른 주소(`*.workers.dev`, `*.pages.dev`, 옛 Pages 프로젝트, `www`)로 열리지 않는다. 남겨야 하면 정식 주소로 301. | 각 주소를 직접 열어 404 또는 301 확인 |
-| D-4 | 필수 | 없는 경로는 **HTTP 404**를 돌려준다. SPA라도 모든 경로에 200 + `index.html`을 주지 않는다(soft 404). Workers 정적 자산이면 `"not_found_handling": "404-page"`. | `curl -sI https://<앱>.still-coding.cc/zzz-nope` → `404` |
+| D-4 | 필수 | 없는 경로는 **HTTP 404**를 돌려준다. SPA라도 모든 경로에 200 + `index.html`을 주지 않는다(soft 404). Workers 정적 자산이면 `"not_found_handling": "404-page"`. | `curl -sI https://<앱>.still-coding.com/zzz-nope` → `404` |
 | D-5 | 권장 | 서비스를 종료하면 DNS·커스텀 도메인·Workers/Pages 프로젝트를 함께 정리하고, 포털 FAQ에 이동 안내를 남긴다. | Cloudflare 대시보드 |
 
 **근거**: Direct Play·Guitar·PDF Flow Studio의 `workers_dev: true`로 같은 앱이 workers.dev 주소로도 열렸다(감사 3-4). PDF Flow Studio의 `/zzz-nope`가 200을 돌려줬다(soft 404). Pinhole Lab 종료 뒤 DNS 레코드가 남아 있을 수 있다.
@@ -54,7 +54,7 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 | P-1 | 필수 | 메인 | `/` | 조작 화면이어도 앱 이름과 한두 문장 설명, 사용법·정책 링크가 HTML에 있다 |
 | P-2 | 필수 | 사용법 | `/guide/` | 실제 사용 순서, 화면 설명, 자주 막히는 지점, 제약. 앱의 대표 읽기 페이지다 |
 | P-3 | 필수 | 개인정보처리방침 | `/privacy/` | 5-4 기준 |
-| P-4 | 필수 | 문의 | `/contact/` | 운영자 이메일 `still.coding.cc@gmail.com` 또는 포털 `/contact/`로 연결 |
+| P-4 | 필수 | 문의 | `/contact/` | 운영자 이메일 `still.coding.com@gmail.com` 또는 포털 `/contact/`로 연결 |
 | P-5 | 필수 | 404 | 없는 모든 경로 | 메인·사용법으로 돌아가는 링크. 4-6의 `noindex` |
 | P-6 | 권장 | 소개 | `/about/` | 만든 이유, 대상, 운영자, 기술 구성. 사용법과 합쳐도 된다 |
 | P-7 | 조건부 필수 | 이용약관 | `/terms/` | 사용자가 글·방·파일을 만들거나 다른 사람과 공유하는 기능이 있으면 필수(Direct Play, CollaBoard 등) |
@@ -88,7 +88,7 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 
 | ID | 등급 | 요구사항 |
 | --- | --- | --- |
-| L-1 | 필수 | 메인 화면과 모든 정적 페이지에서 포털로 가는 링크. 한국어 페이지는 `https://still-coding.cc/`, 영어 페이지는 `https://still-coding.cc/en/`. 문구 예: `Still Coding`, `Still Coding 메인 ↗` |
+| L-1 | 필수 | 메인 화면과 모든 정적 페이지에서 포털로 가는 링크. 한국어 페이지는 `https://still-coding.com/`, 영어 페이지는 `https://still-coding.com/en/`. 문구 예: `Still Coding`, `Still Coding 메인 ↗` |
 | L-2 | 필수 | 사용법 주소가 고정되어 있다. 포털 `helpUrl`이 이 주소를 가리킨다(기본 `/guide/`, 영어 `/en/guide/`) |
 | L-3 | 필수 | 영어 페이지가 있으면 한국어 경로 앞에 `/en/`만 붙인 구조다. 포털은 이 규칙으로 영어 링크를 만든다(`localizedAppUrl`). 규칙을 지킬 수 없으면 포털 `englishHelpUrl`로 예외를 적는다 |
 | L-4 | 필수 | 바닥글에 운영자와 Still Coding 소속 표시. 예: `운영자 JH Kim · ○○는 Still Coding의 앱입니다.` |
@@ -192,14 +192,14 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 4. **개인정보처리방침**: `src/pages/privacy.astro`와 `src/pages/en/privacy.astro`의 앱 목록에 한 줄씩 추가하고, `src/data/policies.ts`의 `privacy.updated`를 그날로 바꾼다(A-6).
 5. **개발 노트**: `src/content/notes/<id>/`에 최소 1편. `draft: true`로 시작해 `TODO(사용자)`를 모두 해결한 뒤 공개한다. `pubDate`는 오늘 이전이어야 한다(빌드가 검사한다).
 6. **빌드 확인**: `pnpm run build` 후 `dist/apps/<id>/`, 사이트맵, 홈 카드, 영어 링크(`/en/guide/`가 실제로 열리는지)를 확인한다.
-7. **Search Console**: 하위 도메인은 루트 도메인 속성(`still-coding.cc`)에 포함된다. 앱 사이트맵을 그 속성에 추가로 제출한다.
+7. **Search Console**: 하위 도메인은 루트 도메인 속성(`still-coding.com`)에 포함된다. 앱 사이트맵을 그 속성에 추가로 제출한다.
 
 ## 9. 점검표
 
 새 앱, 변환할 앱, 정기 점검에 같은 표를 쓴다. 저장소 소스가 아니라 **배포본**을 기준으로 표시하고, 배포본을 못 보면 `[미확인]`을 붙인다.
 
 ```text
-앱: ____________  주소: https://____.still-coding.cc/  점검일: ______  커밋: ______
+앱: ____________  주소: https://____.still-coding.com/  점검일: ______  커밋: ______
 
 [1. 도메인·배포]
 [ ] D-1 정식 주소 하나          [ ] D-2 workers_dev/preview_urls false 명시
@@ -238,7 +238,7 @@ AdSense 검토자와 검색 엔진이 읽는 것은 조작 화면이 아니라 *
 배포본에 접속할 수 있는 환경에서 실행한다.
 
 ```bash
-APP=https://<앱>.still-coding.cc
+APP=https://<앱>.still-coding.com
 curl -sI "$APP/zzz-nope" | head -1                       # D-4: 404여야 함
 curl -s "$APP/robots.txt"                                # S-4
 curl -s "$APP/sitemap.xml" | grep -o '<loc>[^<]*' | sed 's/<loc>//'   # S-5
@@ -246,7 +246,7 @@ for p in / /guide/ /privacy/ /contact/; do               # S-1·S-2·L-1
   html=$(curl -s "$APP$p")
   echo "== $p"
   echo "$html" | grep -oE '<title>[^<]*|rel="canonical" href="[^"]*"|name="robots" content="[^"]*"'
-  echo "$html" | grep -c 'href="https://still-coding.cc/' | sed 's/^/portal links: /'
+  echo "$html" | grep -c 'href="https://still-coding.com/' | sed 's/^/portal links: /'
 done
 curl -s "$APP/ads.txt"                                   # A-3: 비었거나 실제 ID
 curl -sI "$APP/docs" | head -1                           # O-1: 404여야 함(FastAPI 앱)

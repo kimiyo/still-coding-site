@@ -101,7 +101,7 @@ def og_card(icon: Image.Image) -> Image.Image:
     d.text((x, 315), "Coding", font=title, fill=INK)
     d.rounded_rectangle((x + 3, 452, x + 75, 458), radius=3, fill=LIME)
     d.text((x, 478), "Ideas, made real.", font=sub, fill=(70, 66, 58))
-    d.text((x, 540), "still-coding.cc", font=small, fill=(120, 114, 100))
+    d.text((x, 540), "still-coding.com", font=small, fill=(120, 114, 100))
     return card
 
 
