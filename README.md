@@ -18,13 +18,13 @@
 
 | 앱 | 카테고리 | 상태 | 설명 | 링크 |
 |---|---|---|---|---|
-| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구, 미니 스도쿠, PINHOLE, SUM DROP 등 9종) | [바로가기](https://dp.still-coding.cc/) |
+| **Direct Play** | Play | `Public` | 링크 하나로 방을 만들고 함께 즐기는 브라우저 게임 모음 (사진 퍼즐, 숫자 야구, 미니 스도쿠, PINHOLE, SUM DROP 등 9종) | [바로가기](https://dp.still-coding.com/) |
 | **가나 공방** | Learn | `Public` | 히라가나와 가타카나를 듣고 말하고 쓰며 익히는 일본어 학습 도구 | [바로가기](https://study-hiragana.still-coding.cc/) |
-| **Guitar Auto-Strum** | Create | `Public` | 실시간 코드 전환과 곡 코드 차트로 반주하는 브라우저 기타 자동 반주 (오프라인 PWA) | [바로가기](https://guitar-play.still-coding.cc/) |
-| **CollaBoard** | Create | `Public` | 서버 저장 없이 WebRTC로 연결하는 8가지 협업 공간 (화이트보드·브레인스토밍·Q&A·퀴즈·투표·파일 공유·공지·피드백) | [바로가기](https://collaboard.still-coding.cc/) |
+| **Guitar Auto-Strum** | Create | `Public` | 실시간 코드 전환과 곡 코드 차트로 반주하는 브라우저 기타 자동 반주 (오프라인 PWA) | [바로가기](https://guitar-play.still-coding.com/) |
+| **CollaBoard** | Create | `Public` | 서버 저장 없이 WebRTC로 연결하는 8가지 협업 공간 (화이트보드·브레인스토밍·Q&A·퀴즈·투표·파일 공유·공지·피드백) | [바로가기](https://collaboard.still-coding.com/) |
 | **Bus Explorer** | Explore | `Public` | 정류장과 노선을 따라 도시의 연결을 탐색하는 버스 노선 도구 | [바로가기](https://bus-explorer.still-coding.cc/) |
-| **Songnote** (Piano Play) | Create | `Public` | ABC 악보를 편집하고 108건반 합성 피아노로 듣는 스튜디오 | [바로가기](https://piano-play.still-coding.cc/) |
-| **Vocal Check** | Learn | `Public` | 마이크 입력의 음정을 실시간으로 시각화하는 보컬 연습 도구 | [바로가기](https://vocal-check.still-coding.cc/) |
+| **Songnote** (Piano Play) | Create | `Public` | ABC 악보를 편집하고 108건반 합성 피아노로 듣는 스튜디오 | [바로가기](https://piano-play.still-coding.com/) |
+| **Vocal Check** | Learn | `Public` | 마이크 입력의 음정을 실시간으로 시각화하는 보컬 연습 도구 | [바로가기](https://vocal-check.still-coding.com/) |
 
 > Pinhole Lab(PINHOLE, SUM DROP)은 2026-09-28 Direct Play로 통합되었습니다. 예전 상세 주소 `/apps/pinhole-lab/`은 `public/_redirects`로 `/apps/direct-play/`에 301 연결합니다.
 
