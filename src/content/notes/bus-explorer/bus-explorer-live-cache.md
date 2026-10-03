@@ -6,7 +6,7 @@ app: bus-explorer
 tags: ["Cache", "Python", "Public API", "Reliability"]
 ---
 
-[Bus Explorer](https://bus-explorer.still-coding.cc/)는 공공데이터포털의 버스 API(TAGO)로 버스가 지금 어디 있는지를 보여 줍니다. 이 API는 누구에게나 열려 있는 대신 호출 횟수에 한도가 있습니다. 사용자가 늘면 한도를 먼저 쓰는 쪽은 화면 갱신입니다.
+[Bus Explorer](https://bus-explorer.still-coding.com/)는 공공데이터포털의 버스 API(TAGO)로 버스가 지금 어디 있는지를 보여 줍니다. 이 API는 누구에게나 열려 있는 대신 호출 횟수에 한도가 있습니다. 사용자가 늘면 한도를 먼저 쓰는 쪽은 화면 갱신입니다.
 
 실시간 조회 앞에는 캐시가 있습니다. 같은 노선의 요청이 겹치면 외부 호출을 합치고, 실패하면 재시도 간격을 두며, 오래된 응답에는 수집 시각을 붙입니다. (구현은 `app/cache.py`, 설계는 저장소의 `docs/api-cache-improvement-plan.md`에 있습니다.)
 

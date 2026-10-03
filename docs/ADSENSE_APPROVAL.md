@@ -20,7 +20,7 @@
 - [x] 도메인·HTTPS 배포 (`astro.config.mjs` `site: "https://still-coding.cc"`)
 - [x] `/privacy/`, `/en/privacy/` — 4항 "광고와 쿠키"에 제3자 쿠키 광고, 맞춤 광고 해제 방법 고지. 3항에서 앱별 방침으로 직접 링크
 - [x] `/terms/`, `/en/terms/` — 푸터·사이트맵 포함
-- [x] `/contact/` — 운영자 이메일 `still.coding.cc@gmail.com`(`src/data/site.ts`)과 GitHub 이슈 경로
+- [x] `/contact/` — 운영자 이메일 `still.coding.com@gmail.com`(`src/data/site.ts`)과 GitHub 이슈 경로
 - [x] 확인 코드 — `PUBLIC_ADSENSE_CLIENT`가 있으면 `BaseLayout.astro`가 `google-adsense-account` 메타와 `adsbygoogle.js`를 출력. 값이 없으면 아무것도 출력하지 않음
 - [x] `/ads.txt` 생성 코드 — `src/pages/ads.txt.ts`. 값이 없으면 주석 한 줄만 내고 가짜 ID는 넣지 않음
 - [x] `robots.txt`(전체 허용 + 사이트맵), `sitemap.xml` 자동 생성(`src/pages/sitemap.xml.ts`, 앱·노트 데이터 기반, 노트 `lastmod` 포함)

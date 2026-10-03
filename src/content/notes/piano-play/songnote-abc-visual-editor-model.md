@@ -6,7 +6,7 @@ app: piano-play
 tags: ["ABC Notation", "React", "abcjs", "Editor"]
 ---
 
-[Songnote](https://piano-play.still-coding.cc/)는 ABC라는 텍스트 악보를 입력하면 오선보로 그려 주고 피아노로 연주해 주는 앱입니다. [이전 글](/notes/songnote-abc-notation-additive-synthesis/)에서는 ABC 문법과 소리 만드는 법을 다뤘습니다.
+[Songnote](https://piano-play.still-coding.com/)는 ABC라는 텍스트 악보를 입력하면 오선보로 그려 주고 피아노로 연주해 주는 앱입니다. [이전 글](/notes/songnote-abc-notation-additive-synthesis/)에서는 ABC 문법과 소리 만드는 법을 다뤘습니다.
 
 오선보에서 음표를 반음 올리거나 세 번째 마디 뒤에 음을 넣으려면, ABC 텍스트에서는 해당 글자 위치부터 찾아야 합니다. 음 길이를 잘못 쓰면 마디도 어긋납니다. Songnote의 시각 편집기는 클릭한 음표를 문서 모델의 이벤트에 연결해 고칩니다. 편집 결과는 다시 ABC로 내보냅니다.
 

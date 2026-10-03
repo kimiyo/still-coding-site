@@ -8,7 +8,7 @@ tags: ["Algorithm", "Python", "Public Transit"]
 
 울산 여행을 계획하면서 여러 지점을 모두 버스로 이동하고 싶었다. 어느 버스를 언제 타고, 어디에서 갈아타야 하는지가 보이지 않았다. 공공데이터포털 API로 한 지점을 지나는 노선을 모아 두면, 각 버스가 어디에서 출발해 어디를 거쳐 그 지점을 지나 어디로 가는지 바로 보면서 일정을 짤 수 있을 것 같았다.
 
-[Bus Explorer](https://bus-explorer.still-coding.cc/)에서 출발 정류장과 도착 정류장을 고르면 갈아타는 경로를 최대 3개 보여 줍니다.
+[Bus Explorer](https://bus-explorer.still-coding.com/)에서 출발 정류장과 도착 정류장을 고르면 갈아타는 경로를 최대 3개 보여 줍니다.
 
 ## 처음 방식: 상태를 우선순위 큐로
 

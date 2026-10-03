@@ -6,7 +6,7 @@ app: guitar-auto-strum
 tags: ["Web Audio", "JavaScript", "Scheduling", "Music"]
 ---
 
-[Guitar Auto-Strum](https://guitar-play.still-coding.cc/)은 코드와 리듬, 템포를 고르고 Play를 누르면 기타가 자동으로 반주를 쳐 주는 웹 앱입니다. 반주 엔진은 각 스트로크에 오디오 시각을 붙여 미리 예약합니다.
+[Guitar Auto-Strum](https://guitar-play.still-coding.com/)은 코드와 리듬, 템포를 고르고 Play를 누르면 기타가 자동으로 반주를 쳐 주는 웹 앱입니다. 반주 엔진은 각 스트로크에 오디오 시각을 붙여 미리 예약합니다.
 
 브라우저에서 `setInterval` 콜백이 실행될 때마다 소리를 내면 메인 스레드의 지연이 박자에 반영됩니다. 이 앱은 타이머를 예약 작업을 깨우는 데 쓰고, 실제 재생 시각은 Web Audio에 전달합니다.
 

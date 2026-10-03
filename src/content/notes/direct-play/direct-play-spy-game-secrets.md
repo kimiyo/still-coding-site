@@ -7,7 +7,7 @@ game: spy-game
 tags: ["Game Design", "WebSocket", "Cloudflare Durable Objects", "Architecture"]
 ---
 
-[Direct Play](https://dp.still-coding.cc/)의 스파이 게임은 4명에서 12명이 함께합니다. 한 명은 스파이가 되고 나머지는 같은 제시어를 받습니다. 스파이는 제시어를 모른 채 대화에 섞이고, 시민은 대화를 바탕으로 스파이를 지목합니다.
+[Direct Play](https://dp.still-coding.com/)의 스파이 게임은 4명에서 12명이 함께합니다. 한 명은 스파이가 되고 나머지는 같은 제시어를 받습니다. 스파이는 제시어를 모른 채 대화에 섞이고, 시민은 대화를 바탕으로 스파이를 지목합니다.
 
 사람들이 많이 하는 게임 가운데 여러 명이 함께할 수 있는 것을 만들고 싶었습니다. 스파이 게임은 대화가 많이 오가서 흥미로울 것 같아 넣었습니다.
 

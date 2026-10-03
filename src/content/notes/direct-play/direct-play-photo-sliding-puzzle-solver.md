@@ -7,7 +7,7 @@ game: photo-sliding-puzzle
 tags: ["Puzzle", "A*", "BFS", "Algorithm"]
 ---
 
-[슬라이딩 사진퍼즐](https://photo-sliding-puzzle.still-coding.cc)은 빈칸 하나를 두고 사진 조각을 밀어 원래 그림을 맞추는 퍼즐입니다. 방장이 사진과 크기(3×3~6×6)를 정하면 참가자가 각자 같은 사진을 풉니다. 막히면 포기하고 정답 풀이를 단계별로 볼 수 있습니다.
+[슬라이딩 사진퍼즐](https://photo-sliding-puzzle.still-coding.com)은 빈칸 하나를 두고 사진 조각을 밀어 원래 그림을 맞추는 퍼즐입니다. 방장이 사진과 크기(3×3~6×6)를 정하면 참가자가 각자 같은 사진을 풉니다. 막히면 포기하고 정답 풀이를 단계별로 볼 수 있습니다.
 
 사진을 올리고 참가자에게 나눠 주는 부분은 [사진퍼즐](/notes/direct-play-photo-puzzle-group-drag/)의 코드를 복사해서 시작했고, 전달 방식은 [사진은 서버를 거치지 않는다](/notes/direct-play-p2p-game-assets/)에서 다뤘기 때문에 이 글에서는 다루지 않습니다. 새로 쓴 것은 세 가지입니다. 풀 수 있는 배치 만들기, 줄 단위로 미는 이동, 그리고 정답 풀이입니다.
 

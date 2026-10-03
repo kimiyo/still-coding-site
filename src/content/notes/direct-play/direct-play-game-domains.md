@@ -1,25 +1,25 @@
 ---
 title: "게임마다 주소를 주면 생기는 일 — 문 하나짜리 서브도메인과 302 리다이렉트"
-description: "spy-game.still-coding.cc처럼 게임마다 외우기 쉬운 주소를 주되, 실제 플레이는 한곳에서 하도록 만든 Direct Play의 게임 도메인 구조를 정리합니다. 리다이렉트 규칙, 저장소가 흩어지는 문제, 링크 하나가 방 하나를 쓰는 비용을 다룹니다."
+description: "spy-game.still-coding.com처럼 게임마다 외우기 쉬운 주소를 주되, 실제 플레이는 한곳에서 하도록 만든 Direct Play의 게임 도메인 구조를 정리합니다. 리다이렉트 규칙, 저장소가 흩어지는 문제, 링크 하나가 방 하나를 쓰는 비용을 다룹니다."
 pubDate: 2026-10-01
 app: direct-play
 tags: ["Cloudflare Workers", "Routing", "Redirect", "Design Decision"]
 ---
 
-[Direct Play](https://dp.still-coding.cc/)에는 게임이 열 개 있습니다. 게임을 친구에게 알려 줄 때 "`dp.still-coding.cc`에 들어가서 스파이 게임을 골라"라고 하는 것보다 "`spy-game.still-coding.cc`로 와"라고 하는 편이 훨씬 쉽습니다.
+[Direct Play](https://dp.still-coding.com/)에는 게임이 열 개 있습니다. 게임을 친구에게 알려 줄 때 "`dp.still-coding.com`에 들어가서 스파이 게임을 골라"라고 하는 것보다 "`spy-game.still-coding.com`로 와"라고 하는 편이 훨씬 쉽습니다.
 
 게임별 주소는 게임 선택 화면으로 바로 연결됩니다. 게임마다 주소를 따로 둔 것은 그 게임으로의 접근을 최대한 쉽게 하려는 것이었습니다. 게임별로 홍보할 수 있고, 복잡한 절차 없이 바로 시작할 수 있습니다. 주소를 나누면서 브라우저 저장소, 초대 링크, 방 생성 한도도 함께 확인해야 했습니다.
 
 ## 주소는 "문"이고 방은 한곳에 있다
 
-게임 도메인은 접속을 받아 앱 주소로 보내는 역할을 합니다. `spy-game.still-coding.cc`로 접속하면 Worker가 `dp.still-coding.cc/?game=spy-game`으로 302 리다이렉트를 보내고, 실제 플레이는 언제나 `dp.still-coding.cc`에서 합니다.
+게임 도메인은 접속을 받아 앱 주소로 보내는 역할을 합니다. `spy-game.still-coding.com`로 접속하면 Worker가 `dp.still-coding.com/?game=spy-game`으로 302 리다이렉트를 보내고, 실제 플레이는 언제나 `dp.still-coding.com`에서 합니다.
 
 이유는 브라우저 저장소가 도메인별로 분리되기 때문입니다. 각 게임 주소에서 그대로 플레이하게 하면 이런 일이 생깁니다.
 
 - 닉네임과 개인 기록이 도메인마다 따로 저장된다.
 - 이 브라우저에서 만든 방 목록도 도메인마다 흩어진다.
 
-개발 문서의 표현은 이렇습니다(번역). "게임 도메인은 외우기 쉬운 입구일 뿐이다. 실제 플레이·기록·닉네임·방은 모두 `dp.still-coding.cc` 한곳에 남는다."
+개발 문서의 표현은 이렇습니다(번역). "게임 도메인은 외우기 쉬운 입구일 뿐이다. 실제 플레이·기록·닉네임·방은 모두 `dp.still-coding.com` 한곳에 남는다."
 
 ## 리다이렉트를 함수 하나로
 
@@ -84,12 +84,12 @@ Cloudflare의 커스텀 도메인은 대시보드에서 누르는 대신 `wrangl
 
 ```jsonc
 "routes": [
-  { "pattern": "dp.still-coding.cc", "custom_domain": true },
-  { "pattern": "sum-drop.still-coding.cc", "custom_domain": true },
+  { "pattern": "dp.still-coding.com", "custom_domain": true },
+  { "pattern": "sum-drop.still-coding.com", "custom_domain": true },
   // ...
 ]
 ```
 
-개발 문서에는 기존 도메인도 함께 적으라는 주의 사항이 있습니다. 배포할 때 wrangler는 목록에 없는 커스텀 도메인을 이 Worker에서 떼어낼 수 있습니다. 그래서 원래 대시보드에서 붙였던 본진(`dp.still-coding.cc`)도 반드시 목록에 넣어야 합니다. 도메인을 코드로 옮기는 순간, 기존 것을 빠뜨리는 실수가 서비스 중단이 될 수 있습니다.
+개발 문서에는 기존 도메인도 함께 적으라는 주의 사항이 있습니다. 배포할 때 wrangler는 목록에 없는 커스텀 도메인을 이 Worker에서 떼어낼 수 있습니다. 그래서 원래 대시보드에서 붙였던 본진(`dp.still-coding.com`)도 반드시 목록에 넣어야 합니다. 도메인을 코드로 옮기는 순간, 기존 것을 빠뜨리는 실수가 서비스 중단이 될 수 있습니다.
 
 새 게임을 추가할 때 도메인은 카탈로그에 ID가 있는지 확인하고, 목록에 한 줄을 넣고, 배포하면 wrangler가 DNS와 인증서까지 만듭니다.

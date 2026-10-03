@@ -3,14 +3,15 @@
 > **"생각한 것을, 작동하게 만듭니다."**
 > Games, learning tools and creative experiments — designed, built and operated by JH Kim.
 
-[Still Coding](https://still-coding.cc/)은 실제로 만들고 운영하는 웹 애플리케이션들을 소개하고, 방문자가 각 앱을 브라우저에서 직접 사용해 볼 수 있도록 연결하는 제품 포트폴리오 사이트입니다.
+[Still Coding](https://still-coding.com/)은 실제로 만들고 운영하는 웹 애플리케이션들을 소개하고, 방문자가 각 앱을 브라우저에서 직접 사용해 볼 수 있도록 연결하는 제품 포트폴리오 사이트입니다.
 
 ---
 
 ## 🌐 라이브 사이트
 
-- **공식 도메인**: [https://still-coding.cc](https://still-coding.cc)
-- **보조 도메인**: `www.still-coding.cc` — Cloudflare Redirect Rule로 루트 도메인에 301 리다이렉트합니다(아래 배포 절 참고).
+- **공식 도메인**: [https://still-coding.com](https://still-coding.com)
+- **보조 도메인**: `www.still-coding.com` — Cloudflare Redirect Rule로 루트 도메인에 301 리다이렉트합니다(아래 배포 절 참고).
+- **앱 도메인**: 앱은 `<앱>.still-coding.com` 규칙을 따릅니다. 이전 전 앱은 `src/data/site.ts`의 `appUrl()`이 옛 `.cc` 주소를 돌려주며, 앱이 `.com`으로 옮겨지면 `migratedApps`에 서브도메인 이름을 추가하면 포털 전체 링크가 한 번에 바뀝니다. 루트 도메인은 `APP_DOMAIN` 상수 하나입니다.
 - `*.workers.dev` 주소와 미리보기 URL은 중복 색인을 막기 위해 끕니다(`workers_dev: false`, `preview_urls: false`).
 
 ### 등록된 앱 목록
@@ -125,6 +126,7 @@ pnpm run preview
 | --- | --- |
 | `PUBLIC_ADSENSE_CLIENT` | AdSense 게시자 ID(`ca-pub-` + 16자리). 값이 있으면 모든 페이지 `<head>`에 `google-adsense-account` 메타 태그와 `adsbygoogle.js`를 넣고, `/ads.txt`에 판매자 행을 출력합니다. 형식이 틀리면 무시합니다. |
 | `PUBLIC_FEEDBACK_APP_ID` | 테스터 피드백 위젯 앱 ID. 없으면 위젯을 넣지 않습니다. |
+| `PUBLIC_FEEDBACK_BASE_URL` | 피드백 서비스 주소. 없으면 `appUrl("user-feedback")`(`https://user-feedback.still-coding.com`)를 씁니다. 로컬 `.env`에 옛 `.cc` 값이 있으면 지우거나 `.com`으로 바꾸세요. |
 
 빌드는 로컬에서 하고 `dist/`를 배포하므로, 값은 저장소 루트의 `.env`(커밋하지 않음)에 둡니다.
 
@@ -164,11 +166,11 @@ npx wrangler deploy
 
 ### 도메인 및 라우트 구성 (`wrangler.jsonc`)
 
-루트 도메인(`still-coding.cc`)과 `www` 서브도메인을 모두 Worker Custom Domain으로 연결하되, 대표 주소는 루트 도메인 하나입니다. 같은 내용이 두 주소로 색인되지 않도록 Cloudflare 대시보드에서 `www`를 루트로 301 리다이렉트합니다.
+루트 도메인(`still-coding.com`)과 `www` 서브도메인을 모두 Worker Custom Domain으로 연결하되, 대표 주소는 루트 도메인 하나입니다. 같은 내용이 두 주소로 색인되지 않도록 Cloudflare 대시보드에서 `www`를 루트로 301 리다이렉트합니다.
 
-1. Cloudflare 대시보드 → `still-coding.cc` → **Rules → Redirect Rules → Create rule**
-2. 템플릿 **Redirect from WWW to root**를 선택하거나, 조건 `Hostname equals www.still-coding.cc`, 동작 `Dynamic` / `concat("https://still-coding.cc", http.request.uri.path)` / `301` / 쿼리 문자열 유지로 만듭니다.
-3. `curl -I https://www.still-coding.cc/about/`가 `301`과 `location: https://still-coding.cc/about/`를 돌려주는지 확인합니다.
+1. Cloudflare 대시보드 → `still-coding.com` → **Rules → Redirect Rules → Create rule**
+2. 템플릿 **Redirect from WWW to root**를 선택하거나, 조건 `Hostname equals www.still-coding.com`, 동작 `Dynamic` / `concat("https://still-coding.com", http.request.uri.path)` / `301` / 쿼리 문자열 유지로 만듭니다.
+3. `curl -I https://www.still-coding.com/about/`가 `301`과 `location: https://still-coding.com/about/`를 돌려주는지 확인합니다.
 
 ```jsonc
 {
@@ -183,11 +185,11 @@ npx wrangler deploy
   },
   "routes": [
     {
-      "pattern": "still-coding.cc",
+      "pattern": "still-coding.com",
       "custom_domain": true
     },
     {
-      "pattern": "www.still-coding.cc",
+      "pattern": "www.still-coding.com",
       "custom_domain": true
     }
   ]
@@ -206,7 +208,7 @@ npx wrangler deploy
   id: "my-new-app",
   title: "앱 이름",
   eyebrow: "카테고리 번호 / 01",
-  url: "https://my-app.still-coding.cc/",
+  url: "https://my-app.still-coding.com/",
   category: "play", // "play" | "learn" | "create" | "explore"
   status: "public", // "public" | "preview" | "private-beta" | "coming-soon"
   summary: "간결한 한 줄 요약",

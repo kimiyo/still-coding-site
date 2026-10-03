@@ -1,6 +1,7 @@
 ---
 import { directPlayGames } from "../data/directPlayGames";
 import { localizedAppUrl } from "../i18n";
+import { appUrl } from "../data/site";
 
 interface Props {
   variant: "direct-play" | "kana" | "guitar" | "collaboard" | "bus" | "piano" | "vocal" | "pdf";
@@ -12,7 +13,7 @@ const { variant, title, locale = "ko" } = Astro.props;
 const isEnglish = locale === "en";
 const lang = isEnglish ? "en" : "ko";
 // 미리보기 그림을 누르면 이 주소에 ?game=<id> 를 붙여 해당 게임의 방 설정 화면으로 바로 들어간다.
-const dpBase = localizedAppUrl("https://dp.still-coding.cc/", locale, true);
+const dpBase = localizedAppUrl(appUrl("dp"), locale, true);
 ---
 
 <div class:list={["app-visual", `visual-${variant}`]} aria-label={variant === "direct-play" ? (isEnglish ? `${title} preview: ${directPlayGames.length} games shown in turn` : `${title} 미리보기: ${directPlayGames.length}개 게임을 차례로 소개`) : `${title} ${isEnglish ? "preview" : "미리보기"}`} role="img">

@@ -6,7 +6,7 @@ app: pdf-flow-studio
 tags: ["PDF", "pdf-lib", "Canvas", "Design Decision"]
 ---
 
-[PDF Flow Studio](https://pdf-flow-studio.still-coding.cc/)는 여러 PDF에서 필요한 페이지만 골라 순서를 바꾸고, 펜이나 도형으로 필기한 다음 한 파일로 내려받는 앱입니다. 공부할 때 흩어져 있는 PDF 자료를 한 권으로 정리하려고 만들었습니다. 파일은 서버로 보내지 않고 브라우저 안에서만 읽고 합칩니다.
+[PDF Flow Studio](https://pdf-flow-studio.still-coding.com/)는 여러 PDF에서 필요한 페이지만 골라 순서를 바꾸고, 펜이나 도형으로 필기한 다음 한 파일로 내려받는 앱입니다. 공부할 때 흩어져 있는 PDF 자료를 한 권으로 정리하려고 만들었습니다. 파일은 서버로 보내지 않고 브라우저 안에서만 읽고 합칩니다.
 
 이 글은 합치는 부분, `app/src/shared/services/mergePdfService.ts`를 다룹니다. 이 파일에서 편집한 페이지와 그렇지 않은 페이지의 운명이 갈립니다.
 

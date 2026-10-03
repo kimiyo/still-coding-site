@@ -2,7 +2,7 @@
 import { render } from "astro:content";
 import InfoLayout from "../../layouts/InfoLayout.astro";
 import { apps } from "../../data/apps";
-import { site } from "../../data/site";
+import { appUrl, site } from "../../data/site";
 import { getNotesByApp, getSortedNotes, getTagGroups } from "../../lib/notes";
 export async function getStaticPaths() {
   const notes = await getSortedNotes();
@@ -38,7 +38,7 @@ const structuredData = {
       <p><strong>{app.title}</strong> — {app.summary}</p>
       <div class="detail-actions">
         {app.url && <a class="primary-link" href={app.url} target="_blank" rel="noopener noreferrer">앱 열기 <span aria-hidden="true">↗</span></a>}
-        {note.data.game && <a class="secondary-link" href={`https://dp.still-coding.cc/games/${note.data.game}/`} target="_blank" rel="noopener noreferrer">이 게임의 방법 보기 ↗</a>}
+        {note.data.game && <a class="secondary-link" href={appUrl("dp", `games/${note.data.game}/`)} target="_blank" rel="noopener noreferrer">이 게임의 방법 보기 ↗</a>}
         <a class="secondary-link" href={`/apps/${app.id}/`}>{app.title} 소개</a>
         <a class="secondary-link" href={`/notes/app/${app.id}/`}>{app.title} 개발 노트 전체</a>
       </div>
